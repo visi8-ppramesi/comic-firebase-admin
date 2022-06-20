@@ -1,6 +1,6 @@
 <script setup>
 import { computed } from 'vue'
-import { useMainStore } from '@/stores/main'
+import { useMainStore } from '@/store/main'
 import { mdiMenu } from '@mdi/js'
 import AsideMenuList from '@/components/AsideMenuList.vue'
 import NavBarItem from '@/components/NavBarItem.vue'

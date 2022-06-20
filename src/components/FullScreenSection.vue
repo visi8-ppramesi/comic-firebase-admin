@@ -1,6 +1,6 @@
 <script setup>
 import { computed } from 'vue'
-import { useMainStore } from '@/stores/main'
+import { useMainStore } from '@/store/main'
 import { sectionBgLogin, sectionBgLoginDark, sectionBgError, sectionBgErrorDark } from '@/colors'
 import MainSection from '@/components/MainSection.vue'
 

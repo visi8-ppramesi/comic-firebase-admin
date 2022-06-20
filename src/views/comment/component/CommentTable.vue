@@ -1,6 +1,6 @@
 <script>
 import { computed, ref } from 'vue'
-import { useMainStore } from '@/stores/main'
+import { useMainStore } from '@/store/main'
 import { mdiEye, mdiTrashCan } from '@mdi/js'
 import ModalBox from '@/components/ModalBox.vue'
 import CheckboxCell from '@/components/CheckboxCell.vue'

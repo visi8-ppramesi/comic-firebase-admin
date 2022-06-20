@@ -1,6 +1,6 @@
 <script setup>
 import { computed } from 'vue'
-import { useMainStore } from '@/stores/main'
+import { useMainStore } from '@/store/main'
 import Level from '@/components/Level.vue'
 import JbLogo from '@/components/JbLogo.vue'
 

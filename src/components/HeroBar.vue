@@ -1,6 +1,6 @@
 <script setup>
 import { mdiThemeLightDark } from '@mdi/js'
-import { useMainStore } from '@/stores/main'
+import { useMainStore } from '@/store/main'
 import { computed } from 'vue'
 import Level from '@/components/Level.vue'
 import JbButton from '@/components/JbButton.vue'

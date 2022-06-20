@@ -1,7 +1,7 @@
 <script setup>
 import { mdiCog } from '@mdi/js'
 import { computed } from 'vue'
-import { useMainStore } from '@/stores/main'
+import { useMainStore } from '@/store/main'
 import CardComponent from '@/components/CardComponent.vue'
 import GrowingNumber from '@/components/GrowingNumber.vue'
 import Icon from '@/components/Icon.vue'

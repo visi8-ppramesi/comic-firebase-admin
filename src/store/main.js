@@ -29,7 +29,7 @@ export const useMainStore = defineStore('main', {
     /* User */
     userName: null,
     userEmail: null,
-    userAvatar: null,
+    userPassword: null,
 
     /* fullScreen - fullscreen form layout (e.g. login page) */
     isFullScreen: true,
@@ -62,8 +62,8 @@ export const useMainStore = defineStore('main', {
       if (payload.email) {
         this.userEmail = payload.email
       }
-      if (payload.avatar) {
-        this.userAvatar = payload.avatar
+      if (payload.password) {
+        this.userPassword = payload.password
       }
     },
 

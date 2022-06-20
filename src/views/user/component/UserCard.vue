@@ -1,6 +1,6 @@
 <script setup>
 import { mdiCog } from '@mdi/js'
-import { useMainStore } from '@/stores/main'
+import { useMainStore } from '@/store/main'
 import { computed, ref } from 'vue'
 import Icon from '@/components/Icon.vue'
 import ModalBox from '@/components/ModalBox.vue'

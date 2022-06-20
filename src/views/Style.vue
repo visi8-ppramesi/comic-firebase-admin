@@ -1,6 +1,6 @@
 <script setup>
 import { useRouter } from 'vue-router'
-import { useMainStore } from '@/stores/main'
+import { useMainStore } from '@/store/main'
 import { sectionBgLogin } from '@/colors.js'
 import MainSection from '@/components/MainSection.vue'
 import CardComponent from '@/components/CardComponent.vue'

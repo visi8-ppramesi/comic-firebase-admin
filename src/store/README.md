@@ -15,7 +15,7 @@ npm remove pinia
 
 ### src/*
 
-Replace all occurrences of `import { useMainStore } from '@/stores/main'` with `import { useStore } from 'vuex'`
+Replace all occurrences of `import { useMainStore } from '@/store/main'` with `import { useStore } from 'vuex'`
 
 Replace all occurrences of `const mainStore = useMainStore()` with `const store = useStore()`
 
@@ -60,7 +60,7 @@ store.commit('basic', {
 
 Remove `import { createPinia } from 'pinia'`
 
-Replace `import { useMainStore } from '@/stores/main'` with `import store from './store'`
+Replace `import { useMainStore } from '@/store/main'` with `import store from './store'`
 
 Remove `/* Init Pinia */` and the following line
 

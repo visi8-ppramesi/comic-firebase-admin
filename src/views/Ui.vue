@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed } from 'vue'
-import { useMainStore } from '@/stores/main'
+import { useMainStore } from '@/store/main'
 import {
   mdiMonitorCellphone,
   mdiSelectColor,

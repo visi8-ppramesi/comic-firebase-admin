@@ -1,6 +1,6 @@
 <script setup>
 import { computed, ref } from 'vue'
-import { useMainStore } from '@/stores/main'
+import { useMainStore } from '@/store/main'
 import { mdiCheckDecagram } from '@mdi/js'
 import Level from '@/components/Level.vue'
 import UserAvatar from '@/components/UserAvatar.vue'

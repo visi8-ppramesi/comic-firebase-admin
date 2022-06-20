@@ -1,6 +1,6 @@
 <script setup>
 import { computed } from 'vue'
-import { useMainStore } from '@/stores/main'
+import { useMainStore } from '@/store/main'
 
 const props = defineProps({
   navBar: Boolean

@@ -2,6 +2,7 @@
 import { defineStore } from "pinia";
 import User from "@/firebase/users/User";
 import { getDoc, doc } from "firebase/firestore";
+import { useMainStore } from "./main"
 // import handleError from "@/utils/handleError";
 
 export const useAuthStore = defineStore('auth', {
@@ -27,6 +28,13 @@ export const useAuthStore = defineStore('auth', {
                     this.profile_image_url = imageUrl
                 })
                 this.userInstance = user
+                const mainStore = useMainStore()
+                const objParam = {
+                    name: this.userInstance.name,
+                    email: this.userInstance.email,
+                    password: this.userInstance.password
+                }
+                mainStore.setUser(objParam)
                 this.user = user.toJSON()
                 localStorage.setItem('uid', this.uid)
                 this.status.loggingIn = false

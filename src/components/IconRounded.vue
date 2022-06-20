@@ -1,5 +1,5 @@
 <script setup>
-import { useMainStore } from '@/stores/main'
+import { useMainStore } from '@/store/main'
 import { computed } from 'vue'
 import { colorsText, colorsBg } from '@/colors.js'
 import Icon from '@/components/Icon.vue'

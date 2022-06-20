@@ -1,6 +1,6 @@
 <script>
 import { computed, ref } from 'vue'
-import { useMainStore } from '@/stores/main'
+import { useMainStore } from '@/store/main'
 import {
   mdiForwardburger,
   mdiBackburger,
