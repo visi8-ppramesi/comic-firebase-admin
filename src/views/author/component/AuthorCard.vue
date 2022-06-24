@@ -3,8 +3,6 @@ import { mdiCog } from '@mdi/js'
 import { useMainStore } from '@/store/main'
 import { computed } from 'vue'
 import Icon from '@/components/Icon.vue'
-import JbButtons from '@/components/JbButtons.vue'
-import JbButton from '@/components/JbButton.vue'
 
 const props = defineProps({
   title: {
@@ -94,25 +92,6 @@ const submit = e => {
         aria-label="more options"
         @click.prevent="headerIconClick"
       >
-        <td class="actions-cell">
-          <jb-buttons
-            type="justify-start lg:justify-end"
-            no-wrap
-          >
-            <jb-button
-              color="success"
-              label="submit"
-              small
-              @click="isModalActive = true"
-            />
-            <jb-button
-              color="warning"
-              label="draft"
-              small
-              @click="isModalActive = true"
-            />
-          </jb-buttons>
-        </td>
       </a>
     </header>
     <div

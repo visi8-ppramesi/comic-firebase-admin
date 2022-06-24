@@ -168,11 +168,12 @@ const logout = () => {
             </nav-bar-item>
             <divider nav-bar />
             <nav-bar-item>
-              <nav-bar-item-label
-                :icon="mdiLogout"
-                label="Log Out"
-                @click="post(logout)"
-              />
+              <router-link to="/logout">
+                <nav-bar-item-label
+                  :icon="mdiLogout"
+                  label="Log Out"
+                />
+              </router-link>
             </nav-bar-item>
           </template>
         </nav-bar-menu>

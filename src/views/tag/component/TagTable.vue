@@ -1,13 +1,14 @@
 <script>
 import { computed, ref } from 'vue'
 import { useMainStore } from '@/store/main'
-import { mdiEye, mdiTrashCan } from '@mdi/js'
 import ModalBox from '@/components/ModalBox.vue'
 import CheckboxCell from '@/components/CheckboxCell.vue'
 import Level from '@/components/Level.vue'
 import JbButtons from '@/components/JbButtons.vue'
 import JbButton from '@/components/JbButton.vue'
 import Tag from '@/firebase/Tag.js'
+import { doc, deleteDoc } from 'firebase/firestore'
+import firebase from '@/firebase/firebase'
 export default {
   mounted () {
     this.fetchTags()
@@ -16,11 +17,18 @@ export default {
     async fetchTags () {
       const tags = await Tag.getTags()
       this.tags = tags
+    },
+    async deleteTags (tagId) {
+      const docRef = doc(firebase.db, 'tags', tagId)
+      await deleteDoc(docRef)
+      console.log(docRef)
+      this.$router.go()
     }
   },
   data () {
     return {
-      tags: {}
+      tags: {},
+      selectedDoc: null
     }
   }
 }
@@ -154,23 +162,18 @@ const checked = (isChecked, author) => {
           {{ tag.name }}
         </td>
         <td class="actions-cell">
-          <jb-buttons
-            type="justify-start lg:justify-end"
-            no-wrap
-          >
-            <jb-button
-              color="info"
-              :icon="mdiEye"
-              small
-              @click="isModalActive = true"
-            />
-            <jb-button
-              color="danger"
-              :icon="mdiTrashCan"
-              small
-              @click="isModalDangerActive = true"
-            />
-          </jb-buttons>
+          <div class="flex justify-end">
+            <div class="px-2">
+              <router-link :to="{name: 'tagEdit', params: { id: tag.id}}">
+                <button class="bg-green-500 hover:bg-green-700 text-white text-sm font-bold py-2 px-4 rounded">Edit</button>
+              </router-link>
+            </div>
+            <div class="px-2">
+              <router-link :to="{name: 'tag', params: { id: tag.id}}">
+                <button @click="deleteTags(tag.id)" class="bg-red-500 hover:bg-red-700 text-white text-sm font-bold py-2 px-4 rounded">Delete</button>
+              </router-link>
+            </div>
+          </div>
         </td>
       </tr>
     </tbody>

@@ -1,13 +1,12 @@
 <script>
 import { computed, ref } from 'vue'
 import { useMainStore } from '@/store/main'
-import { mdiEye, mdiTrashCan } from '@mdi/js'
 import ModalBox from '@/components/ModalBox.vue'
 import CheckboxCell from '@/components/CheckboxCell.vue'
 import Level from '@/components/Level.vue'
-import JbButtons from '@/components/JbButtons.vue'
-import JbButton from '@/components/JbButton.vue'
 import Category from '@/firebase/Category.js'
+import { doc, deleteDoc } from 'firebase/firestore'
+import firebase from '@/firebase/firebase'
 export default {
   mounted () {
     this.fetchCategories()
@@ -16,6 +15,12 @@ export default {
     async fetchCategories () {
       const categories = await Category.getCategories()
       this.categories = categories
+    },
+    async deleteGenres (genreId) {
+      const docRef = doc(firebase.db, 'categories', genreId)
+      await deleteDoc(docRef)
+      console.log(docRef)
+      this.$router.go()
     }
   },
   data () {
@@ -154,23 +159,18 @@ const checked = (isChecked, author) => {
           {{ item.name }}
         </td>
         <td class="actions-cell">
-          <jb-buttons
-            type="justify-start lg:justify-end"
-            no-wrap
-          >
-            <jb-button
-              color="info"
-              :icon="mdiEye"
-              small
-              @click="isModalActive = true"
-            />
-            <jb-button
-              color="danger"
-              :icon="mdiTrashCan"
-              small
-              @click="isModalDangerActive = true"
-            />
-          </jb-buttons>
+          <div class="flex justify-end">
+            <div class="px-2">
+              <router-link :to="{name: 'genreEdit', params: { id: item.id}}">
+                <button class="bg-green-500 hover:bg-green-700 text-white text-sm font-bold py-2 px-4 rounded">Edit</button>
+              </router-link>
+            </div>
+             <div class="px-2">
+                <router-link :to="{name: 'genre', params: { id: item.id}}">
+                  <button @click="deleteGenres(item.id)" class="bg-red-500 hover:bg-red-700 text-white text-sm font-bold py-2 px-4 rounded">Delete</button>
+                </router-link>
+            </div>
+          </div>
         </td>
       </tr>
     </tbody>

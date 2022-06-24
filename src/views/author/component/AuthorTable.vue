@@ -1,13 +1,14 @@
 <script>
 import { computed, ref } from 'vue'
 import { useMainStore } from '@/store/main'
-import { mdiEye, mdiTrashCan } from '@mdi/js'
 import ModalBox from '@/components/ModalBox.vue'
 import CheckboxCell from '@/components/CheckboxCell.vue'
 import Level from '@/components/Level.vue'
 import JbButtons from '@/components/JbButtons.vue'
 import JbButton from '@/components/JbButton.vue'
 import Author from '@/firebase/Author'
+import { doc, deleteDoc } from 'firebase/firestore'
+import firebase from '@/firebase/firebase'
 export default {
   data () {
     return {
@@ -21,6 +22,12 @@ export default {
     async fetchAuthors () {
       const authors = await Author.getAuthors()
       this.authors = authors
+    },
+    async deleteAuthors (authorId) {
+      const docRef = doc(firebase.db, 'authors', authorId)
+      await deleteDoc(docRef)
+      console.log(docRef)
+      this.$router.go()
     }
   }
 }
@@ -157,7 +164,7 @@ const checked = (isChecked, author) => {
           {{ author.name }}
         </td>
         <td data-label="Token">
-          {{ author.social_media_links }}
+          {{ author.social_media_links.facebook }}, {{ author.social_media_links.twitter }}
         </td>
         <td data-label="Email">
           {{ author.email }}
@@ -166,23 +173,19 @@ const checked = (isChecked, author) => {
           {{ author.description }}
         </td>
         <td class="actions-cell">
-          <jb-buttons
-            type="justify-start lg:justify-end"
-            no-wrap
-          >
-            <jb-button
-              color="info"
-              :icon="mdiEye"
-              small
-              @click="isModalActive = true"
-            />
-            <jb-button
-              color="danger"
-              :icon="mdiTrashCan"
-              small
-              @click="isModalDangerActive = true"
-            />
-          </jb-buttons>
+          <div class="flex justify-end" no-wrap>
+            <div class="px-2">
+              <router-link :to="{name: 'authorEdit', params: { id: author.id}}">
+                <button class="bg-green-500 hover:bg-green-700 text-white text-sm font-bold py-2 px-4 rounded">Edit</button>
+              </router-link>
+            </div>
+
+            <div class="px-2">
+              <router-link :to="{name: 'author', params: { id: author.id}}">
+                <button @click="deleteAuthors(author.id)" class="bg-red-500 hover:bg-red-700 text-white text-sm font-bold py-2 px-4 rounded">Delete</button>
+              </router-link>
+            </div>
+          </div>
         </td>
       </tr>
     </tbody>

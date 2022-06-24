@@ -5,24 +5,61 @@ import MainSection from '@/components/MainSection.vue'
 import AuthorCard from '@/views/author/component/AuthorCard.vue'
 import TitleBar from '@/components/TitleBar.vue'
 import HeroBar from '@/components/HeroBar.vue'
+import { collection, addDoc } from 'firebase/firestore'
+import firebase from '@/firebase/firebase'
+import { ProfilePicture } from '@/firebase/types'
+// import { getStorage, ref } from "firebase/storage"
 export default {
   data () {
     return {
-      social_media: [{
-        name: '',
-        link: ''
-      }]
+      // social_media: [{
+      //   name: '',
+      //   link: ''
+      // }]
+      name: null,
+      email: null,
+      description: null,
+      social_media_links: {
+        facebook: null,
+        twitter: null
+      },
+      profile_picture_url: null,
+      imageDataUrl: null,
+      ProfilePicture: null
     }
   },
   methods: {
-    addNewSocialMedia () {
-      this.social_media.push({
-        name: '',
-        link: ''
-      })
+    // addNewSocialMedia () {
+    //   this.social_media.push({
+    //     name: '',
+    //     link: ''
+    //   })
+    // },
+    // deleteSocialMedia (index) {
+    //   this.social_media.splice(index, 1)
+    // }
+    async addAuthors () {
+      const author = {
+        name: this.name,
+        email: this.email,
+        description: this.description,
+        social_media_links: {
+          facebook: this.social_media_links.facebook,
+          twitter: this.social_media_links.twitter
+        },
+        profile_picture_url: this.imageDataUrl
+      }
+      const addData = await addDoc(collection(firebase.db, 'authors'), author)
+      this.imageDataUrl = await ProfilePicture.uploadField('profile_picture_url', '/profile_images' + this.ProfilePicture)
+      this.$router.push('/author')
+      console.log(addData)
     },
-    deleteSocialMedia (index) {
-      this.social_media.splice(index, 1)
+    onFileChange (event) {
+      this.ProfilePicture = event.target.files[0]
+      this.imageDataUrl = URL.createObjectURL(this.ProfilePicture)
+    },
+    selectProfile () {
+      this.$refs.profilePictureRef.click()
     }
   }
 }
@@ -43,9 +80,9 @@ const titleStack = ref(['Admin', 'Author', 'Add'])
       :icon="mdiSquareEditOutline"
       has-table
     >
-      <form class="w-full max-w-full">
+      <form @submit.prevent="addAuthors" class="w-full max-w-full">
           <div class="flex items-center border-b border-teal-500 py-2 max-w-3xl">
-              <input class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none" type="text" placeholder="Author's Name">
+              <input v-model="name" class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none" type="text" placeholder="Author's Name">
           </div>
 
           <div class="flex flex-wrap -mx-3 mt-10 mb-6 max-w-3xl">
@@ -53,13 +90,7 @@ const titleStack = ref(['Admin', 'Author', 'Add'])
               <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
                 Email
               </label>
-              <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" type="text" placeholder="Enter Author's Email">
-            </div>
-            <div class="w-full md:w-1/2 px-3">
-              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
-                User Id
-              </label>
-              <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Enter Author's Id">
+              <input v-model="email" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" type="text" placeholder="Enter Author's Email">
             </div>
           </div>
 
@@ -68,6 +99,7 @@ const titleStack = ref(['Admin', 'Author', 'Add'])
               >Description</label
             >
             <textarea
+              v-model="description"
               class="
                 form-control
                 block
@@ -90,38 +122,36 @@ const titleStack = ref(['Admin', 'Author', 'Add'])
               placeholder="Please Enter Author Description"
             ></textarea>
           </div>
-      </form>
-      <div>
-        <p class="font-bold text-gray-700">Social Media Links :</p>
-        <button @click="addNewSocialMedia" class="mt-3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Add a new social media</button>
-        <div class="my-5">
-          <div v-for="social in social_media" :key="social.index" class="bg-white shadow shadow-2xl max-w-xl p-5">
-            <input v-model="social.name" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" type="text" placeholder="Enter Author's Social Media Name">
-            <input v-model="social.link" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" type="text" placeholder="Enter Author's Social Media Link">
-            <button  @click="deleteSocialMedia(index)" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Cancel</button>
+          <div>
+            <p class="font-bold text-gray-700">Social Media Links :</p>
+            <button class="mt-3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Add a new social media</button>
+            <div class="my-5">
+              <div class="bg-white shadow shadow-2xl max-w-xl p-5">
+                <p class="font-bold py-3">Facebook</p>
+                <input v-model="social_media_links.facebook" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" type="text" placeholder="Enter Author's Social Media Link">
+                <!-- <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Cancel</button> -->
+              </div>
+
+              <div class="bg-white shadow shadow-2xl max-w-xl p-5">
+                <p class="font-bold py-3">Twitter</p>
+                <input v-model="social_media_links.twitter" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" type="text" placeholder="Enter Author's Social Media Link">
+                <!-- <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Cancel</button> -->
+              </div>
+            </div>
+
+            <p class="font-bold text-gray-700">Profile Photo :</p>
+
+            <div class="max-w-xl mt-3">
+                <div>
+                  <img v-if="imageDataUrl" class="preview" height="268" width="356" :src="imageDataUrl"/>
+                  <input ref="profilePictureRef" type="file" style="display:none" @change="onFileChange" />
+                  <button class="font-bold px-3 border-2 rounded" @click="selectProfile">Choose Profile Picture</button>
+                </div>
+            </div>
+
+            <button class="mt-5 bg-blue-500 hover:bg-blue-700 text-white text-sm font-bold py-2 px-4 rounded">Save</button>
           </div>
-        </div>
-
-        <p class="font-bold text-gray-700">Profile Photo :</p>
-
-        <div class="max-w-xl mt-3">
-            <label
-                class="flex justify-center w-full h-32 px-4 transition bg-white border-2 border-gray-300 border-dashed rounded-md appearance-none cursor-pointer hover:border-gray-400 focus:outline-none">
-                <span class="flex items-center space-x-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-600" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-                    </svg>
-                    <span class="font-medium text-gray-600">
-                        Drop files to Attach, or
-                        <span class="text-blue-600 underline">browse</span>
-                    </span>
-                </span>
-                <input type="file" name="file_upload" class="hidden">
-            </label>
-        </div>
-      </div>
+      </form>
     </author-card>
   </main-section>
 </template>

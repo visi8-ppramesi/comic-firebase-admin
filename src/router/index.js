@@ -11,9 +11,13 @@ import UserList from '@/views/user/List.vue'
 import UserProfile from '@/views/user/Profile.vue'
 import Settings from '@/views/settings/settings.vue'
 import ComicAdd from '@/views/comic/Add.vue'
+import ComicEdit from '@/views/comic/Edit.vue'
 import AuthorAdd from '@/views/author/Add.vue'
+import AuthorEdit from '@/views/author/Edit.vue'
 import GenreAdd from '@/views/genre/Add.vue'
+import GenreEdit from '@/views/genre/Edit.vue'
 import TagAdd from '@/views/tag/Add.vue'
+import TagEdit from '@/views/tag/Edit.vue'
 import Logout from '@/views/Logout.vue'
 
 const authRoutes = [
@@ -25,7 +29,7 @@ const authRoutes = [
       requiresAuth: true
     },
     path: '/dashboard',
-    name: 'dashboard',
+    name: 'Dashboard',
     component: Home
   },
   {
@@ -50,7 +54,17 @@ const authRoutes = [
     name: 'comic add',
     component: ComicAdd
   },
-
+  {
+    // Document title tag
+    // We combine it with defaultDocumentTitle set in `src/main.js` on router.afterEach hook
+    meta: {
+      title: 'Comic Edit',
+      requiresAuth: true
+    },
+    path: '/comic/:id',
+    name: 'comicEdit',
+    component: ComicEdit
+  },
   {
     // Document title tag
     // We combine it with defaultDocumentTitle set in `src/main.js` on router.afterEach hook
@@ -72,6 +86,17 @@ const authRoutes = [
     path: '/author/add',
     name: 'author add',
     component: AuthorAdd
+  },
+  {
+    // Document title tag
+    // We combine it with defaultDocumentTitle set in `src/main.js` on router.afterEach hook
+    meta: {
+      title: 'Author Edit',
+      requiresAuth: true
+    },
+    path: '/author/:id',
+    name: 'authorEdit',
+    component: AuthorEdit
   },
   {
     // Document title tag
@@ -99,6 +124,17 @@ const authRoutes = [
     // Document title tag
     // We combine it with defaultDocumentTitle set in `src/main.js` on router.afterEach hook
     meta: {
+      title: 'Genre Edit',
+      requiresAuth: true
+    },
+    path: '/genre/:id',
+    name: 'genreEdit',
+    component: GenreEdit
+  },
+  {
+    // Document title tag
+    // We combine it with defaultDocumentTitle set in `src/main.js` on router.afterEach hook
+    meta: {
       title: 'Tag List',
       requiresAuth: true
     },
@@ -116,6 +152,17 @@ const authRoutes = [
     path: '/tag/add',
     name: 'tag add',
     component: TagAdd
+  },
+  {
+    // Document title tag
+    // We combine it with defaultDocumentTitle set in `src/main.js` on router.afterEach hook
+    meta: {
+      title: 'Tag Edit',
+      requiresAuth: true
+    },
+    path: '/tag/:id',
+    name: 'tagEdit',
+    component: TagEdit
   },
   {
     // Document title tag

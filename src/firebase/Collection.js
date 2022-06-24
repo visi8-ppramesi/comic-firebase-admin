@@ -4,6 +4,7 @@ import Subcollection from './Subcollection.js';
 import { 
     doc, 
     query, 
+    updateDoc,
     // startAfter, 
     collection, 
     getDocs, 
@@ -138,6 +139,31 @@ export default class{
         }
     }
 
+    static async updateDocument(id){
+        const eventRef = doc(firebase.db, this.collection, id)
+        try{
+            const doc = await updateDoc(eventRef)
+            if(!doc.exists()){
+                const emptyInstance = new this()
+                emptyInstance.setEmpty()
+                return emptyInstance
+            }
+            const data = doc.data()
+            const instance = new this()
+            await instance.setData(doc.id, data, doc)
+    
+            return instance
+        }catch(err){
+            handleError(err, 'getDocumentError')
+            throw err
+        }
+    }
+
+    static async addData () {
+        const docRef = await addDoc(collection(firebase.db, this.collection, this.fields))
+        console.log("Document written with ID: ", docRef.id)
+    }
+
     static async getDocumentWithStorageResource(id, storageFields = []){
         const eventRef = doc(firebase.db, this.collection, id)
         try{
@@ -196,6 +222,7 @@ export default class{
             throw err
         }
     }
+
 
     static async getDocumentsWithStorageResourceUrl(queries = [], storageFields = []){
         const eventRef = collection(firebase.db, this.collection)

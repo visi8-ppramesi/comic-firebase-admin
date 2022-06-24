@@ -4,65 +4,31 @@ import { mdiSquareEditOutline } from '@mdi/js'
 import MainSection from '@/components/MainSection.vue'
 import TitleBar from '@/components/TitleBar.vue'
 import HeroBar from '@/components/HeroBar.vue'
-import { collection, addDoc } from 'firebase/firestore'
-import firebase from '@/firebase/firebase'
-// import { getStorage, ref } from "firebase/storage"
+import Comic from '@/firebase/comics/Comic.js'
 export default {
   data () {
     return {
-      // social_media: [{
-      //   name: '',
-      //   link: ''
-      // }]
-      title: null,
-      authors: {},
-      authors_data: {},
-      categories: null,
-      chapters_data: {
-        chapter_number: null,
-        chapter_preiew_url: null,
-        id: null,
-        price: null,
-        release_date: null,
-        view_count: null
-      },
-      cover_image_url: null,
-      description: null,
-      favorite_count: null,
-      is_draft: false,
-      last_update: null,
-      keywords: {},
-      release_date: null,
-      tags: {},
-      view_count: null
+      comic: {}
     }
   },
+  created () {
+    this.fetchComic()
+  },
   methods: {
-    // addNewSocialMedia () {
-    //   this.social_media.push({
-    //     name: '',
-    //     link: ''
-    //   })
-    // },
-    // deleteSocialMedia (index) {
-    //   this.social_media.splice(index, 1)
-    // }
-    async addComics () {
-      const addData = await addDoc(collection(firebase.db, 'authors'), this.$data)
-      console.log(addData)
-      this.$router.go()
+    async fetchComic () {
+      this.comic = await Comic.getDocumentWithStorageResource(this.$route.params.id, ['cover_image_url'])
     }
   }
 }
 </script>
 
 <script setup>
-const titleStack = ref(['Admin', 'Comic', 'Add'])
+const titleStack = ref(['Admin', 'Comic', 'Edit'])
 </script>
 
 <template>
   <title-bar :title-stack="titleStack" />
-  <hero-bar>Add a New Comic</hero-bar>
+  <hero-bar>Edit Comic</hero-bar>
   <main-section>
     <comic-card
         class="mb-6"
@@ -71,9 +37,9 @@ const titleStack = ref(['Admin', 'Comic', 'Add'])
         :icon="mdiSquareEditOutline"
         has-table
         >
-        <form  @submit.prevent="addComics" class="w-full max-w-full">
+        <form class="w-full max-w-full">
             <div class="flex items-center border-b border-teal-500 py-2 max-w-3xl">
-                <input class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none" type="text" placeholder="Comic's Name">
+                <input v-model="comic.title" class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none" type="text" placeholder="Comic's Name">
             </div>
 
             <div class="mt-5">
@@ -81,8 +47,8 @@ const titleStack = ref(['Admin', 'Comic', 'Add'])
                 Authors
                 </label>
                 <div class="flex">
-                    <div class="pr-3">
-                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" type="text" placeholder="Enter Author's Name">
+                    <div class="pr-3" v-for="author in comic.authors_data" :key="author.id">
+                        <input v-model="author.name" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" type="text" placeholder="Enter Author's Email">
                     </div>
                 </div>
             </div>
@@ -92,19 +58,19 @@ const titleStack = ref(['Admin', 'Comic', 'Add'])
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
                     Genres
                     </label>
-                    <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Enter Author's Id">
+                    <input v-model="comic.categories" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Enter Author's Id">
                 </div>
                 <div class="w-full md:w-1/2 px-3">
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
                     Tags
                     </label>
-                    <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Enter Author's Id">
+                    <input v-model="comic.tags" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Enter Author's Id">
                 </div>
                 <div class="w-full md:w-1/2 px-3">
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
                     Release Date
                     </label>
-                    <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Enter Author's Id">
+                    <input v-model="comic.release_date" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Enter Author's Id">
                 </div>
             </div>
 
@@ -113,6 +79,7 @@ const titleStack = ref(['Admin', 'Comic', 'Add'])
                     >Description :</label
                 >
                 <textarea
+                    v-model="comic.description"
                     class="
                     form-control
                     block
@@ -163,8 +130,6 @@ const titleStack = ref(['Admin', 'Comic', 'Add'])
                     </div>
                 </div>
             </div>
-
-            <button class="mt-5 bg-blue-500 hover:bg-blue-700 text-white text-sm font-bold py-2 px-4 rounded">Save</button>
         </form>
     </comic-card>
   </main-section>

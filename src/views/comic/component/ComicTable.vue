@@ -1,12 +1,9 @@
 <script>
 import { computed, ref } from 'vue'
 import { useMainStore } from '@/store/main'
-import { mdiEye, mdiTrashCan } from '@mdi/js'
 import ModalBox from '@/components/ModalBox.vue'
 import CheckboxCell from '@/components/CheckboxCell.vue'
 import Level from '@/components/Level.vue'
-import JbButtons from '@/components/JbButtons.vue'
-import JbButton from '@/components/JbButton.vue'
 import Comic from '@/firebase/comics/Comic.js'
 export default {
   mounted () {
@@ -159,7 +156,9 @@ const checked = (isChecked, comic) => {
           {{ comic.title }}
         </td>
         <td data-label="Author">
-          {{ comic.authors_data[0].name }}
+          <div v-for="author in comic.authors_data" :key="author.id">
+            {{author.name}}
+          </div>
         </td>
         <td data-label="Genre">
           {{ comic.categories }}
@@ -171,23 +170,11 @@ const checked = (isChecked, comic) => {
           {{ comic.last_update }}
         </td>
         <td class="actions-cell">
-          <jb-buttons
-            type="justify-start lg:justify-end"
-            no-wrap
-          >
-            <jb-button
-              color="info"
-              :icon="mdiEye"
-              small
-              @click="isModalActive = true"
-            />
-            <jb-button
-              color="danger"
-              :icon="mdiTrashCan"
-              small
-              @click="isModalDangerActive = true"
-            />
-          </jb-buttons>
+          <div class="justify-start lg:justify-end" no-wrap>
+            <router-link :to="{name: 'comicEdit', params: { id: comic.id}}">
+              <button class="bg-green-500 hover:bg-green-700 text-white text-sm font-bold py-2 px-4 rounded">Edit</button>
+            </router-link>
+          </div>
         </td>
       </tr>
     </tbody>
