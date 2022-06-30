@@ -1,3 +1,18 @@
+<template>
+  <component
+    :is="type"
+    class="checkbox-cell"
+  >
+    <label class="checkbox">
+      <input
+        v-model="checked"
+        type="checkbox"
+      >
+      <span class="check" />
+    </label>
+  </component>
+</template>
+
 <script setup>
 import { ref, watch } from 'vue'
 
@@ -16,18 +31,3 @@ watch(checked, newVal => {
   emit('checked', newVal)
 })
 </script>
-
-<template>
-  <component
-    :is="type"
-    class="checkbox-cell"
-  >
-    <label class="checkbox">
-      <input
-        v-model="checked"
-        type="checkbox"
-      >
-      <span class="check" />
-    </label>
-  </component>
-</template>

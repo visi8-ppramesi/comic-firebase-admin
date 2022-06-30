@@ -1,3 +1,21 @@
+<template>
+  <div class="mb-6 last:mb-0">
+    <label
+      v-if="label"
+      class="block font-bold mb-2"
+    >{{ label }}</label>
+    <div :class="wrapperClass">
+      <slot />
+    </div>
+    <div
+      v-if="help"
+      class="text-xs text-gray-500 dark:text-gray-400 mt-1"
+    >
+      {{ help }}
+    </div>
+  </div>
+</template>
+
 <script setup>
 import { computed, useSlots } from 'vue'
 
@@ -29,21 +47,3 @@ const wrapperClass = computed(() => {
   return base
 })
 </script>
-
-<template>
-  <div class="mb-6 last:mb-0">
-    <label
-      v-if="label"
-      class="block font-bold mb-2"
-    >{{ label }}</label>
-    <div :class="wrapperClass">
-      <slot />
-    </div>
-    <div
-      v-if="help"
-      class="text-xs text-gray-500 dark:text-gray-400 mt-1"
-    >
-      {{ help }}
-    </div>
-  </div>
-</template>

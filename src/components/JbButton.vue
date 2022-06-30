@@ -1,3 +1,24 @@
+<template>
+  <component
+    :is="is"
+    :class="componentClass"
+    :href="href"
+    :type="computedType"
+    :to="to"
+    :target="target"
+    :disabled="disabled"
+  >
+    <icon
+      v-if="icon"
+      :path="icon"
+    />
+    <span
+      v-if="label"
+      :class="labelClass"
+    >{{ label }}</span>
+  </component>
+</template>
+
 <script setup>
 import { computed } from 'vue'
 import { getButtonColor } from '@/colors.js'
@@ -93,24 +114,3 @@ const componentClass = computed(() => {
   return base
 })
 </script>
-
-<template>
-  <component
-    :is="is"
-    :class="componentClass"
-    :href="href"
-    :type="computedType"
-    :to="to"
-    :target="target"
-    :disabled="disabled"
-  >
-    <icon
-      v-if="icon"
-      :path="icon"
-    />
-    <span
-      v-if="label"
-      :class="labelClass"
-    >{{ label }}</span>
-  </component>
-</template>

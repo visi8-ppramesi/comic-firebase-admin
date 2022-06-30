@@ -1,25 +1,3 @@
-<script setup>
-import { computed } from 'vue'
-import { useMainStore } from '@/store/main'
-
-defineProps({
-  zIndex: {
-    type: String,
-    default: 'z-50'
-  }
-})
-
-const emit = defineEmits(['overlay-click'])
-
-const overlayClick = event => {
-  emit('overlay-click', event)
-}
-
-const mainStore = useMainStore()
-
-const overlayStyle = computed(() => mainStore.overlayStyle)
-</script>
-
 <template>
   <div
     class="flex items-center flex-col justify-center overflow-hidden fixed inset-0"
@@ -49,3 +27,25 @@ const overlayStyle = computed(() => mainStore.overlayStyle)
     </transition>
   </div>
 </template>
+
+<script setup>
+import { computed } from 'vue'
+import { useMainStore } from '@/store/main'
+
+defineProps({
+  zIndex: {
+    type: String,
+    default: 'z-50'
+  }
+})
+
+const emit = defineEmits(['overlay-click'])
+
+const overlayClick = event => {
+  emit('overlay-click', event)
+}
+
+const mainStore = useMainStore()
+
+const overlayStyle = computed(() => mainStore.overlayStyle)
+</script>

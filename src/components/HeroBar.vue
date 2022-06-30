@@ -1,21 +1,3 @@
-<script setup>
-import { mdiThemeLightDark } from '@mdi/js'
-import { useMainStore } from '@/store/main'
-import { computed } from 'vue'
-import Level from '@/components/Level.vue'
-import JbButton from '@/components/JbButton.vue'
-
-const mainStore = useMainStore()
-
-const lightBorderStyle = computed(() => mainStore.lightBorderStyle)
-
-const darkMode = computed(() => mainStore.darkMode)
-
-const darkModeToggle = () => {
-  mainStore.setDarkMode()
-}
-</script>
-
 <template>
   <section
     :class="lightBorderStyle"
@@ -34,3 +16,21 @@ const darkModeToggle = () => {
     </level>
   </section>
 </template>
+
+<script setup>
+import { mdiThemeLightDark } from '@mdi/js'
+import { useMainStore } from '@/store/main'
+import { computed } from 'vue'
+import Level from '@/components/Level.vue'
+import JbButton from '@/components/JbButton.vue'
+
+const mainStore = useMainStore()
+
+const lightBorderStyle = computed(() => mainStore.lightBorderStyle)
+
+const darkMode = computed(() => mainStore.darkMode)
+
+const darkModeToggle = () => {
+  mainStore.setDarkMode()
+}
+</script>

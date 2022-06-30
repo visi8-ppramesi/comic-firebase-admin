@@ -1,3 +1,34 @@
+<template>
+  <nav-bar-item
+    ref="root"
+    type="block"
+    :has-divider="hasDivider"
+    :active="isDropdownActive"
+    dropdown
+    class="dropdown"
+    @click="toggle"
+  >
+    <a
+      class="flex items-center py-2 px-3 dark:bg-gray-800 lg:bg-transparent lg:dark:bg-transparent"
+      :class="[ navBarMenuListUpperLabelStyle ]"
+    >
+      <slot />
+      <icon
+        :path="toggleDropdownIcon"
+        class="hidden lg:inline-flex transition-colors"
+      />
+    </a>
+    <div
+      class="text-sm border-b lg:border-b-0 lg:border-gray-200 lg:border-t lg:bg-white lg:absolute
+          lg:top-full lg:left-0 lg:min-w-full lg:z-20 lg:shadow-md lg:rounded-b lg:dark:bg-gray-800
+          dark:border-gray-700"
+      :class="[lightBorderStyle, {'lg:hidden':!isDropdownActive}]"
+    >
+      <slot name="dropdown" />
+    </div>
+  </nav-bar-item>
+</template>
+
 <script setup>
 import { useMainStore } from '@/store/main'
 import { computed, ref, onMounted, onBeforeUnmount } from 'vue'
@@ -42,34 +73,3 @@ onBeforeUnmount(() => {
   window.removeEventListener('click', forceClose)
 })
 </script>
-
-<template>
-  <nav-bar-item
-    ref="root"
-    type="block"
-    :has-divider="hasDivider"
-    :active="isDropdownActive"
-    dropdown
-    class="dropdown"
-    @click="toggle"
-  >
-    <a
-      class="flex items-center py-2 px-3 dark:bg-gray-800 lg:bg-transparent lg:dark:bg-transparent"
-      :class="[ navBarMenuListUpperLabelStyle ]"
-    >
-      <slot />
-      <icon
-        :path="toggleDropdownIcon"
-        class="hidden lg:inline-flex transition-colors"
-      />
-    </a>
-    <div
-      class="text-sm border-b lg:border-b-0 lg:border-gray-200 lg:border-t lg:bg-white lg:absolute
-          lg:top-full lg:left-0 lg:min-w-full lg:z-20 lg:shadow-md lg:rounded-b lg:dark:bg-gray-800
-          dark:border-gray-700"
-      :class="[lightBorderStyle, {'lg:hidden':!isDropdownActive}]"
-    >
-      <slot name="dropdown" />
-    </div>
-  </nav-bar-item>
-</template>

@@ -1,3 +1,7 @@
+<template>
+  <div>{{ prefix }}{{ newValueFormatted }}{{ suffix }}</div>
+</template>
+
 <script setup>
 import { computed, ref, watch, onMounted } from 'vue'
 import numeral from 'numeral'
@@ -56,7 +60,3 @@ onMounted(() => {
   growInit()
 })
 </script>
-
-<template>
-  <div>{{ prefix }}{{ newValueFormatted }}{{ suffix }}</div>
-</template>s

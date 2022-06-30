@@ -1,3 +1,15 @@
+<template>
+  <component
+    :is="is"
+    :class="componentClass"
+    :to="to"
+    :href="href"
+    :exact-active-class="activeClass"
+  >
+    <slot />
+  </component>
+</template>
+
 <script setup>
 import { useMainStore } from '@/store/main'
 import { computed } from 'vue'
@@ -79,15 +91,3 @@ const activeClass = computed(() => {
   return is.value === 'router-link' ? props.activeColor : null
 })
 </script>
-
-<template>
-  <component
-    :is="is"
-    :class="componentClass"
-    :to="to"
-    :href="href"
-    :exact-active-class="activeClass"
-  >
-    <slot />
-  </component>
-</template>

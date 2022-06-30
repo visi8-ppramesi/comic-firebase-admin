@@ -1,7 +1,3 @@
-<script setup>
-import Control from '@/components/Control.vue'
-</script>
-
 <template>
   <control
     ref="root"
@@ -11,3 +7,7 @@ import Control from '@/components/Control.vue'
     borderless
   />
 </template>
+
+<script setup>
+import Control from '@/components/Control.vue'
+</script>

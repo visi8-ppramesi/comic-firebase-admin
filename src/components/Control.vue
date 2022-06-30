@@ -1,3 +1,49 @@
+<template>
+  <div class="relative">
+    <select
+      v-if="computedType === 'select'"
+      :id="id"
+      v-model="computedValue"
+      :name="name"
+      :class="inputElClass"
+    >
+      <option
+        v-for="option in options"
+        :key="option.id ?? option"
+        :value="option"
+      >
+        {{ option.label ?? option }}
+      </option>
+    </select>
+    <textarea
+      v-else-if="computedType === 'textarea'"
+      :id="id"
+      v-model="computedValue"
+      :class="inputElClass"
+      :name="name"
+      :placeholder="placeholder"
+      :required="required"
+    />
+    <input
+      v-else
+      :id="id"
+      ref="inputEl"
+      v-model="computedValue"
+      :name="name"
+      :autocomplete="autocomplete"
+      :required="required"
+      :placeholder="placeholder"
+      :type="computedType"
+      :class="inputElClass"
+    >
+    <control-icon
+      v-if="icon"
+      :icon="icon"
+      :h="controlIconH"
+    />
+  </div>
+</template>
+
 <script setup>
 import { computed, ref, onMounted, onBeforeUnmount } from 'vue'
 import { useMainStore } from '@/store/main'
@@ -100,49 +146,3 @@ if (props.ctrlKFocus) {
   })
 }
 </script>
-
-<template>
-  <div class="relative">
-    <select
-      v-if="computedType === 'select'"
-      :id="id"
-      v-model="computedValue"
-      :name="name"
-      :class="inputElClass"
-    >
-      <option
-        v-for="option in options"
-        :key="option.id ?? option"
-        :value="option"
-      >
-        {{ option.label ?? option }}
-      </option>
-    </select>
-    <textarea
-      v-else-if="computedType === 'textarea'"
-      :id="id"
-      v-model="computedValue"
-      :class="inputElClass"
-      :name="name"
-      :placeholder="placeholder"
-      :required="required"
-    />
-    <input
-      v-else
-      :id="id"
-      ref="inputEl"
-      v-model="computedValue"
-      :name="name"
-      :autocomplete="autocomplete"
-      :required="required"
-      :placeholder="placeholder"
-      :type="computedType"
-      :class="inputElClass"
-    >
-    <control-icon
-      v-if="icon"
-      :icon="icon"
-      :h="controlIconH"
-    />
-  </div>
-</template>

@@ -1,3 +1,12 @@
+<template>
+  <pill
+    :text="trend"
+    :type="trendStyle.style"
+    :icon="trendStyle.icon"
+    :small="small"
+  />
+</template>
+
 <script setup>
 import { computed } from 'vue'
 import { mdiChevronUp, mdiChevronDown, mdiAlertCircleOutline } from '@mdi/js'
@@ -42,12 +51,3 @@ const trendStyle = computed(() => {
   }
 })
 </script>
-
-<template>
-  <pill
-    :text="trend"
-    :type="trendStyle.style"
-    :icon="trendStyle.icon"
-    :small="small"
-  />
-</template>

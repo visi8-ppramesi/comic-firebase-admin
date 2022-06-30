@@ -1,3 +1,14 @@
+<template>
+  <icon
+    :path="icon"
+    :w="w"
+    :h="h"
+    size="24"
+    class="rounded-full"
+    :class="iconStyle"
+  />
+</template>
+
 <script setup>
 import { useMainStore } from '@/store/main'
 import { computed } from 'vue'
@@ -30,14 +41,3 @@ const iconStyle = computed(
   () => props.bg ? colorsBg[props.type] : [colorsText[props.type], `${mainStore.lightBgStyle} dark:bg-gray-800`]
 )
 </script>
-
-<template>
-  <icon
-    :path="icon"
-    :w="w"
-    :h="h"
-    size="24"
-    class="rounded-full"
-    :class="iconStyle"
-  />
-</template>

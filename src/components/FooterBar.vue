@@ -1,16 +1,3 @@
-<script setup>
-import { computed } from 'vue'
-import { useMainStore } from '@/store/main'
-import Level from '@/components/Level.vue'
-import JbLogo from '@/components/JbLogo.vue'
-
-const mainStore = useMainStore()
-
-const year = computed(() => new Date().getFullYear())
-
-const isFooterBarVisible = computed(() => !mainStore.isFullScreen)
-</script>
-
 <template>
   <footer
     v-show="isFooterBarVisible"
@@ -36,3 +23,16 @@ const isFooterBarVisible = computed(() => !mainStore.isFullScreen)
     </level>
   </footer>
 </template>
+
+<script setup>
+import { computed } from 'vue'
+import { useMainStore } from '@/store/main'
+import Level from '@/components/Level.vue'
+import JbLogo from '@/components/JbLogo.vue'
+
+const mainStore = useMainStore()
+
+const year = computed(() => new Date().getFullYear())
+
+const isFooterBarVisible = computed(() => !mainStore.isFullScreen)
+</script>

@@ -1,15 +1,3 @@
-<script setup>
-import { ref } from 'vue'
-import { mdiTable } from '@mdi/js'
-import MainSection from '@/components/MainSection.vue'
-import ComicTable from '@/views/comic/component/ComicTable.vue'
-import CardComponent from '@/components/CardComponent.vue'
-import TitleBar from '@/components/TitleBar.vue'
-import HeroBar from '@/components/HeroBar.vue'
-
-const titleStack = ref(['Admin', 'Comic List'])
-</script>
-
 <template>
   <title-bar :title-stack="titleStack" />
   <hero-bar>Comic List</hero-bar>
@@ -25,3 +13,15 @@ const titleStack = ref(['Admin', 'Comic List'])
     </card-component>
   </main-section>
 </template>
+
+<script setup>
+import { ref } from 'vue'
+import { mdiTable } from '@mdi/js'
+import MainSection from '@/components/MainSection.vue'
+import ComicTable from '@/views/comic/component/ComicTable.vue'
+import CardComponent from '@/components/CardComponent.vue'
+import TitleBar from '@/components/TitleBar.vue'
+import HeroBar from '@/components/HeroBar.vue'
+
+const titleStack = ref(['Admin', 'Comic List'])
+</script>

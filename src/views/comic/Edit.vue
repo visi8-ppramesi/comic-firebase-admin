@@ -1,31 +1,3 @@
-<script>
-import { ref } from 'vue'
-import { mdiSquareEditOutline } from '@mdi/js'
-import MainSection from '@/components/MainSection.vue'
-import TitleBar from '@/components/TitleBar.vue'
-import HeroBar from '@/components/HeroBar.vue'
-import Comic from '@/firebase/comics/Comic.js'
-export default {
-  data () {
-    return {
-      comic: {}
-    }
-  },
-  created () {
-    this.fetchComic()
-  },
-  methods: {
-    async fetchComic () {
-      this.comic = await Comic.getDocumentWithStorageResource(this.$route.params.id, ['cover_image_url'])
-    }
-  }
-}
-</script>
-
-<script setup>
-const titleStack = ref(['Admin', 'Comic', 'Edit'])
-</script>
-
 <template>
   <title-bar :title-stack="titleStack" />
   <hero-bar>Edit Comic</hero-bar>
@@ -134,3 +106,31 @@ const titleStack = ref(['Admin', 'Comic', 'Edit'])
     </comic-card>
   </main-section>
 </template>
+
+<script>
+import { ref } from 'vue'
+import { mdiSquareEditOutline } from '@mdi/js'
+import MainSection from '@/components/MainSection.vue'
+import TitleBar from '@/components/TitleBar.vue'
+import HeroBar from '@/components/HeroBar.vue'
+import Comic from '@/firebase/comics/Comic.js'
+export default {
+  data () {
+    return {
+      comic: {}
+    }
+  },
+  created () {
+    this.fetchComic()
+  },
+  methods: {
+    async fetchComic () {
+      this.comic = await Comic.getDocumentWithStorageResource(this.$route.params.id, ['cover_image_url'])
+    }
+  }
+}
+</script>
+
+<script setup>
+const titleStack = ref(['Admin', 'Comic', 'Edit'])
+</script>

@@ -1,43 +1,3 @@
-<script setup>
-import { computed } from 'vue'
-import { useMainStore } from '@/store/main'
-import { mdiMenu } from '@mdi/js'
-import AsideMenuList from '@/components/AsideMenuList.vue'
-import NavBarItem from '@/components/NavBarItem.vue'
-import Icon from '@/components/Icon.vue'
-
-defineProps({
-  menu: {
-    type: Array,
-    default: () => []
-  }
-})
-
-const mainStore = useMainStore()
-
-const asideStyle = computed(() => mainStore.asideStyle)
-
-const asideBrandStyle = computed(() => mainStore.asideBrandStyle)
-
-const asideMenuCloseLgStyle = computed(() => mainStore.asideMenuCloseLgStyle)
-
-const asideMenuLabelStyle = computed(() => mainStore.asideMenuLabelStyle)
-
-const isFullScreen = computed(() => mainStore.isFullScreen)
-
-const isAsideMobileExpanded = computed(() => mainStore.isAsideMobileExpanded)
-
-const isAsideLgActive = computed(() => mainStore.isAsideLgActive)
-
-const asideLgClose = () => {
-  mainStore.asideLgToggle(false)
-}
-
-const menuClick = (event, item) => {
-  //
-}
-</script>
-
 <template>
   <aside
     v-show="!isFullScreen"
@@ -86,3 +46,43 @@ const menuClick = (event, item) => {
     </div>
   </aside>
 </template>
+
+<script setup>
+import { computed } from 'vue'
+import { useMainStore } from '@/store/main'
+import { mdiMenu } from '@mdi/js'
+import AsideMenuList from '@/components/AsideMenuList.vue'
+import NavBarItem from '@/components/NavBarItem.vue'
+import Icon from '@/components/Icon.vue'
+
+defineProps({
+  menu: {
+    type: Array,
+    default: () => []
+  }
+})
+
+const mainStore = useMainStore()
+
+const asideStyle = computed(() => mainStore.asideStyle)
+
+const asideBrandStyle = computed(() => mainStore.asideBrandStyle)
+
+const asideMenuCloseLgStyle = computed(() => mainStore.asideMenuCloseLgStyle)
+
+const asideMenuLabelStyle = computed(() => mainStore.asideMenuLabelStyle)
+
+const isFullScreen = computed(() => mainStore.isFullScreen)
+
+const isAsideMobileExpanded = computed(() => mainStore.isAsideMobileExpanded)
+
+const isAsideLgActive = computed(() => mainStore.isAsideLgActive)
+
+const asideLgClose = () => {
+  mainStore.asideLgToggle(false)
+}
+
+const menuClick = (event, item) => {
+  //
+}
+</script>

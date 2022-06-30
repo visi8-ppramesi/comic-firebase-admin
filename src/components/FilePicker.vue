@@ -1,3 +1,31 @@
+<template>
+  <div class="flex items-stretch justify-start relative">
+    <label class="inline-flex">
+      <jb-button
+        as="a"
+        :label="label"
+        :icon="icon"
+        :color="color"
+        :class="{ 'rounded-r-none': file }"
+      />
+      <input
+        ref="root"
+        type="file"
+        class="absolute top-0 left-0 w-full h-full opacity-0 outline-none cursor-pointer -z-1"
+        :accept="accept"
+        @input="upload"
+      >
+    </label>
+    <div v-if="file">
+      <span
+        class="inline-flex px-4 py-2 justify-center bg-gray-100 dark:bg-gray-800 border-gray-200 dark:border-gray-700 border rounded-r"
+      >
+        {{ file.name }}
+      </span>
+    </div>
+  </div>
+</template>
+
 <script setup>
 import { mdiUpload } from '@mdi/js'
 import { computed, ref, watch } from 'vue'
@@ -78,31 +106,3 @@ const upload = event => {
 //   )
 // }
 </script>
-
-<template>
-  <div class="flex items-stretch justify-start relative">
-    <label class="inline-flex">
-      <jb-button
-        as="a"
-        :label="label"
-        :icon="icon"
-        :color="color"
-        :class="{ 'rounded-r-none': file }"
-      />
-      <input
-        ref="root"
-        type="file"
-        class="absolute top-0 left-0 w-full h-full opacity-0 outline-none cursor-pointer -z-1"
-        :accept="accept"
-        @input="upload"
-      >
-    </label>
-    <div v-if="file">
-      <span
-        class="inline-flex px-4 py-2 justify-center bg-gray-100 dark:bg-gray-800 border-gray-200 dark:border-gray-700 border rounded-r"
-      >
-        {{ file.name }}
-      </span>
-    </div>
-  </div>
-</template>

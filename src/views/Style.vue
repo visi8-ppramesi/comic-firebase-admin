@@ -1,29 +1,3 @@
-<script setup>
-import { useRouter } from 'vue-router'
-import { useMainStore } from '@/store/main'
-import { sectionBgLogin } from '@/colors.js'
-import MainSection from '@/components/MainSection.vue'
-import CardComponent from '@/components/CardComponent.vue'
-import JbLogo from '@/components/JbLogo.vue'
-
-const styles = [
-  'white',
-  'basic'
-]
-
-const mainStore = useMainStore()
-
-mainStore.setDarkMode(false)
-
-const router = useRouter()
-
-const click = slug => {
-  mainStore.setStyle(slug)
-  mainStore.setDarkMode(false)
-  router.push('/dashboard')
-}
-</script>
-
 <template>
   <main-section
     :class="sectionBgLogin"
@@ -67,3 +41,30 @@ const click = slug => {
     </div>
   </main-section>
 </template>
+
+<script setup>
+import { useRouter } from 'vue-router'
+import { useMainStore } from '@/store/main'
+import { sectionBgLogin } from '@/colors.js'
+import MainSection from '@/components/MainSection.vue'
+import CardComponent from '@/components/CardComponent.vue'
+import JbLogo from '@/components/JbLogo.vue'
+
+const styles = [
+  'white',
+  'basic'
+]
+
+const mainStore = useMainStore()
+
+mainStore.setDarkMode(false)
+
+const router = useRouter()
+
+const click = slug => {
+  mainStore.setStyle(slug)
+  mainStore.setDarkMode(false)
+  router.push('/dashboard')
+}
+</script>
+

@@ -1,3 +1,14 @@
+<template>
+  <div>
+    <img
+      :src="avatar"
+      :alt="name"
+      class="rounded-full block h-auto w-full max-w-full dark:bg-gray-800"
+      :class="lightBgStyle"
+    >
+  </div>
+</template>
+
 <script setup>
 import { useMainStore } from '@/store/main'
 import { computed } from 'vue'
@@ -23,14 +34,3 @@ const avatar = computed(() => props.username
 
 const name = computed(() => props.username ? props.username : mainStore.userName)
 </script>
-
-<template>
-  <div>
-    <img
-      :src="avatar"
-      :alt="name"
-      class="rounded-full block h-auto w-full max-w-full dark:bg-gray-800"
-      :class="lightBgStyle"
-    >
-  </div>
-</template>

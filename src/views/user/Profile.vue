@@ -1,19 +1,3 @@
-<script>
-export default {
-  name: 'fuchsia-tabs',
-  data () {
-    return {
-      openTab: 1
-    }
-  },
-  methods: {
-    toggleTabs: function (tabNumber) {
-      this.openTab = tabNumber
-    }
-  }
-}
-</script>
-
 <template>
   <main-section>
     <div class="grid grid-cols-5 p-5">
@@ -91,3 +75,19 @@ export default {
     </div>
   </main-section>
 </template>
+
+<script>
+export default {
+  name: 'fuchsia-tabs',
+  data () {
+    return {
+      openTab: 1
+    }
+  },
+  methods: {
+    toggleTabs: function (tabNumber) {
+      this.openTab = tabNumber
+    }
+  }
+}
+</script>

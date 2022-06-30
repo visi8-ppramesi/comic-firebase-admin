@@ -1,3 +1,15 @@
+<template>
+  <ul>
+    <aside-menu-item
+      v-for="(item, index) in menu"
+      :key="index"
+      :item="item"
+      :is-submenu-list="isSubmenuList"
+      @menu-click="menuClick"
+    />
+  </ul>
+</template>
+
 <script setup>
 import AsideMenuItem from '@/components/AsideMenuItem.vue'
 
@@ -18,15 +30,3 @@ const menuClick = (event, item) => {
   emit('menu-click', event, item)
 }
 </script>
-
-<template>
-  <ul>
-    <aside-menu-item
-      v-for="(item, index) in menu"
-      :key="index"
-      :item="item"
-      :is-submenu-list="isSubmenuList"
-      @menu-click="menuClick"
-    />
-  </ul>
-</template>

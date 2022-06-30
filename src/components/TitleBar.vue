@@ -1,13 +1,3 @@
-<script setup>
-import Level from '@/components/Level.vue'
-
-defineProps({
-  titleStack: {
-    type: Array,
-    default: () => []
-  }
-})
-</script>
 
 <template>
   <section class="p-6">
@@ -25,6 +15,17 @@ defineProps({
     </level>
   </section>
 </template>
+
+<script setup>
+import Level from '@/components/Level.vue'
+
+defineProps({
+  titleStack: {
+    type: Array,
+    default: () => []
+  }
+})
+</script>
 
 <style scoped>
 li.title-stack-item:not(:last-child):after {

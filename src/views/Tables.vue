@@ -1,18 +1,3 @@
-<script setup>
-import { ref } from 'vue'
-import { mdiMonitorCellphone, mdiAccountMultiple, mdiTableBorder, mdiTableOff } from '@mdi/js'
-import MainSection from '@/components/MainSection.vue'
-import Notification from '@/components/Notification.vue'
-import ClientsTable from '@/components/ClientsTable.vue'
-import CardComponent from '@/components/CardComponent.vue'
-import TitleBar from '@/components/TitleBar.vue'
-import HeroBar from '@/components/HeroBar.vue'
-import BottomOtherPagesSection from '@/components/BottomOtherPagesSection.vue'
-import TitleSubBar from '@/components/TitleSubBar.vue'
-
-const titleStack = ref(['Admin', 'Tables'])
-</script>
-
 <template>
   <title-bar :title-stack="titleStack" />
   <hero-bar>Tables</hero-bar>
@@ -69,3 +54,18 @@ const titleStack = ref(['Admin', 'Tables'])
 
   <bottom-other-pages-section />
 </template>
+
+<script setup>
+import { ref } from 'vue'
+import { mdiMonitorCellphone, mdiAccountMultiple, mdiTableBorder, mdiTableOff } from '@mdi/js'
+import MainSection from '@/components/MainSection.vue'
+import Notification from '@/components/Notification.vue'
+import ClientsTable from '@/components/ClientsTable.vue'
+import CardComponent from '@/components/CardComponent.vue'
+import TitleBar from '@/components/TitleBar.vue'
+import HeroBar from '@/components/HeroBar.vue'
+import BottomOtherPagesSection from '@/components/BottomOtherPagesSection.vue'
+import TitleSubBar from '@/components/TitleSubBar.vue'
+
+const titleStack = ref(['Admin', 'Tables'])
+</script>

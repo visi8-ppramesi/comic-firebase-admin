@@ -1,106 +1,3 @@
-<script>
-import { computed, ref } from 'vue'
-import { useMainStore } from '@/store/main'
-import ModalBox from '@/components/ModalBox.vue'
-import CheckboxCell from '@/components/CheckboxCell.vue'
-import Level from '@/components/Level.vue'
-import JbButtons from '@/components/JbButtons.vue'
-import JbButton from '@/components/JbButton.vue'
-import Author from '@/firebase/Author'
-import { doc, deleteDoc } from 'firebase/firestore'
-import firebase from '@/firebase/firebase'
-export default {
-  data () {
-    return {
-      authors: {}
-    }
-  },
-  mounted () {
-    this.fetchAuthors()
-  },
-  methods: {
-    async fetchAuthors () {
-      const authors = await Author.getAuthors()
-      this.authors = authors
-    },
-    async deleteAuthors (authorId) {
-      const docRef = doc(firebase.db, 'authors', authorId)
-      await deleteDoc(docRef)
-      console.log(docRef)
-      this.$router.go()
-    }
-  }
-}
-</script>
-
-<script setup>
-defineProps({
-  checkable: Boolean
-})
-
-const mainStore = useMainStore()
-
-const lightBorderStyle = computed(() => mainStore.lightBorderStyle)
-
-const lightBgStyle = computed(() => mainStore.lightBgStyle)
-
-const tableTrStyle = computed(() => mainStore.tableTrStyle)
-
-const tableTrOddStyle = computed(() => mainStore.tableTrOddStyle)
-
-const darkMode = computed(() => mainStore.darkMode)
-
-const items = computed(() => mainStore.author)
-
-const isModalActive = ref(false)
-
-const isModalDangerActive = ref(false)
-
-const perPage = ref(10)
-
-const currentPage = ref(0)
-
-const checkedRows = ref([])
-
-// const itemsPaginated = computed(
-//   () => items.value.slice(perPage.value * currentPage.value, perPage.value * (currentPage.value + 1))
-// )
-
-const numPages = computed(() => Math.ceil(items.value.length / perPage.value))
-
-const currentPageHuman = computed(() => currentPage.value + 1)
-
-const pagesList = computed(() => {
-  const pagesList = []
-
-  for (let i = 0; i < numPages.value; i++) {
-    pagesList.push(i)
-  }
-
-  return pagesList
-})
-
-const remove = (arr, cb) => {
-  const newArr = []
-
-  arr.forEach(item => {
-    if (!cb(item)) {
-      newArr.push(item)
-    }
-  })
-
-  return newArr
-}
-
-const checked = (isChecked, author) => {
-  if (isChecked) {
-    checkedRows.value.push(author)
-  } else {
-    checkedRows.value = remove(checkedRows.value, row => row.id === author.id)
-  }
-}
-</script>
-
 <template>
   <modal-box
     v-model="isModalActive"
@@ -210,3 +107,106 @@ const checked = (isChecked, author) => {
     </level>
   </div>
 </template>
+
+<script>
+import { computed, ref } from 'vue'
+import { useMainStore } from '@/store/main'
+import ModalBox from '@/components/ModalBox.vue'
+import CheckboxCell from '@/components/CheckboxCell.vue'
+import Level from '@/components/Level.vue'
+import JbButtons from '@/components/JbButtons.vue'
+import JbButton from '@/components/JbButton.vue'
+import Author from '@/firebase/Author'
+import { doc, deleteDoc } from 'firebase/firestore'
+import firebase from '@/firebase/firebase'
+export default {
+  data () {
+    return {
+      authors: {}
+    }
+  },
+  mounted () {
+    this.fetchAuthors()
+  },
+  methods: {
+    async fetchAuthors () {
+      const authors = await Author.getAuthors()
+      this.authors = authors
+    },
+    async deleteAuthors (authorId) {
+      const docRef = doc(firebase.db, 'authors', authorId)
+      await deleteDoc(docRef)
+      console.log(docRef)
+      this.$router.go()
+    }
+  }
+}
+</script>
+
+<script setup>
+defineProps({
+  checkable: Boolean
+})
+
+const mainStore = useMainStore()
+
+const lightBorderStyle = computed(() => mainStore.lightBorderStyle)
+
+const lightBgStyle = computed(() => mainStore.lightBgStyle)
+
+const tableTrStyle = computed(() => mainStore.tableTrStyle)
+
+const tableTrOddStyle = computed(() => mainStore.tableTrOddStyle)
+
+const darkMode = computed(() => mainStore.darkMode)
+
+const items = computed(() => mainStore.author)
+
+const isModalActive = ref(false)
+
+const isModalDangerActive = ref(false)
+
+const perPage = ref(10)
+
+const currentPage = ref(0)
+
+const checkedRows = ref([])
+
+// const itemsPaginated = computed(
+//   () => items.value.slice(perPage.value * currentPage.value, perPage.value * (currentPage.value + 1))
+// )
+
+const numPages = computed(() => Math.ceil(items.value.length / perPage.value))
+
+const currentPageHuman = computed(() => currentPage.value + 1)
+
+const pagesList = computed(() => {
+  const pagesList = []
+
+  for (let i = 0; i < numPages.value; i++) {
+    pagesList.push(i)
+  }
+
+  return pagesList
+})
+
+const remove = (arr, cb) => {
+  const newArr = []
+
+  arr.forEach(item => {
+    if (!cb(item)) {
+      newArr.push(item)
+    }
+  })
+
+  return newArr
+}
+
+const checked = (isChecked, author) => {
+  if (isChecked) {
+    checkedRows.value.push(author)
+  } else {
+    checkedRows.value = remove(checkedRows.value, row => row.id === author.id)
+  }
+}
+</script>

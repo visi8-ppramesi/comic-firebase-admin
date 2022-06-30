@@ -1,71 +1,3 @@
-<script>
-import { ref } from 'vue'
-import { mdiSquareEditOutline } from '@mdi/js'
-import MainSection from '@/components/MainSection.vue'
-import AuthorCard from '@/views/author/component/AuthorCard.vue'
-import TitleBar from '@/components/TitleBar.vue'
-import HeroBar from '@/components/HeroBar.vue'
-import Author from '@/firebase/Author.js'
-import { doc, updateDoc } from 'firebase/firestore'
-import firebase from '@/firebase/firebase'
-export default {
-  data () {
-    return {
-      // social_media: [{
-      //   name: '',
-      //   link: ''
-      // }],
-      author: {
-        social_media_links: {
-          facebook: null,
-          twitter: null
-        }
-      },
-      profile_picture_url: null,
-      profilePictureChanged: false,
-      imageDataUrl: null
-    }
-  },
-  created () {
-    this.fetchAuthor()
-  },
-  methods: {
-    async fetchAuthor () {
-      this.author = await Author.getDocumentWithStorageResource(this.$route.params.id, ['profile_picture_url'])
-      console.log(this.author)
-    },
-    async updateAuthors (authorId) {
-      const docRef = doc(firebase.db, 'authors', authorId)
-      await updateDoc(docRef, {
-        name: this.author.name,
-        email: this.author.email,
-        description: this.author.description,
-        social_media_links: {
-          facebook: this.social_media_links.facebook,
-          twitter: this.social_media_links.twitter
-        },
-        profile_picture_url: this.imageDataUrl
-      })
-      console.log(docRef)
-      this.$router.push('/author')
-    }
-    // addNewSocialMedia () {
-    //   this.social_media.push({
-    //     name: '',
-    //     link: ''
-    //   })
-    // },
-    // deleteSocialMedia (index) {
-    //   this.social_media.splice(index, 1)
-    // }
-  }
-}
-</script>
-
-<script setup>
-const titleStack = ref(['Admin', 'Author', 'Edit'])
-</script>
-
 <template>
   <title-bar :title-stack="titleStack" />
   <hero-bar>Edit Author</hero-bar>
@@ -154,3 +86,71 @@ const titleStack = ref(['Admin', 'Author', 'Edit'])
     </author-card>
   </main-section>
 </template>
+
+<script>
+import { ref } from 'vue'
+import { mdiSquareEditOutline } from '@mdi/js'
+import MainSection from '@/components/MainSection.vue'
+import AuthorCard from '@/views/author/component/AuthorCard.vue'
+import TitleBar from '@/components/TitleBar.vue'
+import HeroBar from '@/components/HeroBar.vue'
+import Author from '@/firebase/Author.js'
+import { doc, updateDoc } from 'firebase/firestore'
+import firebase from '@/firebase/firebase'
+export default {
+  data () {
+    return {
+      // social_media: [{
+      //   name: '',
+      //   link: ''
+      // }],
+      author: {
+        social_media_links: {
+          facebook: null,
+          twitter: null
+        }
+      },
+      profile_picture_url: null,
+      profilePictureChanged: false,
+      imageDataUrl: null
+    }
+  },
+  created () {
+    this.fetchAuthor()
+  },
+  methods: {
+    async fetchAuthor () {
+      this.author = await Author.getDocumentWithStorageResource(this.$route.params.id, ['profile_picture_url'])
+      console.log(this.author)
+    },
+    async updateAuthors (authorId) {
+      const docRef = doc(firebase.db, 'authors', authorId)
+      await updateDoc(docRef, {
+        name: this.author.name,
+        email: this.author.email,
+        description: this.author.description,
+        social_media_links: {
+          facebook: this.social_media_links.facebook,
+          twitter: this.social_media_links.twitter
+        },
+        profile_picture_url: this.imageDataUrl
+      })
+      console.log(docRef)
+      this.$router.push('/author')
+    }
+    // addNewSocialMedia () {
+    //   this.social_media.push({
+    //     name: '',
+    //     link: ''
+    //   })
+    // },
+    // deleteSocialMedia (index) {
+    //   this.social_media.splice(index, 1)
+    // }
+  }
+}
+</script>
+
+<script setup>
+const titleStack = ref(['Admin', 'Author', 'Edit'])
+</script>

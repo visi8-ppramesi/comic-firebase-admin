@@ -1,65 +1,3 @@
-<script>
-import { ref } from 'vue'
-import { mdiSquareEditOutline } from '@mdi/js'
-import MainSection from '@/components/MainSection.vue'
-import TitleBar from '@/components/TitleBar.vue'
-import HeroBar from '@/components/HeroBar.vue'
-import { collection, addDoc } from 'firebase/firestore'
-import firebase from '@/firebase/firebase'
-// import { getStorage, ref } from "firebase/storage"
-export default {
-  data () {
-    return {
-      // social_media: [{
-      //   name: '',
-      //   link: ''
-      // }]
-      title: null,
-      authors: {},
-      authors_data: {},
-      categories: null,
-      chapters_data: {
-        chapter_number: null,
-        chapter_preiew_url: null,
-        id: null,
-        price: null,
-        release_date: null,
-        view_count: null
-      },
-      cover_image_url: null,
-      description: null,
-      favorite_count: null,
-      is_draft: false,
-      last_update: null,
-      keywords: {},
-      release_date: null,
-      tags: {},
-      view_count: null
-    }
-  },
-  methods: {
-    // addNewSocialMedia () {
-    //   this.social_media.push({
-    //     name: '',
-    //     link: ''
-    //   })
-    // },
-    // deleteSocialMedia (index) {
-    //   this.social_media.splice(index, 1)
-    // }
-    async addComics () {
-      const addData = await addDoc(collection(firebase.db, 'authors'), this.$data)
-      console.log(addData)
-      this.$router.go()
-    }
-  }
-}
-</script>
-
-<script setup>
-const titleStack = ref(['Admin', 'Comic', 'Add'])
-</script>
-
 <template>
   <title-bar :title-stack="titleStack" />
   <hero-bar>Add a New Comic</hero-bar>
@@ -169,3 +107,65 @@ const titleStack = ref(['Admin', 'Comic', 'Add'])
     </comic-card>
   </main-section>
 </template>
+
+<script>
+import { ref } from 'vue'
+import { mdiSquareEditOutline } from '@mdi/js'
+import MainSection from '@/components/MainSection.vue'
+import TitleBar from '@/components/TitleBar.vue'
+import HeroBar from '@/components/HeroBar.vue'
+import { collection, addDoc } from 'firebase/firestore'
+import firebase from '@/firebase/firebase'
+// import { getStorage, ref } from "firebase/storage"
+export default {
+  data () {
+    return {
+      // social_media: [{
+      //   name: '',
+      //   link: ''
+      // }]
+      title: null,
+      authors: {},
+      authors_data: {},
+      categories: null,
+      chapters_data: {
+        chapter_number: null,
+        chapter_preiew_url: null,
+        id: null,
+        price: null,
+        release_date: null,
+        view_count: null
+      },
+      cover_image_url: null,
+      description: null,
+      favorite_count: null,
+      is_draft: false,
+      last_update: null,
+      keywords: {},
+      release_date: null,
+      tags: {},
+      view_count: null
+    }
+  },
+  methods: {
+    // addNewSocialMedia () {
+    //   this.social_media.push({
+    //     name: '',
+    //     link: ''
+    //   })
+    // },
+    // deleteSocialMedia (index) {
+    //   this.social_media.splice(index, 1)
+    // }
+    async addComics () {
+      const addData = await addDoc(collection(firebase.db, 'authors'), this.$data)
+      console.log(addData)
+      this.$router.go()
+    }
+  }
+}
+</script>
+
+<script setup>
+const titleStack = ref(['Admin', 'Comic', 'Add'])
+</script>

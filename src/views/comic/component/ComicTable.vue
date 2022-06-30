@@ -1,97 +1,3 @@
-<script>
-import { computed, ref } from 'vue'
-import { useMainStore } from '@/store/main'
-import ModalBox from '@/components/ModalBox.vue'
-import CheckboxCell from '@/components/CheckboxCell.vue'
-import Level from '@/components/Level.vue'
-import Comic from '@/firebase/comics/Comic.js'
-export default {
-  mounted () {
-    this.fetchComics()
-  },
-  methods: {
-    async fetchComics () {
-      const comics = await Comic.getComics()
-      console.log(comics)
-      this.comics = comics
-    }
-  },
-  data () {
-    return {
-      comics: {}
-    }
-  }
-}
-</script>
-
-<script setup>
-defineProps({
-  checkable: Boolean
-})
-
-const mainStore = useMainStore()
-
-const lightBorderStyle = computed(() => mainStore.lightBorderStyle)
-
-const lightBgStyle = computed(() => mainStore.lightBgStyle)
-
-const tableTrStyle = computed(() => mainStore.tableTrStyle)
-
-const tableTrOddStyle = computed(() => mainStore.tableTrOddStyle)
-
-const darkMode = computed(() => mainStore.darkMode)
-
-const items = computed(() => mainStore.comic)
-
-const isModalActive = ref(false)
-
-const isModalDangerActive = ref(false)
-
-const perPage = ref(10)
-
-const currentPage = ref(0)
-
-const checkedRows = ref([])
-
-// const itemsPaginated = computed(
-//   () => comics.value.slice(perPage.value * currentPage.value, perPage.value * (currentPage.value + 1))
-// )
-
-const numPages = computed(() => Math.ceil(items.value.length / perPage.value))
-
-const currentPageHuman = computed(() => currentPage.value + 1)
-
-const pagesList = computed(() => {
-  const pagesList = []
-
-  for (let i = 0; i < numPages.value; i++) {
-    pagesList.push(i)
-  }
-
-  return pagesList
-})
-
-const remove = (arr, cb) => {
-  const newArr = []
-
-  arr.forEach(item => {
-    if (!cb(item)) {
-      newArr.push(item)
-    }
-  })
-
-  return newArr
-}
-
-const checked = (isChecked, comic) => {
-  if (isChecked) {
-    checkedRows.value.push(comic)
-  } else {
-    checkedRows.value = remove(checkedRows.value, row => row.id === comic.id)
-  }
-}
-</script>
-
 <template>
   <modal-box
     v-model="isModalActive"
@@ -199,3 +105,97 @@ const checked = (isChecked, comic) => {
     </level>
   </div>
 </template>
+
+<script>
+import { computed, ref } from 'vue'
+import { useMainStore } from '@/store/main'
+import ModalBox from '@/components/ModalBox.vue'
+import CheckboxCell from '@/components/CheckboxCell.vue'
+import Level from '@/components/Level.vue'
+import Comic from '@/firebase/comics/Comic.js'
+export default {
+  mounted () {
+    this.fetchComics()
+  },
+  methods: {
+    async fetchComics () {
+      const comics = await Comic.getComics()
+      console.log(comics)
+      this.comics = comics
+    }
+  },
+  data () {
+    return {
+      comics: {}
+    }
+  }
+}
+</script>
+
+<script setup>
+defineProps({
+  checkable: Boolean
+})
+
+const mainStore = useMainStore()
+
+const lightBorderStyle = computed(() => mainStore.lightBorderStyle)
+
+const lightBgStyle = computed(() => mainStore.lightBgStyle)
+
+const tableTrStyle = computed(() => mainStore.tableTrStyle)
+
+const tableTrOddStyle = computed(() => mainStore.tableTrOddStyle)
+
+const darkMode = computed(() => mainStore.darkMode)
+
+const items = computed(() => mainStore.comic)
+
+const isModalActive = ref(false)
+
+const isModalDangerActive = ref(false)
+
+const perPage = ref(10)
+
+const currentPage = ref(0)
+
+const checkedRows = ref([])
+
+// const itemsPaginated = computed(
+//   () => comics.value.slice(perPage.value * currentPage.value, perPage.value * (currentPage.value + 1))
+// )
+
+const numPages = computed(() => Math.ceil(items.value.length / perPage.value))
+
+const currentPageHuman = computed(() => currentPage.value + 1)
+
+const pagesList = computed(() => {
+  const pagesList = []
+
+  for (let i = 0; i < numPages.value; i++) {
+    pagesList.push(i)
+  }
+
+  return pagesList
+})
+
+const remove = (arr, cb) => {
+  const newArr = []
+
+  arr.forEach(item => {
+    if (!cb(item)) {
+      newArr.push(item)
+    }
+  })
+
+  return newArr
+}
+
+const checked = (isChecked, comic) => {
+  if (isChecked) {
+    checkedRows.value.push(comic)
+  } else {
+    checkedRows.value = remove(checkedRows.value, row => row.id === comic.id)
+  }
+}
+</script>

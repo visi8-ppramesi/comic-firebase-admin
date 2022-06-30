@@ -1,3 +1,24 @@
+<template>
+  <title-bar :title-stack="titleStack" />
+  <hero-bar>Add a New Genre</hero-bar>
+  <main-section>
+    <tag-card
+      class="mb-6"
+      title="Genre"
+      label="Add a new Genre"
+      :icon="mdiTable"
+      has-table
+    >
+    <form @submit.prevent="addGenres" class="w-full max-w-sm">
+        <div class="flex items-center border-b border-teal-500 py-2">
+            <input v-model="name" class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none" type="text" placeholder="Genre's Name">
+        </div>
+        <button class="mt-5 bg-blue-500 hover:bg-blue-700 text-white text-sm font-bold py-2 px-4 rounded">Save</button>
+    </form>
+    </tag-card>
+  </main-section>
+</template>
+
 <script>
 import { ref } from 'vue'
 import { mdiTable } from '@mdi/js'
@@ -27,24 +48,3 @@ export default {
 <script setup>
 const titleStack = ref(['Admin', 'Genre', 'Add'])
 </script>
-
-<template>
-  <title-bar :title-stack="titleStack" />
-  <hero-bar>Add a New Genre</hero-bar>
-  <main-section>
-    <tag-card
-      class="mb-6"
-      title="Genre"
-      label="Add a new Genre"
-      :icon="mdiTable"
-      has-table
-    >
-    <form @submit.prevent="addGenres" class="w-full max-w-sm">
-        <div class="flex items-center border-b border-teal-500 py-2">
-            <input v-model="name" class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none" type="text" placeholder="Genre's Name">
-        </div>
-        <button class="mt-5 bg-blue-500 hover:bg-blue-700 text-white text-sm font-bold py-2 px-4 rounded">Save</button>
-    </form>
-    </tag-card>
-  </main-section>
-</template>

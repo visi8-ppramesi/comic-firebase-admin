@@ -1,3 +1,14 @@
+<template>
+  <nav-bar />
+  <aside-menu :menu="menu" />
+  <router-view />
+  <overlay
+    v-show="isAsideLgActive"
+    z-index="z-30"
+    @overlay-click="overlayClick"
+  />
+</template>
+
 <script setup>
 import { computed } from 'vue'
 import { useMainStore } from '@/store/main'
@@ -20,14 +31,3 @@ const overlayClick = () => {
   mainStore.asideLgToggle(false)
 }
 </script>
-
-<template>
-  <nav-bar />
-  <aside-menu :menu="menu" />
-  <router-view />
-  <overlay
-    v-show="isAsideLgActive"
-    z-index="z-30"
-    @overlay-click="overlayClick"
-  />
-</template>

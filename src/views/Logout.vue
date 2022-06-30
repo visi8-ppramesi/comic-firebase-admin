@@ -1,3 +1,7 @@
+<template>
+    <div>Logging out...</div>
+</template>
+
 <script>
 import { useAuthStore } from '../store/auth.js'
 export default {
@@ -14,7 +18,3 @@ export default {
   }
 }
 </script>
-
-<template>
-    <div>Logging out...</div>
-</template>

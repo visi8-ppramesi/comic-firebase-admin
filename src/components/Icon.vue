@@ -1,3 +1,19 @@
+<template>
+  <span :class="spanClass">
+    <svg
+      viewBox="0 0 24 24"
+      :width="size"
+      :height="size"
+      class="inline-block"
+    >
+      <path
+        fill="currentColor"
+        :d="path"
+      />
+    </svg>
+  </span>
+</template>
+
 <script setup>
 import { computed } from 'vue'
 
@@ -22,19 +38,3 @@ const props = defineProps({
 
 const spanClass = computed(() => `inline-flex justify-center items-center ${props.w} ${props.h}`)
 </script>
-
-<template>
-  <span :class="spanClass">
-    <svg
-      viewBox="0 0 24 24"
-      :width="size"
-      :height="size"
-      class="inline-block"
-    >
-      <path
-        fill="currentColor"
-        :d="path"
-      />
-    </svg>
-  </span>
-</template>

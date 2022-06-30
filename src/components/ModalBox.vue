@@ -1,3 +1,47 @@
+<template>
+  <overlay
+    v-show="value"
+    @overlay-click="cancel"
+  >
+    <card-component
+      v-show="value"
+      :title="title"
+      class="shadow-lg w-full max-h-modal md:w-3/5 lg:w-2/5 z-50"
+      rounded="rounded-lg"
+      :header-icon="mdiClose"
+      modal
+      @header-icon-click="cancel"
+    >
+      <div class="space-y-3">
+        <h1
+          v-if="largeTitle"
+          class="text-2xl"
+        >
+          {{ largeTitle }}
+        </h1>
+        <slot />
+      </div>
+
+      <divider />
+
+      <!-- <jb-buttons>
+        <jb-button
+          :label="buttonLabel"
+          :color="button"
+          @click="confirm"
+        />
+        <jb-button
+          v-if="hasCancel"
+          label="Cancel"
+          :color="button"
+          outline
+          @click="cancel"
+        />
+      </jb-buttons> -->
+    </card-component>
+  </overlay>
+</template>
+
 <script setup>
 import { computed } from 'vue'
 import { mdiClose } from '@mdi/js'
@@ -47,47 +91,3 @@ const confirmCancel = mode => {
 
 const cancel = () => confirmCancel('cancel')
 </script>
-
-<template>
-  <overlay
-    v-show="value"
-    @overlay-click="cancel"
-  >
-    <card-component
-      v-show="value"
-      :title="title"
-      class="shadow-lg w-full max-h-modal md:w-3/5 lg:w-2/5 z-50"
-      rounded="rounded-lg"
-      :header-icon="mdiClose"
-      modal
-      @header-icon-click="cancel"
-    >
-      <div class="space-y-3">
-        <h1
-          v-if="largeTitle"
-          class="text-2xl"
-        >
-          {{ largeTitle }}
-        </h1>
-        <slot />
-      </div>
-
-      <divider />
-
-      <!-- <jb-buttons>
-        <jb-button
-          :label="buttonLabel"
-          :color="button"
-          @click="confirm"
-        />
-        <jb-button
-          v-if="hasCancel"
-          label="Cancel"
-          :color="button"
-          outline
-          @click="cancel"
-        />
-      </jb-buttons> -->
-    </card-component>
-  </overlay>
-</template>

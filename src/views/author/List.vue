@@ -1,15 +1,3 @@
-<script setup>
-import { ref } from 'vue'
-import { mdiSquareEditOutline } from '@mdi/js'
-import MainSection from '@/components/MainSection.vue'
-import AuthorTable from '@/views/author/component/AuthorTable.vue'
-import CardComponent from '@/components/CardComponent.vue'
-import TitleBar from '@/components/TitleBar.vue'
-import HeroBar from '@/components/HeroBar.vue'
-
-const titleStack = ref(['Admin', 'Author List'])
-</script>
-
 <template>
   <title-bar :title-stack="titleStack" />
   <hero-bar>Author List</hero-bar>
@@ -25,3 +13,15 @@ const titleStack = ref(['Admin', 'Author List'])
     </card-component>
   </main-section>
 </template>
+
+<script setup>
+import { ref } from 'vue'
+import { mdiSquareEditOutline } from '@mdi/js'
+import MainSection from '@/components/MainSection.vue'
+import AuthorTable from '@/views/author/component/AuthorTable.vue'
+import CardComponent from '@/components/CardComponent.vue'
+import TitleBar from '@/components/TitleBar.vue'
+import HeroBar from '@/components/HeroBar.vue'
+
+const titleStack = ref(['Admin', 'Author List'])
+</script>

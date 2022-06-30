@@ -1,3 +1,36 @@
+<template>
+  <div
+    v-if="!isDismissed"
+    :class="componentClass"
+    class="px-3 py-6 md:py-3 mx-6 md:mx-0 mb-6 last:mb-0 border rounded transition-colors duration-150"
+  >
+    <level>
+      <div class="flex flex-col md:flex-row items-center">
+        <icon
+          v-if="icon"
+          :path="icon"
+          w="w-10 md:w-5"
+          h="h-10 md:h-5"
+          size="24"
+          class="md:mr-2"
+        />
+        <span class="text-center md:text-left"><slot /></span>
+      </div>
+      <slot
+        v-if="hasRightSlot"
+        name="right"
+      />
+      <jb-button
+        v-else
+        :icon="mdiClose"
+        :outline="outline || (darkMode && ['white', 'light'].indexOf(color) < 0)"
+        small
+        @click="dismiss"
+      />
+    </level>
+  </div>
+</template>
+
 <script setup>
 import { ref, computed, useSlots } from 'vue'
 import { useMainStore } from '@/store/main'
@@ -37,36 +70,3 @@ const mainStore = useMainStore()
 
 const darkMode = computed(() => mainStore.darkMode)
 </script>
-
-<template>
-  <div
-    v-if="!isDismissed"
-    :class="componentClass"
-    class="px-3 py-6 md:py-3 mx-6 md:mx-0 mb-6 last:mb-0 border rounded transition-colors duration-150"
-  >
-    <level>
-      <div class="flex flex-col md:flex-row items-center">
-        <icon
-          v-if="icon"
-          :path="icon"
-          w="w-10 md:w-5"
-          h="h-10 md:h-5"
-          size="24"
-          class="md:mr-2"
-        />
-        <span class="text-center md:text-left"><slot /></span>
-      </div>
-      <slot
-        v-if="hasRightSlot"
-        name="right"
-      />
-      <jb-button
-        v-else
-        :icon="mdiClose"
-        :outline="outline || (darkMode && ['white', 'light'].indexOf(color) < 0)"
-        small
-        @click="dismiss"
-      />
-    </level>
-  </div>
-</template>

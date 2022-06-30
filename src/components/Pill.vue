@@ -1,3 +1,19 @@
+<template>
+  <div
+    class="inline-flex items-center last:mr-0 capitalize"
+    :class="componentClass"
+  >
+    <icon
+      v-if="icon"
+      :path="icon"
+      h="h-4"
+      w="w-4"
+      class="mr-2"
+    />
+    <span>{{ text }}</span>
+  </div>
+</template>
+
 <script setup>
 import { computed } from 'vue'
 import { colorsBg, colorsBorders, colorsOutline } from '@/colors.js'
@@ -30,19 +46,3 @@ const componentClass = computed(() => {
   ]
 })
 </script>
-
-<template>
-  <div
-    class="inline-flex items-center last:mr-0 capitalize"
-    :class="componentClass"
-  >
-    <icon
-      v-if="icon"
-      :path="icon"
-      h="h-4"
-      w="w-4"
-      class="mr-2"
-    />
-    <span>{{ text }}</span>
-  </div>
-</template>
