@@ -2,17 +2,44 @@
   <full-screen-section bg="login">
     <div class="w-full md:w-96 md:mx-auto min-h-screen flex flex-col p-5 justify-center">
       <div class="mb-4">
-        <input name="email" for="email" class="shadow appearance-none border rounded-full w-full py-2 px-3 text-grey-darker" v-model="email" id="email" type="text" placeholder="Email">
+        <input
+          id="email"
+          v-model="email"
+          name="email"
+          for="email"
+          class="shadow appearance-none border rounded-full w-full py-2 px-3 text-grey-darker"
+          type="text"
+          placeholder="Email"
+        >
       </div>
       <div class="pass-form">
-        <input name="password" for="password" class="shadow appearance-none border border-red rounded-full w-full py-2 px-3 text-grey-darker mb-3" v-model="password" id="password" type="password" placeholder="Password">
+        <input
+          id="password"
+          v-model="password"
+          name="password"
+          for="password"
+          class="shadow appearance-none border border-red rounded-full w-full py-2 px-3 text-grey-darker mb-3"
+          type="password"
+          placeholder="Password"
+        >
       </div>
       <div class="text-sm text-center text-white mb-10">
-        <router-link to="#">Forgot Password?</router-link>
+        <router-link to="#">
+          Forgot Password?
+        </router-link>
       </div>
-      <div v-if="loginFailed" class="text-red-400 mb-2">Wrong password or email</div>
+      <div
+        v-if="loginFailed"
+        class="text-red-400 mb-2"
+      >
+        Wrong password or email
+      </div>
       <div class="flex items-center justify-between">
-        <button @click="login" class="bg-green-400 w-full hover:bg-blue-dark text-white font-bold py-2 px-4 rounded-full" type="button">
+        <button
+          class="bg-green-400 w-full hover:bg-blue-dark text-white font-bold py-2 px-4 rounded-full"
+          type="button"
+          @click="login"
+        >
           LOG IN
         </button>
       </div>
@@ -20,9 +47,18 @@
         <p>Dont have an account yet? Sign up</p>
       </div>
       <div class="flex flex-row items-center justify-center pt-5">
-        <img class="w-10" :src="facebookIcon" />
-        <img class="w-10" :src="instagramIcon" />
-        <img class="w-10" :src="twitterIcon" />
+        <img
+          class="w-10"
+          :src="facebookIcon"
+        >
+        <img
+          class="w-10"
+          :src="instagramIcon"
+        >
+        <img
+          class="w-10"
+          :src="twitterIcon"
+        >
       </div>
     </div>
   </full-screen-section>
@@ -42,20 +78,9 @@ import FullScreenSection from '@/components/FullScreenSection.vue'
 // import JbButtons from '@/components/JbButtons.vue'
 import { useAuthStore } from '../store/auth.js'
 export default {
-  name: 'login',
+  name: 'Login',
   components: {
     FullScreenSection
-  },
-  data () {
-    return {
-      email: '',
-      password: '',
-      loginFailed: false,
-      facebookIcon: require('../assets/icons/facebook.png'),
-      instagramIcon: require('../assets/icons/instagram.png'),
-      twitterIcon: require('../assets/icons/twitter.png'),
-      karaBackground: require('../assets/kara_bg.jpg')
-    }
   },
   // mounted () {
   //   this.emitter.on('loginError', () => {
@@ -69,6 +94,17 @@ export default {
 
     return {
       authStore
+    }
+  },
+  data () {
+    return {
+      email: '',
+      password: '',
+      loginFailed: false,
+      facebookIcon: require('../assets/icons/facebook.png'),
+      instagramIcon: require('../assets/icons/instagram.png'),
+      twitterIcon: require('../assets/icons/twitter.png'),
+      karaBackground: require('../assets/kara_bg.jpg')
     }
   },
   methods: {

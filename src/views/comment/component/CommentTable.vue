@@ -124,6 +124,11 @@ import JbButton from '@/components/JbButton.vue'
 import Comment from '@/firebase/comics/Comment.js'
 // import { orderByDateDesc } from '@/firebase/utils/queries.js'
 export default {
+  data () {
+    return {
+      comments: {}
+    }
+  },
   mounted () {
     this.fetchComments()
   },
@@ -131,11 +136,6 @@ export default {
     async fetchComments () {
       const comments = await Comment.getDocuments()
       this.comments = comments
-    }
-  },
-  data () {
-    return {
-      comments: {}
     }
   }
 }

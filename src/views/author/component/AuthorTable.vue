@@ -70,16 +70,26 @@
           {{ author.description }}
         </td>
         <td class="actions-cell">
-          <div class="flex justify-end" no-wrap>
+          <div
+            class="flex justify-end"
+            no-wrap
+          >
             <div class="px-2">
               <router-link :to="{name: 'authorEdit', params: { id: author.id}}">
-                <button class="bg-green-500 hover:bg-green-700 text-white text-sm font-bold py-2 px-4 rounded">Edit</button>
+                <button class="bg-green-500 hover:bg-green-700 text-white text-sm font-bold py-2 px-4 rounded">
+                  Edit
+                </button>
               </router-link>
             </div>
 
             <div class="px-2">
               <router-link :to="{name: 'author', params: { id: author.id}}">
-                <button @click="deleteAuthors(author.id)" class="bg-red-500 hover:bg-red-700 text-white text-sm font-bold py-2 px-4 rounded">Delete</button>
+                <button
+                  class="bg-red-500 hover:bg-red-700 text-white text-sm font-bold py-2 px-4 rounded"
+                  @click="deleteAuthors(author.id)"
+                >
+                  Delete
+                </button>
               </router-link>
             </div>
           </div>

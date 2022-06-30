@@ -67,4 +67,3 @@ const click = slug => {
   router.push('/dashboard')
 }
 </script>
-

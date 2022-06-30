@@ -62,8 +62,11 @@
           {{ comic.title }}
         </td>
         <td data-label="Author">
-          <div v-for="author in comic.authors_data" :key="author.id">
-            {{author.name}}
+          <div
+            v-for="author in comic.authors_data"
+            :key="author.id"
+          >
+            {{ author.name }}
           </div>
         </td>
         <td data-label="Genre">
@@ -76,9 +79,14 @@
           {{ comic.last_update }}
         </td>
         <td class="actions-cell">
-          <div class="justify-start lg:justify-end" no-wrap>
+          <div
+            class="justify-start lg:justify-end"
+            no-wrap
+          >
             <router-link :to="{name: 'comicEdit', params: { id: comic.id}}">
-              <button class="bg-green-500 hover:bg-green-700 text-white text-sm font-bold py-2 px-4 rounded">Edit</button>
+              <button class="bg-green-500 hover:bg-green-700 text-white text-sm font-bold py-2 px-4 rounded">
+                Edit
+              </button>
             </router-link>
           </div>
         </td>
@@ -114,6 +122,11 @@ import CheckboxCell from '@/components/CheckboxCell.vue'
 import Level from '@/components/Level.vue'
 import Comic from '@/firebase/comics/Comic.js'
 export default {
+  data () {
+    return {
+      comics: {}
+    }
+  },
   mounted () {
     this.fetchComics()
   },
@@ -122,11 +135,6 @@ export default {
       const comics = await Comic.getComics()
       console.log(comics)
       this.comics = comics
-    }
-  },
-  data () {
-    return {
-      comics: {}
     }
   }
 }

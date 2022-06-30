@@ -6,22 +6,38 @@
       <div class="w-full">
         <ul class="flex mb-0 list-none flex-wrap pt-3 pb-4 flex-row">
           <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
-            <a class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal" v-on:click="toggleTabs(1)" v-bind:class="{'text-blue-600 bg-white': openTab !== 1, 'text-white bg-blue-600': openTab === 1}">
+            <a
+              class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal"
+              :class="{'text-blue-600 bg-white': openTab !== 1, 'text-white bg-blue-600': openTab === 1}"
+              @click="toggleTabs(1)"
+            >
               Banners
             </a>
           </li>
           <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
-            <a class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal" v-on:click="toggleTabs(2)" v-bind:class="{'text-blue-600 bg-white': openTab !== 2, 'text-white bg-blue-600': openTab === 2}">
+            <a
+              class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal"
+              :class="{'text-blue-600 bg-white': openTab !== 2, 'text-white bg-blue-600': openTab === 2}"
+              @click="toggleTabs(2)"
+            >
               Dashboard Tags
             </a>
           </li>
           <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
-            <a class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal" v-on:click="toggleTabs(3)" v-bind:class="{'text-blue-600 bg-white': openTab !== 3, 'text-white bg-blue-600': openTab === 3}">
+            <a
+              class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal"
+              :class="{'text-blue-600 bg-white': openTab !== 3, 'text-white bg-blue-600': openTab === 3}"
+              @click="toggleTabs(3)"
+            >
               Prices
             </a>
           </li>
           <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
-            <a class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal" v-on:click="toggleTabs(4)" v-bind:class="{'text-blue-600 bg-white': openTab !== 4, 'text-white bg-blue-600': openTab === 4}">
+            <a
+              class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal"
+              :class="{'text-blue-600 bg-white': openTab !== 4, 'text-white bg-blue-600': openTab === 4}"
+              @click="toggleTabs(4)"
+            >
               Social Media
             </a>
           </li>
@@ -29,88 +45,201 @@
         <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
           <div class="px-4 py-5 flex-auto">
             <div class="tab-content tab-space">
-              <div v-bind:class="{'hidden': openTab !== 1, 'block': openTab === 1}">
-                  <button @click="addNewBanner" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Add Banners</button>
-                  <div v-for="item in banners" :key="item.index" class="py-4 bg-white shadow shadow-2xl rounded-xl max-w-md mt-3">
-                      <div class="w-full md:w-1/2 px-3 md:mb-0">
-                          <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" type="text" placeholder="Title" />
-                          <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" type="text" placeholder="Link banner to comic" />
-                      </div>
-                      <div class="max-w-xl mt-3 px-4">
-                          <label
-                              class="flex justify-center w-full h-32 px-4 transition bg-white border-2 border-gray-300 border-dashed rounded-md appearance-none cursor-pointer hover:border-gray-400 focus:outline-none">
-                              <span class="flex items-center space-x-2">
-                                  <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-600" fill="none" viewBox="0 0 24 24"
-                                      stroke="currentColor" stroke-width="2">
-                                      <path stroke-linecap="round" stroke-linejoin="round"
-                                          d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-                                  </svg>
-                                  <span class="font-medium text-gray-600">
-                                      Drop files to Attach, or
-                                      <span class="text-blue-600 underline">browse</span>
-                                  </span>
-                              </span>
-                              <input type="file" name="file_upload" class="hidden">
-                          </label>
-                      </div>
-                      <button @click="deleteBanner(index)" class="mx-4 my-3 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Cancel</button>
+              <div :class="{'hidden': openTab !== 1, 'block': openTab === 1}">
+                <button
+                  class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                  @click="addNewBanner"
+                >
+                  Add Banners
+                </button>
+                <div
+                  v-for="item in banners"
+                  :key="item.index"
+                  class="py-4 bg-white shadow shadow-2xl rounded-xl max-w-md mt-3"
+                >
+                  <div class="w-full md:w-1/2 px-3 md:mb-0">
+                    <input
+                      id="grid-first-name"
+                      class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                      type="text"
+                      placeholder="Title"
+                    >
+                    <input
+                      id="grid-first-name"
+                      class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                      type="text"
+                      placeholder="Link banner to comic"
+                    >
                   </div>
+                  <div class="max-w-xl mt-3 px-4">
+                    <label
+                      class="flex justify-center w-full h-32 px-4 transition bg-white border-2 border-gray-300 border-dashed rounded-md appearance-none cursor-pointer hover:border-gray-400 focus:outline-none"
+                    >
+                      <span class="flex items-center space-x-2">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          class="w-6 h-6 text-gray-600"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                          />
+                        </svg>
+                        <span class="font-medium text-gray-600">
+                          Drop files to Attach, or
+                          <span class="text-blue-600 underline">browse</span>
+                        </span>
+                      </span>
+                      <input
+                        type="file"
+                        name="file_upload"
+                        class="hidden"
+                      >
+                    </label>
+                  </div>
+                  <button
+                    class="mx-4 my-3 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                    @click="deleteBanner(index)"
+                  >
+                    Cancel
+                  </button>
+                </div>
 
-                  <button class="my-3 mx-4  w-24 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Save</button>
+                <button class="my-3 mx-4  w-24 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                  Save
+                </button>
               </div>
-              <div v-bind:class="{'hidden': openTab !== 2, 'block': openTab === 2}">
-                <button @click="addNewTag" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Add Tags</button>
-                  <div v-for="item in tags" :key="item.index" class="py-4 bg-white shadow shadow-2xl rounded-xl max-w-md mt-3">
-                      <div class="w-full md:w-1/2 px-3 md:mb-0">
-                          <label class="font-bold my-3 text-gray-700">Tags Name</label>
-                          <div class="flex my-3">
-                              <input class="appearance-none block w-96 bg-gray-200 text-gray-700 border border-gray-200 rounded px-4 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" type="text" placeholder="Tag's Name" />
-                              <button @click="deleteTag(index)" class="mx-4 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Cancel</button>
-                          </div>
-                      </div>
+              <div :class="{'hidden': openTab !== 2, 'block': openTab === 2}">
+                <button
+                  class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                  @click="addNewTag"
+                >
+                  Add Tags
+                </button>
+                <div
+                  v-for="item in tags"
+                  :key="item.index"
+                  class="py-4 bg-white shadow shadow-2xl rounded-xl max-w-md mt-3"
+                >
+                  <div class="w-full md:w-1/2 px-3 md:mb-0">
+                    <label class="font-bold my-3 text-gray-700">Tags Name</label>
+                    <div class="flex my-3">
+                      <input
+                        id="grid-first-name"
+                        class="appearance-none block w-96 bg-gray-200 text-gray-700 border border-gray-200 rounded px-4 leading-tight focus:outline-none focus:bg-white"
+                        type="text"
+                        placeholder="Tag's Name"
+                      >
+                      <button
+                        class="mx-4 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                        @click="deleteTag(index)"
+                      >
+                        Cancel
+                      </button>
+                    </div>
                   </div>
+                </div>
 
-                  <button class="my-3 mx-4  w-24 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Save</button>
+                <button class="my-3 mx-4  w-24 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                  Save
+                </button>
               </div>
-              <div v-bind:class="{'hidden': openTab !== 3, 'block': openTab === 3}">
-                <button @click="addNewPrice" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Add Prices</button>
-                  <div v-for="item in prices" :key="item.index" class="py-4 bg-white shadow shadow-2xl rounded-xl max-w-md mt-3">
-                      <div class="w-full md:w-1/2 px-3 md:mb-0">
-                          <div class="flex">
-                              <div>
-                                  <label class="font-bold my-3 text-gray-700">Tokens Price</label>
-                                  <div class="flex my-3">
-                                      <input class="appearance-none block w-96 bg-gray-200 text-gray-700 border border-gray-200 rounded px-4 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" type="text" placeholder="Token's Price" />
-                                      <a class="mx-2 flex items-center justify-center"> - </a>
-                                  </div>
-                              </div>
-                              <div>
-                                  <label class="font-bold my-3 text-gray-700">Tokens Amount</label>
-                                  <div class="flex my-3">
-                                      <input class="appearance-none block w-96 bg-gray-200 text-gray-700 border border-gray-200 rounded px-4 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" type="text" placeholder="Token's Amount" />
-                                      <button @click="deletePrice(index)" class="mx-4 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Cancel</button>
-                                  </div>
-                              </div>
-                          </div>
+              <div :class="{'hidden': openTab !== 3, 'block': openTab === 3}">
+                <button
+                  class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                  @click="addNewPrice"
+                >
+                  Add Prices
+                </button>
+                <div
+                  v-for="item in prices"
+                  :key="item.index"
+                  class="py-4 bg-white shadow shadow-2xl rounded-xl max-w-md mt-3"
+                >
+                  <div class="w-full md:w-1/2 px-3 md:mb-0">
+                    <div class="flex">
+                      <div>
+                        <label class="font-bold my-3 text-gray-700">Tokens Price</label>
+                        <div class="flex my-3">
+                          <input
+                            id="grid-first-name"
+                            class="appearance-none block w-96 bg-gray-200 text-gray-700 border border-gray-200 rounded px-4 leading-tight focus:outline-none focus:bg-white"
+                            type="text"
+                            placeholder="Token's Price"
+                          >
+                          <a class="mx-2 flex items-center justify-center"> - </a>
+                        </div>
                       </div>
+                      <div>
+                        <label class="font-bold my-3 text-gray-700">Tokens Amount</label>
+                        <div class="flex my-3">
+                          <input
+                            id="grid-first-name"
+                            class="appearance-none block w-96 bg-gray-200 text-gray-700 border border-gray-200 rounded px-4 leading-tight focus:outline-none focus:bg-white"
+                            type="text"
+                            placeholder="Token's Amount"
+                          >
+                          <button
+                            class="mx-4 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                            @click="deletePrice(index)"
+                          >
+                            Cancel
+                          </button>
+                        </div>
+                      </div>
+                    </div>
                   </div>
+                </div>
 
-                  <button class="my-3 mx-4  w-24 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Save</button>
+                <button class="my-3 mx-4  w-24 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                  Save
+                </button>
               </div>
-              <div v-bind:class="{'hidden': openTab !== 4, 'block': openTab === 4}">
-                <button @click="addNewSocialMedia" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Add Banners</button>
-                  <div v-for="item in social_media" :key="item.index" class="py-4 bg-white shadow shadow-2xl rounded-xl max-w-md mt-3">
-                      <div class="w-full md:w-1/2 px-3 md:mb-0">
-                          <label class="font-bold text-gray-700">Social Media Name</label>
-                          <div class="my-3">
-                              <input class="appearance-none block max-w-xl bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" type="text" placeholder="Social Media Name" />
-                              <input class="appearance-none block max-w-xl bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" type="text" placeholder="Social Media Link" />
-                          </div>
-                      </div>
-                      <button @click="deleteSocialMedia(index)" class="mx-4 my-3 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Delete</button>
+              <div :class="{'hidden': openTab !== 4, 'block': openTab === 4}">
+                <button
+                  class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                  @click="addNewSocialMedia"
+                >
+                  Add Banners
+                </button>
+                <div
+                  v-for="item in social_media"
+                  :key="item.index"
+                  class="py-4 bg-white shadow shadow-2xl rounded-xl max-w-md mt-3"
+                >
+                  <div class="w-full md:w-1/2 px-3 md:mb-0">
+                    <label class="font-bold text-gray-700">Social Media Name</label>
+                    <div class="my-3">
+                      <input
+                        id="grid-first-name"
+                        class="appearance-none block max-w-xl bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                        type="text"
+                        placeholder="Social Media Name"
+                      >
+                      <input
+                        id="grid-first-name"
+                        class="appearance-none block max-w-xl bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                        type="text"
+                        placeholder="Social Media Link"
+                      >
+                    </div>
                   </div>
+                  <button
+                    class="mx-4 my-3 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                    @click="deleteSocialMedia(index)"
+                  >
+                    Delete
+                  </button>
+                </div>
 
-                  <button class="my-3 mx-4  w-24 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Save</button>
+                <button class="my-3 mx-4  w-24 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                  Save
+                </button>
               </div>
             </div>
           </div>
@@ -126,7 +255,7 @@ import MainSection from '@/components/MainSection.vue'
 import TitleBar from '@/components/TitleBar.vue'
 import HeroBar from '@/components/HeroBar.vue'
 export default {
-  name: 'fuchsia-tabs',
+  name: 'FuchsiaTabs',
   data () {
     return {
       openTab: 1,

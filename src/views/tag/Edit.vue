@@ -9,15 +9,25 @@
       :icon="mdiTable"
       has-table
     >
-    <form class="w-full max-w-sm">
+      <form class="w-full max-w-sm">
         <div class="flex items-center border-b border-teal-500 py-2">
-            <input v-model="tag.name" class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none" type="text" placeholder="Tag's Name">
+          <input
+            v-model="tag.name"
+            class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
+            type="text"
+            placeholder="Tag's Name"
+          >
         </div>
-    </form>
+      </form>
 
-    <router-link :to="{name: 'tag', params: { id: tag.id}}">
-      <button @click="updateTags(tag.id)" class="mt-3 bg-blue-500 hover:bg-blue-700 text-white text-sm font-bold py-2 px-4 rounded">Save</button>
-    </router-link>
+      <router-link :to="{name: 'tag', params: { id: tag.id}}">
+        <button
+          class="mt-3 bg-blue-500 hover:bg-blue-700 text-white text-sm font-bold py-2 px-4 rounded"
+          @click="updateTags(tag.id)"
+        >
+          Save
+        </button>
+      </router-link>
     </tag-card>
   </main-section>
 </template>

@@ -61,13 +61,20 @@
           <div class="flex justify-end">
             <div class="px-2">
               <router-link :to="{name: 'genreEdit', params: { id: item.id}}">
-                <button class="bg-green-500 hover:bg-green-700 text-white text-sm font-bold py-2 px-4 rounded">Edit</button>
+                <button class="bg-green-500 hover:bg-green-700 text-white text-sm font-bold py-2 px-4 rounded">
+                  Edit
+                </button>
               </router-link>
             </div>
-             <div class="px-2">
-                <router-link :to="{name: 'genre', params: { id: item.id}}">
-                  <button @click="deleteGenres(item.id)" class="bg-red-500 hover:bg-red-700 text-white text-sm font-bold py-2 px-4 rounded">Delete</button>
-                </router-link>
+            <div class="px-2">
+              <router-link :to="{name: 'genre', params: { id: item.id}}">
+                <button
+                  class="bg-red-500 hover:bg-red-700 text-white text-sm font-bold py-2 px-4 rounded"
+                  @click="deleteGenres(item.id)"
+                >
+                  Delete
+                </button>
+              </router-link>
             </div>
           </div>
         </td>
@@ -105,6 +112,11 @@ import Category from '@/firebase/Category.js'
 import { doc, deleteDoc } from 'firebase/firestore'
 import firebase from '@/firebase/firebase'
 export default {
+  data () {
+    return {
+      categories: {}
+    }
+  },
   mounted () {
     this.fetchCategories()
   },
@@ -118,11 +130,6 @@ export default {
       await deleteDoc(docRef)
       console.log(docRef)
       this.$router.go()
-    }
-  },
-  data () {
-    return {
-      categories: {}
     }
   }
 }

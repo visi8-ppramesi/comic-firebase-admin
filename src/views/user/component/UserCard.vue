@@ -1,39 +1,68 @@
 <template>
-    <modal-box
-        v-model="isModalActive"
-        hascancel
-        title="Create new User"
-    >
-        <div class="flex">
-            <label class="w-72 px-4 flex items-center justify-start font-bold text-gray-700">Role</label>
-            <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" type="text" placeholder="Enter User Role" />
-        </div>
+  <modal-box
+    v-model="isModalActive"
+    hascancel
+    title="Create new User"
+  >
+    <div class="flex">
+      <label class="w-72 px-4 flex items-center justify-start font-bold text-gray-700">Role</label>
+      <input
+        id="grid-first-name"
+        class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
+        type="text"
+        placeholder="Enter User Role"
+      >
+    </div>
 
-        <div class="flex">
-            <label class="w-72 px-4 flex items-center justify-start font-bold text-gray-700">Name</label>
-            <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" type="text" placeholder="Enter User Name" />
-        </div>
+    <div class="flex">
+      <label class="w-72 px-4 flex items-center justify-start font-bold text-gray-700">Name</label>
+      <input
+        id="grid-first-name"
+        class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
+        type="text"
+        placeholder="Enter User Name"
+      >
+    </div>
 
-        <div class="flex">
-            <label class="w-72 px-4 flex items-center justify-start font-bold text-gray-700">Email</label>
-            <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" type="text" placeholder="Enter User Email" />
-        </div>
+    <div class="flex">
+      <label class="w-72 px-4 flex items-center justify-start font-bold text-gray-700">Email</label>
+      <input
+        id="grid-first-name"
+        class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
+        type="text"
+        placeholder="Enter User Email"
+      >
+    </div>
 
-        <div class="flex">
-            <label class="w-72 px-4 flex items-center justify-start font-bold text-gray-700">Password</label>
-            <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" type="text" placeholder="Enter User Password" />
-        </div>
+    <div class="flex">
+      <label class="w-72 px-4 flex items-center justify-start font-bold text-gray-700">Password</label>
+      <input
+        id="grid-first-name"
+        class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
+        type="text"
+        placeholder="Enter User Password"
+      >
+    </div>
 
-        <div class="flex">
-            <label class="w-72 px-4 flex items-center justify-start font-bold text-gray-700">Confirm Password</label>
-            <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" type="text" placeholder="Confirm User Password" />
-        </div>
+    <div class="flex">
+      <label class="w-72 px-4 flex items-center justify-start font-bold text-gray-700">Confirm Password</label>
+      <input
+        id="grid-first-name"
+        class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
+        type="text"
+        placeholder="Confirm User Password"
+      >
+    </div>
 
-        <div class="flex items-center justify-center pt-5">
-            <button class="mx-2 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Cancel</button>
-            <button class="mx-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Confirm</button>
-        </div>
-    </modal-box>
+    <div class="flex items-center justify-center pt-5">
+      <button class="mx-2 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+        Cancel
+      </button>
+      <button class="mx-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+        Confirm
+      </button>
+    </div>
+  </modal-box>
 
   <component
     :is="is"
