@@ -14,7 +14,7 @@ import {
     // limit
 } from "firebase/firestore";  
 import utils from './utils/index.js'
-import { LongText, ProfilePicture, InstanceData, StorageLink } from './types/index.js';
+import types, { LongText, ProfilePicture, InstanceData, StorageLink } from './types/index.js';
 import handleError from '@/utils/handleError.js';
 import _ from 'lodash'
 
@@ -50,11 +50,20 @@ export default class{
     constructor(){
         Object.values(this.constructor.fields).forEach((fieldType) => {
             const isClass = fieldType.toString().substring(0, 5) === 'class'
+            const isFuckyFunction = typeof fieldType === 'function' ? fieldType.name in types : false
             if(isClass){
                 const funcs = _.remove(Object.getOwnPropertyNames(fieldType.prototype), (n) => n != 'constructor')
                 funcs.forEach((func) => {
                     Object.assign(this, {
                         [func]: fieldType.prototype[func]
+                    })
+                })
+            }else if(isFuckyFunction){
+                const fName = fieldType.name
+                const funcs = _.remove(Object.getOwnPropertyNames(types[fName].prototype), (n) => n != 'constructor')
+                funcs.forEach((func) => {
+                    Object.assign(this, {
+                        [func]: types[fName].prototype[func]
                     })
                 })
             }
@@ -72,6 +81,7 @@ export default class{
                 const eventRef = this.doc.ref
                 await updateDoc(eventRef, data)
                 this.setData(this.id, data)
+                return this
             }
         }catch(err){
             handleError(err, 'updateDocumentError')
@@ -101,7 +111,7 @@ export default class{
         const dataFields = Object.keys(data)
         const checkFields = dataFields.reduce((acc, field) => {
             let extra = true
-            if(this.validationRules[field]){
+            if(this.validationRules && this.validationRules[field]){
                 extra = this.validationRules[field](data[field])
             }
             const weGood = extra && (field in this.fields)
@@ -123,6 +133,12 @@ export default class{
         const fields = Object.keys(this.constructor.fields)
         for(let p = 0; p < fields.length; p++){
             const field = fields[p]
+            if(_.isNil(data[field])){
+                if(_.isNil(this[field])){
+                    this[field] = null
+                }
+                continue
+            }
             
             const isSubcollection = this.constructor.fields[field] == Subcollection
             const isProfilePicture = this.constructor.fields[field] == ProfilePicture
@@ -154,10 +170,16 @@ export default class{
         }
     }
 
-    toDataJSON(){
+    toDataJSON(selectFields = []){
         return Object.keys(this.constructor.fields).reduce((acc, field) => {
             if(this[field]){
-                acc[field] = this[field]
+                if(selectFields.length > 0){
+                    if(selectFields.includes(field)){
+                        acc[field] = this[field]
+                    }
+                }else{
+                    acc[field] = this[field]
+                }
             }
             return acc
         }, {})

@@ -5,6 +5,8 @@ import App from './App.vue'
 import router from './router'
 import { useMainStore } from '@/store/main'
 import { darkModeKey, styleKey } from '@/config.js'
+import VueToast from 'vue-toast-notification'
+import 'vue-toast-notification/dist/theme-sugar.css'
 
 import './css/main.css'
 
@@ -12,7 +14,7 @@ import './css/main.css'
 const pinia = createPinia()
 
 /* Create Vue app */
-createApp(App).use(router).use(pinia).mount('#app')
+createApp(App).use(VueToast).use(router).use(pinia).mount('#app')
 
 /* Init Pinia main store */
 const mainStore = useMainStore(pinia)

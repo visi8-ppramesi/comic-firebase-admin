@@ -151,7 +151,18 @@
           <label
             class="flex justify-center w-full h-32 px-4 mt-2 transition bg-white border-2 border-gray-300 border-dashed rounded-md appearance-none cursor-pointer hover:border-gray-400 focus:outline-none"
           >
-            <span class="flex items-center space-x-2">
+            <img
+              v-if="imageDataUrl"
+              :src="imageDataUrl"
+            >
+            <img
+              v-else-if="coverLoaded"
+              :src="comic.cover_image_url"
+            >
+            <span
+              v-else
+              class="flex items-center space-x-2"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 class="w-6 h-6 text-gray-600"
@@ -172,9 +183,11 @@
               </span>
             </span>
             <input
+              accept="image/*"
               type="file"
               name="file_upload"
               class="hidden"
+              @change="onFileChange"
             >
           </label>
         </div>
@@ -261,6 +274,7 @@ import isEmpty from 'lodash/isEmpty'
 import remove from 'lodash/remove'
 import { PlusIcon, XIcon } from '@heroicons/vue/solid'
 import { where } from 'firebase/firestore'
+import utils from '@/firebase/utils/index.js'
 // import {
 //   Combobox,
 //   ComboboxInput,
@@ -290,7 +304,11 @@ export default {
       searchAuthorResult: [],
       searchAuthorSearching: false,
       searchAuthorSearched: false,
-      selectedAuthor: null
+      selectedAuthor: null,
+      coverImage: null,
+      coverImageChanged: false,
+      imageDataUrl: null,
+      coverLoaded: false
     }
   },
   computed: {
@@ -309,8 +327,19 @@ export default {
     this.fetchCategories()
   },
   methods: {
+    onFileChange (event) {
+      this.coverImage = event.target.files[0]
+      this.imageDataUrl = URL.createObjectURL(this.coverImage)
+      this.coverImageChanged = true
+    },
     async fetchComic () {
       this.comic = await Comic.getDocument(this.$route.params.id)
+      if (this.comic.cover_image_url) {
+        this.comic.cover_image_url = await utils.getDataUrlFromStorage(this.comic.cover_image_url).then((cover) => {
+          this.coverLoaded = true
+          return cover
+        })
+      }
     },
     async fetchTags () {
       this.tags = await Tag.getDocuments()
@@ -318,10 +347,32 @@ export default {
     async fetchCategories () {
       this.categories = await Category.getDocuments()
     },
-    submitData () {
-      const processedData = this.comic.toDataJSON()
-      console.log(processedData)
-    //   this.comic.updateDocument(processedData)
+    async submitData () {
+      try {
+        if (this.coverImageChanged) {
+          console.log('asdf')
+          await this.comic.uploadField('cover_image_url', 'covers/' + this.comic.id, this.coverImage)
+        }
+        const processedData = this.comic.toDataJSON(['authors', 'authors_data', 'categories', 'tags', 'title', 'description'])
+        await this.comic.updateDocument(processedData)
+        this.$toast.open({
+          message: 'Success!',
+          type: 'success',
+          duration: 5000,
+          dismissible: true,
+          position: 'bottom'
+        })
+      } catch (err) {
+        this.$toast.open({
+          message: err.toString(),
+          type: 'error',
+          duration: 5000,
+          dismissible: true,
+          position: 'bottom'
+        })
+      }
+
+    // this.comic.updateDocument(processedData)
     },
     deleteAuthor (authorRef) {
       remove(this.comic.authors, author => author.id === authorRef.id)

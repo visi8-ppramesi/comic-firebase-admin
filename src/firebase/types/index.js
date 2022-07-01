@@ -53,3 +53,5 @@ export class InstanceData{
         return Object.keys(this.fields)
     }
 }
+
+export default {Subdoc, LongText, ProfilePicture, StorageLink, InstanceData}

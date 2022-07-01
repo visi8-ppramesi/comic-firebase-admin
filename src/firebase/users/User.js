@@ -43,6 +43,13 @@ export default class extends Collection{
         'profile_image_url': ProfilePicture,
     }
 
+    async getRoles(){
+        const roleRef = doc(this.constructor.db, 'user_roles', this.id)
+        const roleDoc = await getDoc(roleRef)
+
+        return roleDoc.get('roles')
+    }
+
     async unsubscribeComic(id){
         const comicRef = doc(this.constructor.db, 'comics', id)
         const userRef = doc(this.constructor.db, 'users', this.id)
