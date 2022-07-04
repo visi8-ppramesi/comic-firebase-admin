@@ -31,4 +31,9 @@ export default class extends Subcollection{
         this.pages = await Page.getDocuments(path, queries)
         return this.pages
     }
+
+    static async getChapters(path){
+        const chapters = await this.getDocuments(path)
+        return chapters
+    }
 }

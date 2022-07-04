@@ -21,6 +21,24 @@ export const actionQueryLimitTen = [ ...actionQuery, ...orderByLimit ]
 export const adventureQuery = [ where('categories', 'array-contains', 'adventure') ]
 export const adventureQueryLimitTen = [ ...adventureQuery, ...orderByLimit ]
 
+export const comicQueryPaginated = (comic, orderByParam = "title", startAtParam = null) => {
+    const comQuery = !comic || comic == 'all' ? [] : [ where('comics', 'array-contains', comic) ]
+    if(startAtParam){
+        return [ ...comQuery, orderBy(orderByParam), limit(10), startAfter(startAtParam) ]
+    }else{
+        return [ ...comQuery, orderBy(orderByParam), limit(10)]
+    }
+}
+
+export const authorQueryPaginated = (author, orderByParam = "name", startAtParam = null) => {
+    const authorQuery = !author || author == 'all' ? [] : [ where('authors', 'array-contains', author) ]
+    if(startAtParam){
+        return [ ...authorQuery, orderBy(orderByParam), limit(10), startAfter(startAtParam) ]
+    }else{
+        return [ ...authorQuery, orderBy(orderByParam), limit(10)]
+    }
+}
+
 export const categoryQueryPaginated = (category, orderByParam = "title", startAtParam = null) => {
     const catQuery = !category || category == 'all' ? [] : [ where('categories', 'array-contains', category) ]
     if(startAtParam){
@@ -29,12 +47,22 @@ export const categoryQueryPaginated = (category, orderByParam = "title", startAt
         return [ ...catQuery, orderBy(orderByParam), limit(10)]
     }
 }
-export const tagQueryPaginated = (tag, orderByParam = "title", startAtParam = null) => {
+
+export const tagQueryPaginated = (tag, orderByParam = "name", startAtParam = null) => {
     const tagQuery = !tag || tag == 'all' ? [] : [ where('tags', 'array-contains', tag) ]
     if(startAtParam){
         return [ ...tagQuery, orderBy(orderByParam), limit(10), startAfter(startAtParam) ]
     }else{
         return [ ...tagQuery, orderBy(orderByParam), limit(10)]
+    }
+}
+
+export const genreQueryPaginated = (genre, orderByParam = "name", startAtParam = null) => {
+    const genreQuery = !genre || genre == 'all' ? [] : [ where('genres', 'array-contains', genre) ]
+    if(startAtParam){
+        return [ ...genreQuery, orderBy(orderByParam), limit(10), startAfter(startAtParam) ]
+    }else{
+        return [ ...genreQuery, orderBy(orderByParam), limit(10)]
     }
 }
 

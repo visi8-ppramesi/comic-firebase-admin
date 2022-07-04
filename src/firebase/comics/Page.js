@@ -15,4 +15,9 @@ export default class extends Subcollection{
 
     // constructor(path){
     // }
+
+    static async getPages(path){
+        const page = await this.getDocuments(path)
+        return page
+    }
 }
