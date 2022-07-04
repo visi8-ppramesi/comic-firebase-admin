@@ -11,7 +11,34 @@ export default function(err, type){
         case 'registerError':
             emitter.emit('registerError')
             break;
+        case 'uploadFileError':
+            app._instance.proxy.$toast.open({
+                message: "Something went wrong!",
+                type: "error",
+                duration: 5000,
+                dismissible: true,
+                position: 'bottom'
+            })
+            break;
         case 'getDocumentError':
+            app._instance.proxy.$toast.open({
+                message: "Something went wrong!",
+                type: "error",
+                duration: 5000,
+                dismissible: true,
+                position: 'bottom'
+            })
+            break;
+        case 'updateDocumentError':
+            app._instance.proxy.$toast.open({
+                message: "Something went wrong!",
+                type: "error",
+                duration: 5000,
+                dismissible: true,
+                position: 'bottom'
+            })
+            break;
+        case 'deleteDocumentError':
             app._instance.proxy.$toast.open({
                 message: "Something went wrong!",
                 type: "error",

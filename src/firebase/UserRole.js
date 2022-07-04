@@ -1,3 +1,4 @@
+/* eslint-disable */
 import Collection from './Collection'
 // import User from "./users/User";
 
