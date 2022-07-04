@@ -415,6 +415,7 @@ import isEmpty from 'lodash/isEmpty'
 import remove from 'lodash/remove'
 import { PlusIcon, XIcon } from '@heroicons/vue/solid'
 import { where } from 'firebase/firestore'
+import handleError from '@/utils/handleError.js'
 // import utils from '@/firebase/utils/index.js'
 // import { getStorage, ref } from "firebase/storage"
 export default {
@@ -491,7 +492,14 @@ export default {
         const newComic = await Comic.createDocument({ authors, authors_data, categories, tags, title, description, release_date: new Date() })
         console.log(newComic)
         if (this.coverImageChanged) {
-          await newComic.uploadField('cover_image_url', 'covers/' + newComic.id, this.coverImage)
+          try {
+            await newComic.adminUploadField('cover_image_url', 'covers/' + newComic.id, this.coverImage)
+          } catch (err) {
+            await newComic.deleteDocument()
+            console.error('error... deleting...')
+            handleError(err, 'uploadFileError')
+            throw err
+          }
         }
         this.$toast.open({
           message: 'Success!',

@@ -36,11 +36,11 @@ export default class extends Collection{
         // 'chapters_data': Array,
         'last_update': Date,
         'chapters_data': new InstanceData({
-            id: String, 
-            chapter_number: Number, 
-            chapter_preview_url: StorageLink, 
-            release_date: Date, 
-            view_count: Number, 
+            id: String,
+            chapter_number: Number,
+            chapter_preview_url: StorageLink,
+            release_date: Date,
+            view_count: Number,
             price: Number
         })
     }
@@ -73,7 +73,7 @@ export default class extends Collection{
             doc.user_data.profile_image_url = await utils.getDataUrlFromStorage(doc.user_data.profile_image_url)
             return doc
         }))
-        return this.commentss
+        return this.comments
     }
 
     static async getComics(){
