@@ -6,32 +6,51 @@
   </div>
 
   <table>
-      <thead>
-          <tr>
-              <th v-if="checkable" />
-              <th>Id</th>
-              <th>Page Number</th>
-              <th>AR</th>
-              <th>Media Type</th>
-              <th />
-          </tr>
-      </thead>
-      <tbody v-for="item in pages" :key="item.id">
-          <tr :class="[tableTrStyle, index % 2 === 0 ? tableTrOddStyle : '']">
-              <checkbox-cell v-if="checkable" @checked="checked($event, comic)"/>
-              <td data-label="Id">{{ item.id }}</td>
-              <td data-label="Title">{{ item.page_number }}</td>
-              <td data-label="Author">{{item.is_ar}}</td>
-              <td data-label="Genre">{{ item.media_type }}</td>
-              <td class="actions-cell">
-                  <div class="justify-start lg:justify-end" no-wrap>
-                    <router-link :to="{name: 'pageEdit', params: { pageId: item.id}}">
-                      <button class="bg-green-500 hover:bg-green-700 text-white text-sm font-bold py-2 px-4 rounded">Edit</button>
-                    </router-link>
-                  </div>
-              </td>
-          </tr>
-      </tbody>
+    <thead>
+      <tr>
+        <th v-if="checkable" />
+        <th>Id</th>
+        <th>Page Number</th>
+        <th>AR</th>
+        <th>Media Type</th>
+        <th />
+      </tr>
+    </thead>
+    <tbody
+      v-for="item in pages"
+      :key="item.id"
+    >
+      <tr :class="[tableTrStyle, index % 2 === 0 ? tableTrOddStyle : '']">
+        <checkbox-cell
+          v-if="checkable"
+          @checked="checked($event, comic)"
+        />
+        <td data-label="Id">
+          {{ item.id }}
+        </td>
+        <td data-label="Title">
+          {{ item.page_number }}
+        </td>
+        <td data-label="Author">
+          {{ item.is_ar }}
+        </td>
+        <td data-label="Genre">
+          {{ item.media_type }}
+        </td>
+        <td class="actions-cell">
+          <div
+            class="justify-start lg:justify-end"
+            no-wrap
+          >
+            <router-link :to="{name: 'pageEdit', params: { pageId: item.id}}">
+              <button class="bg-green-500 hover:bg-green-700 text-white text-sm font-bold py-2 px-4 rounded">
+                Edit
+              </button>
+            </router-link>
+          </div>
+        </td>
+      </tr>
+    </tbody>
   </table>
   <div
     :class="lightBorderStyle"
@@ -61,6 +80,11 @@ import CheckboxCell from '@/components/CheckboxCell.vue'
 import Level from '@/components/Level.vue'
 import Page from '@/firebase/comics/Page.js'
 export default {
+  data () {
+    return {
+      pages: []
+    }
+  },
   mounted () {
     this.fetchPages()
   },
@@ -69,11 +93,6 @@ export default {
       const pages = await Page.getPages(['comics', this.$route.params.comicId, 'chapters', this.$route.params.chapterId, 'pages'])
       console.log(pages)
       this.pages = pages
-    }
-  },
-  data () {
-    return {
-      pages: []
     }
   }
 }

@@ -4,7 +4,6 @@
         <button class="mx-2 bg-blue-500 hover:bg-blue-700 text-white text-sm font-bold py-2 px-4 rounded">Add New Chapter</button>
       </router-link>
     </div>
-
     <table>
         <thead>
             <tr>
@@ -68,17 +67,17 @@ import CheckboxCell from '@/components/CheckboxCell.vue'
 import Level from '@/components/Level.vue'
 import Chapter from '@/firebase/comics/Chapter.js'
 export default {
+  data () {
+    return {
+      chapters: []
+    }
+  },
   mounted () {
     this.fetchChapters()
   },
   methods: {
     async fetchChapters () {
       this.chapters = await Chapter.getChapters(['comics', this.$route.params.comicId, 'chapters'])
-    }
-  },
-  data () {
-    return {
-      chapters: []
     }
   }
 }
