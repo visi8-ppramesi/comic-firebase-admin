@@ -139,8 +139,10 @@ export default class{
             if(!weGood){
                 error.push(field)
             }
+            console.log(1.4)
             return acc && weGood
         }, true)
+        console.log(1.5)
         if(checkFields){
             return checkFields
         }else{

@@ -122,8 +122,8 @@ const authRoutes = [
       title: 'Chapter Add',
       requiresAuth: true
     },
-    path: '/chapter/add',
-    name: 'chapter add',
+    path: '/comic/:comicId/chapter/add',
+    name: 'chapterAdd',
     component: ChapterAdd
   },
   {
@@ -133,8 +133,8 @@ const authRoutes = [
       title: 'Page Add',
       requiresAuth: true
     },
-    path: '/page/add',
-    name: 'page add',
+    path: '/comic/:comicId/chapter/:chapterId/page/add',
+    name: 'pageAdd',
     component: PageAdd
   },
   {
