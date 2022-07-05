@@ -8,6 +8,10 @@ export default class extends Collection{
         'value': Object
     }
 
+    static async getComicCounter(){
+        return (await this.getDocument('comic_counter')).value
+    }
+
     static async getSocials(){
         return await this.getDocument('socials')
     }

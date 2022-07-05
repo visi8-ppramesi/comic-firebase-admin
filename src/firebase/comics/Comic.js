@@ -76,8 +76,8 @@ export default class extends Collection{
         return this.comments
     }
 
-    static async getComics(){
-        const comics = await this.getDocuments()
+    static async getComics(queries){
+        const comics = await this.getDocuments(queries)
         return comics
     }
 

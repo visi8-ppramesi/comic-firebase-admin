@@ -275,6 +275,7 @@ import remove from 'lodash/remove'
 import { PlusIcon, XIcon } from '@heroicons/vue/solid'
 import { where } from 'firebase/firestore'
 import utils from '@/firebase/utils/index.js'
+import handleError from '@/utils/handleError.js'
 // import {
 //   Combobox,
 //   ComboboxInput,
@@ -350,8 +351,13 @@ export default {
     async submitData () {
       try {
         if (this.coverImageChanged) {
-          console.log('asdf')
-          await this.comic.uploadField('cover_image_url', 'covers/' + this.comic.id, this.coverImage)
+          try {
+            await this.comic.adminUploadField('cover_image_url', 'covers/' + this.comic.id, this.coverImage)
+          } catch (err) {
+            console.error('error...')
+            handleError(err, 'uploadFileError')
+            throw err
+          }
         }
         const processedData = this.comic.toDataJSON(['authors', 'authors_data', 'categories', 'tags', 'title', 'description'])
         await this.comic.updateDocument(processedData)

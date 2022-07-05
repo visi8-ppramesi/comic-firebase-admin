@@ -1,20 +1,19 @@
 <template>
   <modal-box
-    v-model="isModalActive"
-    title="Sample modal"
+    v-model="isSearchModalActive"
+    title="Search Comic"
   >
-    <p>Lorem ipsum dolor sit amet <b>adipiscing elit</b></p>
-    <p>This is sample modal</p>
-  </modal-box>
-
-  <modal-box
-    v-model="isModalDangerActive"
-    large-title="Please confirm"
-    button="danger"
-    has-cancel
-  >
-    <p>Lorem ipsum dolor sit amet <b>adipiscing elit</b></p>
-    <p>This is sample modal</p>
+    <div>Enter Search Term</div>
+    <input
+      v-model="searchTerm"
+      type="text"
+    >
+    <button
+      class="mx-2 bg-blue-500 hover:bg-blue-700 text-white text-sm font-bold py-2 px-4 rounded"
+      @click="goSearch"
+    >
+      Search
+    </button>
   </modal-box>
 
   <div
@@ -30,6 +29,36 @@
     >
       {{ checkedRow.name }}
     </span>
+  </div>
+  <div class="px-4 py-3">
+    <button
+      v-if="!searching"
+      class="bg-blue-500 hover:bg-blue-700 text-white text-sm font-bold py-2 px-4 rounded"
+      @click="openSearchModal"
+    >
+      Search
+    </button>
+    <div
+      v-else
+      class="flex flex-row"
+    >
+      Searching for {{ searchTerm }}...
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-6 w-6 mx-1"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        stroke-width="2"
+        @click="closeSearch"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M6 18L18 6M6 6l12 12"
+        />
+      </svg>
+    </div>
   </div>
 
   <table>
@@ -105,18 +134,23 @@
     class="p-3 lg:px-6 border-t dark:border-gray-800"
   >
     <level>
-      <jb-buttons>
-        <jb-button
-          v-for="page in pagesList"
-          :key="page"
-          :active="page === currentPage"
-          :label="page + 1"
-          :outline="darkMode"
-          small
-          @click="currentPage = page"
-        />
-      </jb-buttons>
-      <small>Page {{ currentPageHuman }} of {{ numPages }}</small>
+      <div>
+        <button
+          v-if="currentPage != 1 && !disableNextButton"
+          class="mx-2 bg-blue-500 hover:bg-blue-700 text-white text-sm font-bold py-2 px-4 rounded"
+          @click="prevComics"
+        >
+          Prev
+        </button>
+        <button
+          v-if="currentPage != numPages && !disablePrevButton"
+          class="mx-2 bg-blue-500 hover:bg-blue-700 text-white text-sm font-bold py-2 px-4 rounded"
+          @click="nextComics"
+        >
+          Next
+        </button>
+      </div>
+      <small>Page {{ currentPage }} of {{ numPages }}</small>
     </level>
   </div>
 </template>
@@ -128,20 +162,63 @@ import ModalBox from '@/components/ModalBox.vue'
 import CheckboxCell from '@/components/CheckboxCell.vue'
 import Level from '@/components/Level.vue'
 import Comic from '@/firebase/comics/Comic.js'
+import Setting from '@/firebase/Setting.js'
+import { comicQueryPaginated, comicQueryNextPage, comicQueryPrevPage, searchQueryArrayAll } from '@/firebase/utils/queries.js'
 export default {
   data () {
     return {
-      comics: {}
+      comics: {},
+      numPages: 0,
+      currentPage: 1,
+      searchTerm: '',
+      isSearchModalActive: false,
+      disableNextButton: false,
+      disablePrevButton: false,
+      searching: false
     }
   },
   mounted () {
     this.fetchComics()
   },
   methods: {
+    goSearch () {
+      this.findComics()
+      this.isSearchModalActive = false
+    },
+    openSearchModal () {
+      this.isSearchModalActive = true
+    },
+    async nextComics () {
+      this.currentPage++
+      console.log(this.currentPage)
+      this.comics = await Comic.getDocuments(comicQueryNextPage('all', 'release_date', 'desc', this.comics[this.comics.length - 1].doc))
+    },
+    async prevComics () {
+      this.currentPage--
+      console.log(this.currentPage)
+      this.comics = await Comic.getDocuments(comicQueryPrevPage('all', 'release_date', 'desc', this.comics[0].doc))
+    },
     async fetchComics () {
-      const comics = await Comic.getComics()
-      console.log(comics)
+      const comicsPromise = Comic.getDocuments(comicQueryPaginated('all', 'release_date', 'desc'))
+      const counterPromise = Setting.getComicCounter()
+      const [comics, comicCount] = await Promise.all([comicsPromise, counterPromise])
       this.comics = comics
+      this.numPages = Math.ceil(comicCount / 10)
+      console.log(this.currentPage)
+    },
+    async findComics () {
+      const searchQuery = searchQueryArrayAll(this.searchTerm)
+      this.comics = await Comic.getDocuments(searchQuery)
+      this.searching = true
+      this.disableNextButton = true
+      this.disablePrevButton = true
+    },
+    closeSearch () {
+      this.searching = false
+      this.searchTerm = ''
+      this.disableNextButton = false
+      this.disablePrevButton = false
+      this.fetchComics()
     }
   }
 }
@@ -162,37 +239,17 @@ const tableTrStyle = computed(() => mainStore.tableTrStyle)
 
 const tableTrOddStyle = computed(() => mainStore.tableTrOddStyle)
 
-const darkMode = computed(() => mainStore.darkMode)
+// const darkMode = computed(() => mainStore.darkMode)
 
-const items = computed(() => mainStore.comic)
+// const items = computed(() => mainStore.comic)
 
-const isModalActive = ref(false)
+// const isModalActive = ref(false)
 
-const isModalDangerActive = ref(false)
+// const isModalDangerActive = ref(false)
 
-const perPage = ref(10)
-
-const currentPage = ref(0)
+// const perPage = ref(10)
 
 const checkedRows = ref([])
-
-// const itemsPaginated = computed(
-//   () => comics.value.slice(perPage.value * currentPage.value, perPage.value * (currentPage.value + 1))
-// )
-
-const numPages = computed(() => Math.ceil(items.value.length / perPage.value))
-
-const currentPageHuman = computed(() => currentPage.value + 1)
-
-const pagesList = computed(() => {
-  const pagesList = []
-
-  for (let i = 0; i < numPages.value; i++) {
-    pagesList.push(i)
-  }
-
-  return pagesList
-})
 
 const remove = (arr, cb) => {
   const newArr = []
