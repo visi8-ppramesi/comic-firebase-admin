@@ -45,38 +45,38 @@ export default [
         }
       ]
     },
-    {
-      label: 'Chapter',
-      icon: mdiTable,
-      menu: [
-        // {
-        //   label: 'Chapter List',
-        //   icon: mdiTable,
-        //   to: '/comic/:comicId/chapter'
-        // },
-        {
-          label: 'Add new chapter',
-          icon: mdiTable,
-          to: '/chapter/add'
-        }
-      ]
-    },
-    {
-      label: 'Page',
-      icon: mdiTable,
-      menu: [
-        // {
-        //   label: 'Page List',
-        //   icon: mdiTable,
-        //   to: '/comic/:comicId/chapter/:chapterId/page'
-        // },
-        {
-          label: 'Add new page',
-          icon: mdiTable,
-          to: '/page/add'
-        }
-      ]
-    },
+    // {
+    //   label: 'Chapter',
+    //   icon: mdiTable,
+    //   menu: [
+    //     // {
+    //     //   label: 'Chapter List',
+    //     //   icon: mdiTable,
+    //     //   to: '/comic/:comicId/chapter'
+    //     // },
+    //     {
+    //       label: 'Add new chapter',
+    //       icon: mdiTable,
+    //       to: '/chapter/add'
+    //     }
+    //   ]
+    // },
+    // {
+    //   label: 'Page',
+    //   icon: mdiTable,
+    //   menu: [
+    //     // {
+    //     //   label: 'Page List',
+    //     //   icon: mdiTable,
+    //     //   to: '/comic/:comicId/chapter/:chapterId/page'
+    //     // },
+    //     {
+    //       label: 'Add new page',
+    //       icon: mdiTable,
+    //       to: '/page/add'
+    //     }
+    //   ]
+    // },
     // {
     //   to: '/forms',
     //   label: 'Forms',

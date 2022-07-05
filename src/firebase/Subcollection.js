@@ -109,11 +109,11 @@ export default class{
         }
     }
 
-    static async createDocument(data) {
+    static async createDocument(parentPath, data) {
         try{
             const validation = this.constructor.validateData(data)
             if(validation){
-                const newRef = collection(this.db, this.collection)
+                const newRef = collection(this.db, ...parentPath, this.collection)
                 const newDocRef = await addDoc(newRef, data)
                 const newDoc = await getDoc(newDocRef)
                 const instance = new this()
@@ -139,8 +139,10 @@ export default class{
             if(!weGood){
                 error.push(field)
             }
+            console.log(1.4)
             return acc && weGood
         }, true)
+        console.log(1.5)
         if(checkFields){
             return checkFields
         }else{

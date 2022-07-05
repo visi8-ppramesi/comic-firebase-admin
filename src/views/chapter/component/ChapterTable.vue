@@ -1,36 +1,9 @@
 <template>
-  <modal-box
-    v-model="isModalActive"
-    title="Sample modal"
-  >
-    <p>Lorem ipsum dolor sit amet <b>adipiscing elit</b></p>
-    <p>This is sample modal</p>
-  </modal-box>
-
-  <modal-box
-    v-model="isModalDangerActive"
-    large-title="Please confirm"
-    button="danger"
-    has-cancel
-  >
-    <p>Lorem ipsum dolor sit amet <b>adipiscing elit</b></p>
-    <p>This is sample modal</p>
-  </modal-box>
-
-  <div
-    v-if="checkedRows.length"
-    class="bg-opacity-50 p-3 dark:bg-gray-800"
-    :class="lightBgStyle"
-  >
-    <span
-      v-for="checkedRow in checkedRows"
-      :key="checkedRow.id"
-      class="inline-block px-2 py-1 rounded-sm mr-2 text-sm dark:bg-gray-700"
-      :class="lightBgStyle"
-    >
-      {{ checkedRow.name }}
-    </span>
-  </div>
+    <div class="my-2">
+      <router-link :to="{name: 'chapterAdd'}">
+        <button class="mx-2 bg-blue-500 hover:bg-blue-700 text-white text-sm font-bold py-2 px-4 rounded">Add New Chapter</button>
+      </router-link>
+    </div>
 
     <table>
         <thead>
@@ -59,7 +32,7 @@
                           <button class="bg-green-500 hover:bg-green-700 text-white text-sm font-bold py-2 px-4 rounded">Edit</button>
                         </router-link>
 
-                         <router-link :to="{name: 'pageList', params: { chapterId: item.id}}">
+                        <router-link :to="{name: 'pageList', params: { chapterId: item.id}}">
                           <button class="mx-2 bg-blue-500 hover:bg-blue-700 text-white text-sm font-bold py-2 px-4 rounded">pages</button>
                         </router-link>
                     </div>
@@ -91,7 +64,6 @@
 <script>
 import { computed, ref } from 'vue'
 import { useMainStore } from '@/store/main'
-import ModalBox from '@/components/ModalBox.vue'
 import CheckboxCell from '@/components/CheckboxCell.vue'
 import Level from '@/components/Level.vue'
 import Chapter from '@/firebase/comics/Chapter.js'
@@ -121,8 +93,6 @@ const mainStore = useMainStore()
 
 const lightBorderStyle = computed(() => mainStore.lightBorderStyle)
 
-const lightBgStyle = computed(() => mainStore.lightBgStyle)
-
 const tableTrStyle = computed(() => mainStore.tableTrStyle)
 
 const tableTrOddStyle = computed(() => mainStore.tableTrOddStyle)
@@ -130,10 +100,6 @@ const tableTrOddStyle = computed(() => mainStore.tableTrOddStyle)
 const darkMode = computed(() => mainStore.darkMode)
 
 const items = computed(() => mainStore.comic)
-
-const isModalActive = ref(false)
-
-const isModalDangerActive = ref(false)
 
 const perPage = ref(10)
 
