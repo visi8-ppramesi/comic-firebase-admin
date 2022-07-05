@@ -26,14 +26,14 @@ import Icon from '@/components/Icon.vue'
 import JbButton from '@/components/JbButton.vue'
 
 defineProps({
-  icon: {
-    type: String,
-    default: null
-  },
-  title: {
-    type: String,
-    required: true
-  }
+	icon: {
+		type: String,
+		default: null
+	},
+	title: {
+		type: String,
+		required: true
+	}
 })
 
 const mainStore = useMainStore()

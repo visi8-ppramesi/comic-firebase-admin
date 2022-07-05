@@ -107,16 +107,16 @@
 
 <script>
 export default {
-  name: 'FuchsiaTabs',
-  data () {
-    return {
-      openTab: 1
-    }
-  },
-  methods: {
-    toggleTabs: function (tabNumber) {
-      this.openTab = tabNumber
-    }
-  }
+	name: 'FuchsiaTabs',
+	data () {
+		return {
+			openTab: 1
+		}
+	},
+	methods: {
+		toggleTabs: function (tabNumber) {
+			this.openTab = tabNumber
+		}
+	}
 }
 </script>

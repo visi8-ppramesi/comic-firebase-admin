@@ -20,14 +20,14 @@ import Overlay from '@/components/Overlay.vue'
 const mainStore = useMainStore()
 
 mainStore.setUser({
-  name: 'Admin Webcomic',
-  email: 'admin@admin.com',
-  avatar: 'https://avatars.dicebear.com/api/avataaars/example.svg?options[top][]=shortHair&options[accessoriesChance]=93'
+	name: 'Admin Webcomic',
+	email: 'admin@admin.com',
+	avatar: 'https://avatars.dicebear.com/api/avataaars/example.svg?options[top][]=shortHair&options[accessoriesChance]=93'
 })
 
 const isAsideLgActive = computed(() => mainStore.isAsideLgActive)
 
 const overlayClick = () => {
-  mainStore.asideLgToggle(false)
+	mainStore.asideLgToggle(false)
 }
 </script>

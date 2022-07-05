@@ -43,27 +43,27 @@ import Genre from '@/firebase/Category.js'
 import { doc, updateDoc } from 'firebase/firestore'
 import firebase from '@/firebase/firebase'
 export default {
-  data () {
-    return {
-      genre: {}
-    }
-  },
-  created () {
-    this.fetchGenre()
-  },
-  methods: {
-    async fetchGenre () {
-      this.genre = await Genre.getDocumentWithStorageResource(this.$route.params.id)
-    },
-    async updateGenres (genreId) {
-      const docRef = doc(firebase.db, 'categories', genreId)
-      await updateDoc(docRef, {
-        name: this.genre.name
-      })
-      console.log(docRef)
-      this.$router.go()
-    }
-  }
+	data () {
+		return {
+			genre: {}
+		}
+	},
+	created () {
+		this.fetchGenre()
+	},
+	methods: {
+		async fetchGenre () {
+			this.genre = await Genre.getDocumentWithStorageResource(this.$route.params.id)
+		},
+		async updateGenres (genreId) {
+			const docRef = doc(firebase.db, 'categories', genreId)
+			await updateDoc(docRef, {
+				name: this.genre.name
+			})
+			console.log(docRef)
+			this.$router.go()
+		}
+	}
 }
 </script>
 

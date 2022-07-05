@@ -148,28 +148,28 @@ import TitleSubBar from '@/components/TitleSubBar.vue'
 const titleStack = ref(['Admin', 'Forms'])
 
 const selectOptions = [
-  { id: 1, label: 'Business development' },
-  { id: 2, label: 'Marketing' },
-  { id: 3, label: 'Sales' }
+	{ id: 1, label: 'Business development' },
+	{ id: 2, label: 'Marketing' },
+	{ id: 3, label: 'Sales' }
 ]
 
 const form = reactive({
-  name: 'John Doe',
-  email: 'john.doe@example.com',
-  phone: '',
-  department: selectOptions[0],
-  subject: '',
-  question: ''
+	name: 'John Doe',
+	email: 'john.doe@example.com',
+	phone: '',
+	department: selectOptions[0],
+	subject: '',
+	question: ''
 })
 
 const customElementsForm = reactive({
-  checkbox: ['lorem'],
-  radio: 'one',
-  switch: ['one'],
-  file: null
+	checkbox: ['lorem'],
+	radio: 'one',
+	switch: ['one'],
+	file: null
 })
 
 const submit = () => {
-  //
+	//
 }
 </script>

@@ -152,21 +152,21 @@ const mainStore = useMainStore()
 const titleStack = ref(['Admin', 'Profile'])
 
 const profileForm = reactive({
-  name: mainStore.userName,
-  email: mainStore.userEmail
+	name: mainStore.userName,
+	email: mainStore.userEmail
 })
 
 const passwordForm = reactive({
-  password_current: '',
-  password: '',
-  password_confirmation: ''
+	password_current: '',
+	password: '',
+	password_confirmation: ''
 })
 
 const submitProfile = () => {
-  mainStore.setUser(profileForm)
+	mainStore.setUser(profileForm)
 }
 
 const submitPass = () => {
-  //
+	//
 }
 </script>

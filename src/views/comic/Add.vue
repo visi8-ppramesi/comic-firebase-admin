@@ -419,139 +419,139 @@ import handleError from '@/utils/handleError.js'
 // import utils from '@/firebase/utils/index.js'
 // import { getStorage, ref } from "firebase/storage"
 export default {
-  components: {
-    Listbox,
-    PlusIcon,
-    ModalBox,
-    XIcon
-    // ComboboxInput,
-    // ComboboxOptions,
-    // ComboboxOption
-  },
-  data () {
-    return {
-      // social_media: [{
-      //   name: '',
-      //   link: ''
-      // }]
-      comic: {
-        tags: [],
-        categories: [],
-        authors: [],
-        authors_data: []
-      },
-      categories: [],
-      tags: [],
-      isNewAuthorModalActive: false,
-      searchAuthorName: '',
-      searchAuthorResult: [],
-      searchAuthorSearching: false,
-      searchAuthorSearched: false,
-      selectedAuthor: null,
-      coverImage: null,
-      coverImageChanged: false,
-      imageDataUrl: null,
-      coverLoaded: false
-    }
-  },
-  computed: {
-    releaseDate () {
-      if (!isEmpty(this.comic.id)) {
-        console.log(this.comic)
-        return this.comic.release_date.toDate().toLocaleTimeString('id-ID', { weekday: 'long', year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' })
-      } else {
-        return null
-      }
-    }
-  },
-  created () {
-    // this.fetchComic()
-    this.fetchTags()
-    this.fetchCategories()
-  },
-  methods: {
-    onFileChange (event) {
-      this.coverImage = event.target.files[0]
-      this.imageDataUrl = URL.createObjectURL(this.coverImage)
-      this.coverImageChanged = true
-    },
-    // async fetchComic () {
-    //   this.comic = new Comic()
-    //   this.comic.setEmpty()
-    // },
-    async fetchTags () {
-      this.tags = await Tag.getDocuments()
-    },
-    async fetchCategories () {
-      this.categories = await Category.getDocuments()
-    },
-    async submitData () {
-      try {
-        // eslint-disable-next-line camelcase
-        const { authors, authors_data, categories, tags, title, description } = this.comic
-        const newComic = await Comic.createDocument({ authors, authors_data, categories, tags, title, description, release_date: new Date() })
-        console.log(newComic)
-        if (this.coverImageChanged) {
-          try {
-            await newComic.adminUploadField('cover_image_url', 'covers/' + newComic.id, this.coverImage)
-          } catch (err) {
-            await newComic.deleteDocument()
-            console.error('error... deleting...')
-            handleError(err, 'uploadFileError')
-            throw err
-          }
-        }
-        this.$toast.open({
-          message: 'Success!',
-          type: 'success',
-          duration: 5000,
-          dismissible: true,
-          position: 'bottom'
-        })
-      } catch (err) {
-        this.$toast.open({
-          message: err.toString(),
-          type: 'error',
-          duration: 5000,
-          dismissible: true,
-          position: 'bottom'
-        })
-      }
+	components: {
+		Listbox,
+		PlusIcon,
+		ModalBox,
+		XIcon
+		// ComboboxInput,
+		// ComboboxOptions,
+		// ComboboxOption
+	},
+	data () {
+		return {
+			// social_media: [{
+			//   name: '',
+			//   link: ''
+			// }]
+			comic: {
+				tags: [],
+				categories: [],
+				authors: [],
+				authors_data: []
+			},
+			categories: [],
+			tags: [],
+			isNewAuthorModalActive: false,
+			searchAuthorName: '',
+			searchAuthorResult: [],
+			searchAuthorSearching: false,
+			searchAuthorSearched: false,
+			selectedAuthor: null,
+			coverImage: null,
+			coverImageChanged: false,
+			imageDataUrl: null,
+			coverLoaded: false
+		}
+	},
+	computed: {
+		releaseDate () {
+			if (!isEmpty(this.comic.id)) {
+				console.log(this.comic)
+				return this.comic.release_date.toDate().toLocaleTimeString('id-ID', { weekday: 'long', year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' })
+			} else {
+				return null
+			}
+		}
+	},
+	created () {
+		// this.fetchComic()
+		this.fetchTags()
+		this.fetchCategories()
+	},
+	methods: {
+		onFileChange (event) {
+			this.coverImage = event.target.files[0]
+			this.imageDataUrl = URL.createObjectURL(this.coverImage)
+			this.coverImageChanged = true
+		},
+		// async fetchComic () {
+		//   this.comic = new Comic()
+		//   this.comic.setEmpty()
+		// },
+		async fetchTags () {
+			this.tags = await Tag.getDocuments()
+		},
+		async fetchCategories () {
+			this.categories = await Category.getDocuments()
+		},
+		async submitData () {
+			try {
+				// eslint-disable-next-line camelcase
+				const { authors, authors_data, categories, tags, title, description } = this.comic
+				const newComic = await Comic.createDocument({ authors, authors_data, categories, tags, title, description, release_date: new Date() })
+				console.log(newComic)
+				if (this.coverImageChanged) {
+					try {
+						await newComic.adminUploadField('cover_image_url', 'covers/' + newComic.id, this.coverImage)
+					} catch (err) {
+						await newComic.deleteDocument()
+						console.error('error... deleting...')
+						handleError(err, 'uploadFileError')
+						throw err
+					}
+				}
+				this.$toast.open({
+					message: 'Success!',
+					type: 'success',
+					duration: 5000,
+					dismissible: true,
+					position: 'bottom'
+				})
+			} catch (err) {
+				this.$toast.open({
+					message: err.toString(),
+					type: 'error',
+					duration: 5000,
+					dismissible: true,
+					position: 'bottom'
+				})
+			}
 
-    // this.comic.updateDocument(processedData)
-    },
-    deleteAuthor (authorRef) {
-      remove(this.comic.authors, author => author.id === authorRef.id)
-      remove(this.comic.authors_data, author => author.id.id === authorRef.id)
-    },
-    async searchAuthor () {
-      this.searchAuthorSearching = true
-      const byNamePromise = Author.getDocuments([where('name', '==', this.searchAuthorName)])
-      const byEmailPromise = Author.getDocuments([where('email', '==', this.searchAuthorName)])
-      const searchedAuthor = await Promise.all([byNamePromise, byEmailPromise]).then(([byName, byEmail]) => {
-        return [...byName, ...byEmail]
-      })
-      this.searchAuthorSearching = false
-      this.searchAuthorSearched = true
-      this.searchAuthorResult = searchedAuthor
-    },
-    submitAuthor () {
-      const author = this.searchAuthorResult.find(v => v.id === this.selectedAuthor)
-      this.comic.authors.push(author.doc.ref)
-      const data = {}
-      data.id = author.doc.ref
-      if (author.name) {
-        data.name = author.name
-      }
-      if (author.profile_picture_url) {
-        data.profile_picture_url = author.profile_picture_url
-      }
-      this.comic.authors_data.push(data)
-      this.isNewAuthorModalActive = false
-      this.searchAuthorSearched = false
-      this.searchAuthorName = ''
-    }
-  }
+			// this.comic.updateDocument(processedData)
+		},
+		deleteAuthor (authorRef) {
+			remove(this.comic.authors, author => author.id === authorRef.id)
+			remove(this.comic.authors_data, author => author.id.id === authorRef.id)
+		},
+		async searchAuthor () {
+			this.searchAuthorSearching = true
+			const byNamePromise = Author.getDocuments([where('name', '==', this.searchAuthorName)])
+			const byEmailPromise = Author.getDocuments([where('email', '==', this.searchAuthorName)])
+			const searchedAuthor = await Promise.all([byNamePromise, byEmailPromise]).then(([byName, byEmail]) => {
+				return [...byName, ...byEmail]
+			})
+			this.searchAuthorSearching = false
+			this.searchAuthorSearched = true
+			this.searchAuthorResult = searchedAuthor
+		},
+		submitAuthor () {
+			const author = this.searchAuthorResult.find(v => v.id === this.selectedAuthor)
+			this.comic.authors.push(author.doc.ref)
+			const data = {}
+			data.id = author.doc.ref
+			if (author.name) {
+				data.name = author.name
+			}
+			if (author.profile_picture_url) {
+				data.profile_picture_url = author.profile_picture_url
+			}
+			this.comic.authors_data.push(data)
+			this.isNewAuthorModalActive = false
+			this.searchAuthorSearched = false
+			this.searchAuthorName = ''
+		}
+	}
 }
 </script>
 

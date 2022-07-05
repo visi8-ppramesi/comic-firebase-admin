@@ -47,78 +47,78 @@
 
 <script>
 export default {
-  props: {
-    value: {
-      type: String,
-      required: false
-    },
-    placeholder: {
-      type: String,
-      required: false,
-      default: 'Enter text here.'
-    },
-    data: {
-      type: Array,
-      required: true
-    },
-    inputClass: {
-      type: String,
-      required: false,
-      default:
+	props: {
+		value: {
+			type: String,
+			required: false
+		},
+		placeholder: {
+			type: String,
+			required: false,
+			default: 'Enter text here.'
+		},
+		data: {
+			type: Array,
+			required: true
+		},
+		inputClass: {
+			type: String,
+			required: false,
+			default:
         'border border-gray-300 py-2 px-3 rounded-md focus:outline-none focus:shadow-outline'
-    },
-    dropdownClass: {
-      type: String,
-      required: false,
-      default:
+		},
+		dropdownClass: {
+			type: String,
+			required: false,
+			default:
         'absolute w-full z-50 bg-white border border-gray-300 mt-1 mh-48 overflow-hidden overflow-y-scroll rounded-md shadow-md'
-    }
-  },
+		}
+	},
 
-  data () {
-    return {
-      showOptions: false,
-      chosenOption: '',
-      searchTerm: ''
-    }
-  },
+	data () {
+		return {
+			showOptions: false,
+			chosenOption: '',
+			searchTerm: ''
+		}
+	},
 
-  computed: {
-    searchResults () {
-      return this.data.filter((item) => {
-        return item.name.toLowerCase().includes(this.searchTerm.toLowerCase())
-      })
-    }
-  },
+	computed: {
+		searchResults () {
+			return this.data.filter((item) => {
+				return item.name.toLowerCase().includes(this.searchTerm.toLowerCase())
+			})
+		}
+	},
 
-  methods: {
-    reset () {
-      this.$emit('input', '')
-      this.chosenOption = ''
-    },
+	methods: {
+		reset () {
+			this.$emit('input', '')
+			this.chosenOption = ''
+		},
 
-    handleInput (evt) {
-      this.$emit('input', evt.target.value)
-      this.searchTerm = evt.target.value
-      this.showOptions = true
-    },
+		handleInput (evt) {
+			this.$emit('input', evt.target.value)
+			this.searchTerm = evt.target.value
+			this.showOptions = true
+		},
 
-    handleClick (item) {
-      this.$emit('input', item.name)
-      this.$emit('chosen', item)
-      this.chosenOption = item.name
-      this.showOptions = false
-      this.$refs.input.focus()
-    },
+		handleClick (item) {
+			this.$emit('input', item.name)
+			this.$emit('chosen', item)
+			this.chosenOption = item.name
+			this.showOptions = false
+			this.$refs.input.focus()
+		},
 
-    clickedOutside () {
-      this.showOptions = false
+		clickedOutside () {
+			this.showOptions = false
 
-      if (!this.chosenOption) {
-        this.$emit('input', '')
-      }
-    }
-  }
+			if (!this.chosenOption) {
+				this.$emit('input', '')
+			}
+		}
+	}
 }
 </script>
 

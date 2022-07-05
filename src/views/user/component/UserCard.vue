@@ -133,27 +133,27 @@ import JbButtons from '@/components/JbButtons.vue'
 import JbButton from '@/components/JbButton.vue'
 
 const props = defineProps({
-  title: {
-    type: String,
-    default: null
-  },
-  icon: {
-    type: String,
-    default: null
-  },
-  headerIcon: {
-    type: String,
-    default: null
-  },
-  rounded: {
-    type: String,
-    default: 'md:rounded'
-  },
-  hasTable: Boolean,
-  empty: Boolean,
-  form: Boolean,
-  hoverable: Boolean,
-  modal: Boolean
+	title: {
+		type: String,
+		default: null
+	},
+	icon: {
+		type: String,
+		default: null
+	},
+	headerIcon: {
+		type: String,
+		default: null
+	},
+	rounded: {
+		type: String,
+		default: 'md:rounded'
+	},
+	hasTable: Boolean,
+	empty: Boolean,
+	form: Boolean,
+	hoverable: Boolean,
+	modal: Boolean
 })
 
 const emit = defineEmits(['header-icon-click', 'submit'])
@@ -167,26 +167,26 @@ const isModalActive = ref(false)
 const lightBorderStyle = computed(() => mainStore.lightBorderStyle)
 
 const componentClass = computed(() => {
-  const base = [
-    props.rounded,
-    lightBorderStyle.value,
-    props.modal ? 'dark:bg-gray-900' : 'dark:bg-gray-900/70'
-  ]
+	const base = [
+		props.rounded,
+		lightBorderStyle.value,
+		props.modal ? 'dark:bg-gray-900' : 'dark:bg-gray-900/70'
+	]
 
-  if (props.hoverable) {
-    base.push('hover:shadow-lg transition-shadow duration-500')
-  }
+	if (props.hoverable) {
+		base.push('hover:shadow-lg transition-shadow duration-500')
+	}
 
-  return base
+	return base
 })
 
 const computedHeaderIcon = computed(() => props.headerIcon ?? mdiCog)
 
 const headerIconClick = () => {
-  emit('header-icon-click')
+	emit('header-icon-click')
 }
 
 const submit = e => {
-  emit('submit', e)
+	emit('submit', e)
 }
 </script>

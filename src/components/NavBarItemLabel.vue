@@ -15,15 +15,15 @@
 import Icon from '@/components/Icon.vue'
 
 defineProps({
-  icon: {
-    type: String,
-    default: null
-  },
-  label: {
-    type: String,
-    required: true
-  },
-  isDesktopIconOnly: Boolean
+	icon: {
+		type: String,
+		default: null
+	},
+	label: {
+		type: String,
+		required: true
+	},
+	isDesktopIconOnly: Boolean
 }
 )
 </script>

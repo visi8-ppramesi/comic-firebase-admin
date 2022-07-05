@@ -78,51 +78,51 @@ import FullScreenSection from '@/components/FullScreenSection.vue'
 // import JbButtons from '@/components/JbButtons.vue'
 import { useAuthStore } from '../store/auth.js'
 export default {
-  name: 'Login',
-  components: {
-    FullScreenSection
-  },
-  // mounted () {
-  //   this.emitter.on('loginError', () => {
-  //     this.loginFailed = true
-  //     this.email = ''
-  //     this.password = ''
-  //   })
-  // },
-  setup () {
-    const authStore = useAuthStore()
+	name: 'Login',
+	components: {
+		FullScreenSection
+	},
+	// mounted () {
+	//   this.emitter.on('loginError', () => {
+	//     this.loginFailed = true
+	//     this.email = ''
+	//     this.password = ''
+	//   })
+	// },
+	setup () {
+		const authStore = useAuthStore()
 
-    return {
-      authStore
-    }
-  },
-  data () {
-    return {
-      email: '',
-      password: '',
-      loginFailed: false,
-      facebookIcon: require('../assets/icons/facebook.png'),
-      instagramIcon: require('../assets/icons/instagram.png'),
-      twitterIcon: require('../assets/icons/twitter.png'),
-      karaBackground: require('../assets/kara_bg.jpg')
-    }
-  },
-  methods: {
-    login () {
-      this.authStore.login(this.email, this.password,
-        () => {
-          // const fromRouteStr = localStorage.getItem('fromRoute')
-          // const fromRoute = fromRouteStr ? JSON.parse(fromRouteStr) : { name: 'Dashboard' }
-          this.$router.push('Dashboard')
-        },
-        () => {
-          console.log('error')
-          this.loginFailed = true
-          this.email = ''
-          this.password = ''
-        }
-      )
-    }
-  }
+		return {
+			authStore
+		}
+	},
+	data () {
+		return {
+			email: '',
+			password: '',
+			loginFailed: false,
+			facebookIcon: require('../assets/icons/facebook.png'),
+			instagramIcon: require('../assets/icons/instagram.png'),
+			twitterIcon: require('../assets/icons/twitter.png'),
+			karaBackground: require('../assets/kara_bg.jpg')
+		}
+	},
+	methods: {
+		login () {
+			this.authStore.login(this.email, this.password,
+				() => {
+					// const fromRouteStr = localStorage.getItem('fromRoute')
+					// const fromRoute = fromRouteStr ? JSON.parse(fromRouteStr) : { name: 'Dashboard' }
+					this.$router.push('Dashboard')
+				},
+				() => {
+					console.log('error')
+					this.loginFailed = true
+					this.email = ''
+					this.password = ''
+				}
+			)
+		}
+	}
 }
 </script>

@@ -52,9 +52,9 @@
 import { computed, ref, onMounted } from 'vue'
 import { useMainStore } from '@/store/main'
 import {
-  mdiFinance,
-  mdiReload,
-  mdiChartPie
+	mdiFinance,
+	mdiReload,
+	mdiChartPie
 } from '@mdi/js'
 import * as chartConfig from '@/components/Charts/chart.config.js'
 import LineChart from '@/components/Charts/LineChart.vue'
@@ -71,11 +71,11 @@ const titleStack = ref(['Admin', 'Dashboard'])
 const chartData = ref(null)
 
 const fillChartData = () => {
-  chartData.value = chartConfig.sampleChartData()
+	chartData.value = chartConfig.sampleChartData()
 }
 
 onMounted(() => {
-  fillChartData()
+	fillChartData()
 })
 
 const mainStore = useMainStore()

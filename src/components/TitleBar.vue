@@ -20,10 +20,10 @@
 import Level from '@/components/Level.vue'
 
 defineProps({
-  titleStack: {
-    type: Array,
-    default: () => []
-  }
+	titleStack: {
+		type: Array,
+		default: () => []
+	}
 })
 </script>
 

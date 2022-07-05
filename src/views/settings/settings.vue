@@ -255,67 +255,67 @@ import MainSection from '@/components/MainSection.vue'
 import TitleBar from '@/components/TitleBar.vue'
 import HeroBar from '@/components/HeroBar.vue'
 export default {
-  name: 'FuchsiaTabs',
-  data () {
-    return {
-      openTab: 1,
-      banners: [{
-        title: '',
-        link: ''
-      }],
-      tags: [{
-        name: ''
-      }],
-      prices: [{
-        price: '',
-        amount: ''
-      }],
-      social_media: [{
-        name: '',
-        link: ''
-      }]
-    }
-  },
-  methods: {
-    toggleTabs: function (tabNumber) {
-      this.openTab = tabNumber
-    },
-    addNewBanner () {
-      this.banners.push({
-        name: '',
-        link: ''
-      })
-    },
-    deleteBanner (index) {
-      this.banners.splice(index, 1)
-    },
-    addNewTag () {
-      this.tags.push({
-        name: ''
-      })
-    },
-    deleteTag (index) {
-      this.tags.splice(index, 1)
-    },
-    addNewPrice () {
-      this.prices.push({
-        price: '',
-        amount: ''
-      })
-    },
-    deletePrice (index) {
-      this.prices.splice(index, 1)
-    },
-    addNewSocialMedia () {
-      this.social_media.push({
-        name: '',
-        link: ''
-      })
-    },
-    deleteSocialMedia (index) {
-      this.social_media.splice(index, 1)
-    }
-  }
+	name: 'FuchsiaTabs',
+	data () {
+		return {
+			openTab: 1,
+			banners: [{
+				title: '',
+				link: ''
+			}],
+			tags: [{
+				name: ''
+			}],
+			prices: [{
+				price: '',
+				amount: ''
+			}],
+			social_media: [{
+				name: '',
+				link: ''
+			}]
+		}
+	},
+	methods: {
+		toggleTabs: function (tabNumber) {
+			this.openTab = tabNumber
+		},
+		addNewBanner () {
+			this.banners.push({
+				name: '',
+				link: ''
+			})
+		},
+		deleteBanner (index) {
+			this.banners.splice(index, 1)
+		},
+		addNewTag () {
+			this.tags.push({
+				name: ''
+			})
+		},
+		deleteTag (index) {
+			this.tags.splice(index, 1)
+		},
+		addNewPrice () {
+			this.prices.push({
+				price: '',
+				amount: ''
+			})
+		},
+		deletePrice (index) {
+			this.prices.splice(index, 1)
+		},
+		addNewSocialMedia () {
+			this.social_media.push({
+				name: '',
+				link: ''
+			})
+		},
+		deleteSocialMedia (index) {
+			this.social_media.splice(index, 1)
+		}
+	}
 }
 </script>
 

@@ -32,26 +32,26 @@ import { computed, ref, watch } from 'vue'
 import JbButton from '@/components/JbButton.vue'
 
 const props = defineProps({
-  modelValue: {
-    type: [Object, File, Array],
-    default: null
-  },
-  label: {
-    type: String,
-    default: 'Upload'
-  },
-  icon: {
-    type: String,
-    default: mdiUpload
-  },
-  accept: {
-    type: String,
-    default: null
-  },
-  color: {
-    type: String,
-    default: 'info'
-  }
+	modelValue: {
+		type: [Object, File, Array],
+		default: null
+	},
+	label: {
+		type: String,
+		default: 'Upload'
+	},
+	icon: {
+		type: String,
+		default: mdiUpload
+	},
+	accept: {
+		type: String,
+		default: null
+	},
+	color: {
+		type: String,
+		default: 'info'
+	}
 })
 
 const emit = defineEmits(['update:modelValue'])
@@ -63,39 +63,39 @@ const file = ref(props.modelValue)
 const modelValueProp = computed(() => props.modelValue)
 
 watch(modelValueProp, value => {
-  file.value = value
+	file.value = value
 
-  if (!value) {
-    root.value.input.value = null
-  }
+	if (!value) {
+		root.value.input.value = null
+	}
 })
 
 const upload = event => {
-  const value = event.target.files || event.dataTransfer.files
+	const value = event.target.files || event.dataTransfer.files
 
-  file.value = value[0]
+	file.value = value[0]
 
-  emit('update:modelValue', file.value)
+	emit('update:modelValue', file.value)
 
-  // Use this as an example for handling file uploads
-  // let formData = new FormData()
-  // formData.append('file', file.value)
+	// Use this as an example for handling file uploads
+	// let formData = new FormData()
+	// formData.append('file', file.value)
 
-  // const mediaStoreRoute = `/your-route/`
+	// const mediaStoreRoute = `/your-route/`
 
-  // axios
-  //   .post(mediaStoreRoute, formData, {
-  //     headers: {
-  //       'Content-Type': 'multipart/form-data'
-  //     },
-  //     onUploadProgress: progressEvent
-  //   })
-  //   .then(r => {
-  //
-  //   })
-  //   .catch(err => {
-  //
-  //   })
+	// axios
+	//   .post(mediaStoreRoute, formData, {
+	//     headers: {
+	//       'Content-Type': 'multipart/form-data'
+	//     },
+	//     onUploadProgress: progressEvent
+	//   })
+	//   .then(r => {
+	//
+	//   })
+	//   .catch(err => {
+	//
+	//   })
 }
 
 // const uploadPercent = ref(0)

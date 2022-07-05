@@ -37,10 +37,10 @@ import NavBarItem from '@/components/NavBarItem.vue'
 import Icon from '@/components/Icon.vue'
 
 defineProps({
-  hasDivider: {
-    type: Boolean,
-    default: false
-  }
+	hasDivider: {
+		type: Boolean,
+		default: false
+	}
 })
 
 const mainStore = useMainStore()
@@ -54,22 +54,22 @@ const isDropdownActive = ref(false)
 const toggleDropdownIcon = computed(() => isDropdownActive.value ? mdiChevronUp : mdiChevronDown)
 
 const toggle = () => {
-  isDropdownActive.value = !isDropdownActive.value
+	isDropdownActive.value = !isDropdownActive.value
 }
 
 const root = ref(null)
 
 const forceClose = event => {
-  if (!root.value.$el.contains(event.target)) {
-    isDropdownActive.value = false
-  }
+	if (!root.value.$el.contains(event.target)) {
+		isDropdownActive.value = false
+	}
 }
 
 onMounted(() => {
-  window.addEventListener('click', forceClose)
+	window.addEventListener('click', forceClose)
 })
 
 onBeforeUnmount(() => {
-  window.removeEventListener('click', forceClose)
+	window.removeEventListener('click', forceClose)
 })
 </script>

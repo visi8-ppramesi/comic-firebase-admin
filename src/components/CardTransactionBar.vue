@@ -46,53 +46,53 @@ import Pill from '@/components/Pill.vue'
 import IconRounded from '@/components/IconRounded.vue'
 
 const props = defineProps({
-  amount: {
-    type: Number,
-    required: true
-  },
-  date: {
-    type: String,
-    required: true
-  },
-  business: {
-    type: String,
-    required: true
-  },
-  type: {
-    type: String,
-    required: true
-  },
-  name: {
-    type: String,
-    required: true
-  },
-  account: {
-    type: String,
-    required: true
-  }
+	amount: {
+		type: Number,
+		required: true
+	},
+	date: {
+		type: String,
+		required: true
+	},
+	business: {
+		type: String,
+		required: true
+	},
+	type: {
+		type: String,
+		required: true
+	},
+	name: {
+		type: String,
+		required: true
+	},
+	account: {
+		type: String,
+		required: true
+	}
 })
 
 const icon = computed(() => {
-  if (props.type === 'withdrawal') {
-    return {
-      icon: mdiCashMinus,
-      type: 'danger'
-    }
-  } else if (props.type === 'deposit') {
-    return {
-      icon: mdiCashPlus,
-      type: 'success'
-    }
-  } else if (props.type === 'invoice') {
-    return {
-      icon: mdiReceipt,
-      type: 'warning'
-    }
-  }
+	if (props.type === 'withdrawal') {
+		return {
+			icon: mdiCashMinus,
+			type: 'danger'
+		}
+	} else if (props.type === 'deposit') {
+		return {
+			icon: mdiCashPlus,
+			type: 'success'
+		}
+	} else if (props.type === 'invoice') {
+		return {
+			icon: mdiReceipt,
+			type: 'warning'
+		}
+	}
 
-  return {
-    icon: mdiCreditCardOutline,
-    type: 'info'
-  }
+	return {
+		icon: mdiCreditCardOutline,
+		type: 'info'
+	}
 })
 </script>

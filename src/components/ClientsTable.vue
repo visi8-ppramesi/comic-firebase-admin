@@ -142,7 +142,7 @@ import JbButton from '@/components/JbButton.vue'
 import UserAvatar from '@/components/UserAvatar.vue'
 
 defineProps({
-  checkable: Boolean
+	checkable: Boolean
 })
 
 const mainStore = useMainStore()
@@ -170,7 +170,7 @@ const currentPage = ref(0)
 const checkedRows = ref([])
 
 const itemsPaginated = computed(
-  () => items.value.slice(perPage.value * currentPage.value, perPage.value * (currentPage.value + 1))
+	() => items.value.slice(perPage.value * currentPage.value, perPage.value * (currentPage.value + 1))
 )
 
 const numPages = computed(() => Math.ceil(items.value.length / perPage.value))
@@ -178,32 +178,32 @@ const numPages = computed(() => Math.ceil(items.value.length / perPage.value))
 const currentPageHuman = computed(() => currentPage.value + 1)
 
 const pagesList = computed(() => {
-  const pagesList = []
+	const pagesList = []
 
-  for (let i = 0; i < numPages.value; i++) {
-    pagesList.push(i)
-  }
+	for (let i = 0; i < numPages.value; i++) {
+		pagesList.push(i)
+	}
 
-  return pagesList
+	return pagesList
 })
 
 const remove = (arr, cb) => {
-  const newArr = []
+	const newArr = []
 
-  arr.forEach(item => {
-    if (!cb(item)) {
-      newArr.push(item)
-    }
-  })
+	arr.forEach(item => {
+		if (!cb(item)) {
+			newArr.push(item)
+		}
+	})
 
-  return newArr
+	return newArr
 }
 
 const checked = (isChecked, client) => {
-  if (isChecked) {
-    checkedRows.value.push(client)
-  } else {
-    checkedRows.value = remove(checkedRows.value, row => row.id === client.id)
-  }
+	if (isChecked) {
+		checkedRows.value.push(client)
+	} else {
+		checkedRows.value = remove(checkedRows.value, row => row.id === client.id)
+	}
 }
 </script>

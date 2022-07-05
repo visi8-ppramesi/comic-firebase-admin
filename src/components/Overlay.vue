@@ -33,16 +33,16 @@ import { computed } from 'vue'
 import { useMainStore } from '@/store/main'
 
 defineProps({
-  zIndex: {
-    type: String,
-    default: 'z-50'
-  }
+	zIndex: {
+		type: String,
+		default: 'z-50'
+	}
 })
 
 const emit = defineEmits(['overlay-click'])
 
 const overlayClick = event => {
-  emit('overlay-click', event)
+	emit('overlay-click', event)
 }
 
 const mainStore = useMainStore()

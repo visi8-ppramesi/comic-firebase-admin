@@ -4,130 +4,130 @@ import { darkModeKey, styleKey } from '@/config'
 import axios from 'axios'
 
 export const useMainStore = defineStore('main', {
-  state: () => ({
-    /* Styles */
-    style: '',
-    bodyStyle: '',
-    lightBorderStyle: '',
-    lightBgStyle: '',
-    asideStyle: '',
-    asideBrandStyle: '',
-    asideMenuCloseLgStyle: '',
-    asideMenuLabelStyle: '',
-    asideMenuItemStyle: '',
-    asideMenuItemActiveStyle: '',
-    asideMenuItemInactiveStyle: '',
-    asideSubmenuListStyle: '',
-    navBarItemLabelStyle: '',
-    navBarItemLabelHoverStyle: '',
-    navBarItemLabelActiveColorStyle: '',
-    navBarMenuListUpperLabelStyle: '',
-    tableTrStyle: '',
-    tableTrOddStyle: '',
-    overlayStyle: '',
+	state: () => ({
+		/* Styles */
+		style: '',
+		bodyStyle: '',
+		lightBorderStyle: '',
+		lightBgStyle: '',
+		asideStyle: '',
+		asideBrandStyle: '',
+		asideMenuCloseLgStyle: '',
+		asideMenuLabelStyle: '',
+		asideMenuItemStyle: '',
+		asideMenuItemActiveStyle: '',
+		asideMenuItemInactiveStyle: '',
+		asideSubmenuListStyle: '',
+		navBarItemLabelStyle: '',
+		navBarItemLabelHoverStyle: '',
+		navBarItemLabelActiveColorStyle: '',
+		navBarMenuListUpperLabelStyle: '',
+		tableTrStyle: '',
+		tableTrOddStyle: '',
+		overlayStyle: '',
 
-    /* User */
-    userName: null,
-    userEmail: null,
-    userPassword: null,
+		/* User */
+		userName: null,
+		userEmail: null,
+		userPassword: null,
 
-    /* fullScreen - fullscreen form layout (e.g. login page) */
-    isFullScreen: true,
+		/* fullScreen - fullscreen form layout (e.g. login page) */
+		isFullScreen: true,
 
-    /* Aside */
-    isAsideMobileExpanded: false,
-    isAsideLgActive: false,
+		/* Aside */
+		isAsideMobileExpanded: false,
+		isAsideLgActive: false,
 
-    /* Dark mode */
-    darkMode: false,
+		/* Dark mode */
+		darkMode: false,
 
-    /* Field focus with ctrl+k (to register only once) */
-    isFieldFocusRegistered: false,
+		/* Field focus with ctrl+k (to register only once) */
+		isFieldFocusRegistered: false,
 
-    /* Sample data (commonly used) */
-    clients: [],
-    comic: [],
-    author: [],
-    genre: [],
-    tag: [],
-    comment: [],
-    history: [],
-    user: []
-  }),
-  actions: {
-    setUser (payload) {
-      if (payload.name) {
-        this.userName = payload.name
-      }
-      if (payload.email) {
-        this.userEmail = payload.email
-      }
-      if (payload.password) {
-        this.userPassword = payload.password
-      }
-    },
+		/* Sample data (commonly used) */
+		clients: [],
+		comic: [],
+		author: [],
+		genre: [],
+		tag: [],
+		comment: [],
+		history: [],
+		user: []
+	}),
+	actions: {
+		setUser (payload) {
+			if (payload.name) {
+				this.userName = payload.name
+			}
+			if (payload.email) {
+				this.userEmail = payload.email
+			}
+			if (payload.password) {
+				this.userPassword = payload.password
+			}
+		},
 
-    setStyle (payload) {
-      if (!styles[payload]) {
-        return
-      }
+		setStyle (payload) {
+			if (!styles[payload]) {
+				return
+			}
 
-      this.style = payload
+			this.style = payload
 
-      const style = styles[payload]
+			const style = styles[payload]
 
-      document.body.className = style.body
+			document.body.className = style.body
 
-      if (localStorage[styleKey] !== payload) {
-        localStorage.setItem(styleKey, payload)
-      }
+			if (localStorage[styleKey] !== payload) {
+				localStorage.setItem(styleKey, payload)
+			}
 
-      for (const key in style) {
-        this[`${key}Style`] = style[key]
-      }
-    },
+			for (const key in style) {
+				this[`${key}Style`] = style[key]
+			}
+		},
 
-    asideMobileToggle (payload = null) {
-      const isShow = payload !== null ? payload : !this.isAsideMobileExpanded
+		asideMobileToggle (payload = null) {
+			const isShow = payload !== null ? payload : !this.isAsideMobileExpanded
 
-      document.getElementById('app').classList[isShow ? 'add' : 'remove']('ml-60', 'lg:ml-0')
+			document.getElementById('app').classList[isShow ? 'add' : 'remove']('ml-60', 'lg:ml-0')
 
-      document.documentElement.classList[isShow ? 'add' : 'remove']('m-clipped')
+			document.documentElement.classList[isShow ? 'add' : 'remove']('m-clipped')
 
-      this.isAsideMobileExpanded = isShow
-    },
+			this.isAsideMobileExpanded = isShow
+		},
 
-    asideLgToggle (payload = null) {
-      this.isAsideLgActive = payload !== null ? payload : !this.isAsideLgActive
-    },
+		asideLgToggle (payload = null) {
+			this.isAsideLgActive = payload !== null ? payload : !this.isAsideLgActive
+		},
 
-    fullScreenToggle (payload) {
-      this.isFullScreen = payload
+		fullScreenToggle (payload) {
+			this.isFullScreen = payload
 
-      document.documentElement.classList[payload ? 'add' : 'remove']('full-screen')
-    },
+			document.documentElement.classList[payload ? 'add' : 'remove']('full-screen')
+		},
 
-    setDarkMode (payload = null) {
-      const value = payload !== null ? payload : !this.darkMode
+		setDarkMode (payload = null) {
+			const value = payload !== null ? payload : !this.darkMode
 
-      document.documentElement.classList[value ? 'add' : 'remove']('dark')
+			document.documentElement.classList[value ? 'add' : 'remove']('dark')
 
-      localStorage.setItem(darkModeKey, value ? '1' : '0')
+			localStorage.setItem(darkModeKey, value ? '1' : '0')
 
-      this.darkMode = value
-    },
+			this.darkMode = value
+		},
 
-    fetch (sampleDataKey) {
-      axios
-        .get(`data-sources/${sampleDataKey}.json`)
-        .then(r => {
-          if (r.data && r.data.data) {
-            this[sampleDataKey] = r.data.data
-          }
-        })
-        .catch(error => {
-          alert(error.message)
-        })
-    }
-  }
+		fetch (sampleDataKey) {
+			axios
+				.get(`data-sources/${sampleDataKey}.json`)
+				.then(r => {
+					if (r.data && r.data.data) {
+						this[sampleDataKey] = r.data.data
+					}
+				})
+				.catch(error => {
+					alert(error.message)
+				})
+		}
+	}
 })

@@ -10,7 +10,7 @@ import { computed } from 'vue'
 import { useMainStore } from '@/store/main'
 
 const props = defineProps({
-  navBar: Boolean
+	navBar: Boolean
 })
 
 const mainStore = useMainStore()

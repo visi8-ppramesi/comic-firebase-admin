@@ -14,19 +14,19 @@
 import AsideMenuItem from '@/components/AsideMenuItem.vue'
 
 defineProps({
-  isSubmenuList: {
-    type: Boolean,
-    default: false
-  },
-  menu: {
-    type: Array,
-    default: () => []
-  }
+	isSubmenuList: {
+		type: Boolean,
+		default: false
+	},
+	menu: {
+		type: Array,
+		default: () => []
+	}
 })
 
 const emit = defineEmits(['menu-click'])
 
 const menuClick = (event, item) => {
-  emit('menu-click', event, item)
+	emit('menu-click', event, item)
 }
 </script>

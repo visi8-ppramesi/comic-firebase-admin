@@ -155,58 +155,58 @@ import firebase from '@/firebase/firebase'
 import { ProfilePicture } from '@/firebase/types'
 // import { getStorage, ref } from "firebase/storage"
 export default {
-  data () {
-    return {
-      // social_media: [{
-      //   name: '',
-      //   link: ''
-      // }]
-      name: null,
-      email: null,
-      description: null,
-      social_media_links: {
-        facebook: null,
-        twitter: null
-      },
-      profile_picture_url: null,
-      imageDataUrl: null,
-      ProfilePicture: null
-    }
-  },
-  methods: {
-    // addNewSocialMedia () {
-    //   this.social_media.push({
-    //     name: '',
-    //     link: ''
-    //   })
-    // },
-    // deleteSocialMedia (index) {
-    //   this.social_media.splice(index, 1)
-    // }
-    async addAuthors () {
-      const author = {
-        name: this.name,
-        email: this.email,
-        description: this.description,
-        social_media_links: {
-          facebook: this.social_media_links.facebook,
-          twitter: this.social_media_links.twitter
-        },
-        profile_picture_url: this.imageDataUrl
-      }
-      const addData = await addDoc(collection(firebase.db, 'authors'), author)
-      this.imageDataUrl = await ProfilePicture.uploadField('profile_picture_url', '/profile_images' + this.ProfilePicture)
-      this.$router.push('/author')
-      console.log(addData)
-    },
-    onFileChange (event) {
-      this.ProfilePicture = event.target.files[0]
-      this.imageDataUrl = URL.createObjectURL(this.ProfilePicture)
-    },
-    selectProfile () {
-      this.$refs.profilePictureRef.click()
-    }
-  }
+	data () {
+		return {
+			// social_media: [{
+			//   name: '',
+			//   link: ''
+			// }]
+			name: null,
+			email: null,
+			description: null,
+			social_media_links: {
+				facebook: null,
+				twitter: null
+			},
+			profile_picture_url: null,
+			imageDataUrl: null,
+			ProfilePicture: null
+		}
+	},
+	methods: {
+		// addNewSocialMedia () {
+		//   this.social_media.push({
+		//     name: '',
+		//     link: ''
+		//   })
+		// },
+		// deleteSocialMedia (index) {
+		//   this.social_media.splice(index, 1)
+		// }
+		async addAuthors () {
+			const author = {
+				name: this.name,
+				email: this.email,
+				description: this.description,
+				social_media_links: {
+					facebook: this.social_media_links.facebook,
+					twitter: this.social_media_links.twitter
+				},
+				profile_picture_url: this.imageDataUrl
+			}
+			const addData = await addDoc(collection(firebase.db, 'authors'), author)
+			this.imageDataUrl = await ProfilePicture.uploadField('profile_picture_url', '/profile_images' + this.ProfilePicture)
+			this.$router.push('/author')
+			console.log(addData)
+		},
+		onFileChange (event) {
+			this.ProfilePicture = event.target.files[0]
+			this.imageDataUrl = URL.createObjectURL(this.ProfilePicture)
+		},
+		selectProfile () {
+			this.$refs.profilePictureRef.click()
+		}
+	}
 }
 </script>
 

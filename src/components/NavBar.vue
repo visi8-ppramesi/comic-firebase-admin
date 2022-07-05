@@ -137,19 +137,19 @@
 import { computed, ref } from 'vue'
 import { useMainStore } from '@/store/main'
 import {
-  mdiForwardburger,
-  mdiBackburger,
-  mdiClose,
-  mdiDotsVertical,
-  mdiMenu,
-  // mdiClockOutline,
-  // mdiCloud,
-  // mdiCrop,
-  mdiAccount,
-  mdiCogOutline,
-  mdiEmail,
-  mdiLogout,
-  mdiThemeLightDark
+	mdiForwardburger,
+	mdiBackburger,
+	mdiClose,
+	mdiDotsVertical,
+	mdiMenu,
+	// mdiClockOutline,
+	// mdiCloud,
+	// mdiCrop,
+	mdiAccount,
+	mdiCogOutline,
+	mdiEmail,
+	mdiLogout,
+	mdiThemeLightDark
 } from '@mdi/js'
 import NavBarItem from '@/components/NavBarItem.vue'
 import NavBarItemLabel from '@/components/NavBarItemLabel.vue'
@@ -159,11 +159,11 @@ import UserAvatar from '@/components/UserAvatar.vue'
 import Icon from '@/components/Icon.vue'
 import NavBarSearch from '@/components/NavBarSearch.vue'
 export default {
-  methods: {
-    post (route) {
-      console.log(route)
-    }
-  }
+	methods: {
+		post (route) {
+			console.log(route)
+		}
+	}
 }
 </script>
 
@@ -173,7 +173,7 @@ const mainStore = useMainStore()
 const lightBorderStyle = computed(() => mainStore.lightBorderStyle)
 
 const toggleLightDark = () => {
-  mainStore.setDarkMode()
+	mainStore.setDarkMode()
 }
 
 const isNavBarVisible = computed(() => !mainStore.isFullScreen)
@@ -191,14 +191,14 @@ const isMenuNavBarActive = ref(false)
 const menuNavBarToggleIcon = computed(() => isMenuNavBarActive.value ? mdiClose : mdiDotsVertical)
 
 const menuNavBarToggle = () => {
-  isMenuNavBarActive.value = !isMenuNavBarActive.value
+	isMenuNavBarActive.value = !isMenuNavBarActive.value
 }
 
 const menuOpenLg = () => {
-  mainStore.asideLgToggle(true)
+	mainStore.asideLgToggle(true)
 }
 
 const logout = () => {
-  //
+	//
 }
 </script>

@@ -56,10 +56,10 @@ import NavBarItem from '@/components/NavBarItem.vue'
 import Icon from '@/components/Icon.vue'
 
 defineProps({
-  menu: {
-    type: Array,
-    default: () => []
-  }
+	menu: {
+		type: Array,
+		default: () => []
+	}
 })
 
 const mainStore = useMainStore()
@@ -79,10 +79,10 @@ const isAsideMobileExpanded = computed(() => mainStore.isAsideMobileExpanded)
 const isAsideLgActive = computed(() => mainStore.isAsideLgActive)
 
 const asideLgClose = () => {
-  mainStore.asideLgToggle(false)
+	mainStore.asideLgToggle(false)
 }
 
 const menuClick = (event, item) => {
-  //
+	//
 }
 </script>

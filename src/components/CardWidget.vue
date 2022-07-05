@@ -56,38 +56,38 @@ import TrendPill from '@/components/TrendPill.vue'
 import JbButton from '@/components/JbButton.vue'
 
 defineProps({
-  number: {
-    type: Number,
-    default: 0
-  },
-  icon: {
-    type: String,
-    default: null
-  },
-  prefix: {
-    type: String,
-    default: null
-  },
-  suffix: {
-    type: String,
-    default: null
-  },
-  label: {
-    type: String,
-    default: null
-  },
-  color: {
-    type: String,
-    default: null
-  },
-  trend: {
-    type: String,
-    default: null
-  },
-  trendType: {
-    type: String,
-    default: null
-  }
+	number: {
+		type: Number,
+		default: 0
+	},
+	icon: {
+		type: String,
+		default: null
+	},
+	prefix: {
+		type: String,
+		default: null
+	},
+	suffix: {
+		type: String,
+		default: null
+	},
+	label: {
+		type: String,
+		default: null
+	},
+	color: {
+		type: String,
+		default: null
+	},
+	trend: {
+		type: String,
+		default: null
+	},
+	trendType: {
+		type: String,
+		default: null
+	}
 })
 
 const mainStore = useMainStore()

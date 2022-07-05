@@ -31,6 +31,6 @@ const lightBorderStyle = computed(() => mainStore.lightBorderStyle)
 const darkMode = computed(() => mainStore.darkMode)
 
 const darkModeToggle = () => {
-  mainStore.setDarkMode()
+	mainStore.setDarkMode()
 }
 </script>

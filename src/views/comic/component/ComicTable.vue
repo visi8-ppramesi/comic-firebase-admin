@@ -1,5 +1,29 @@
 <template>
   <modal-box
+    v-model="isModalDeletePromptActive"
+    large-title="Please confirm"
+    button="danger"
+    has-cancel
+  >
+    <p>You are about to delete <b>{{ deleteTitle }}</b></p>
+    <p>Are you sure???</p>
+    <div>
+      <button
+        class="btn btn-danger"
+        @click="deleteComic"
+      >
+        Delete
+      </button>
+      <button
+        class="btn btn-secondary"
+        @click="isModalDeletePromptActive = false"
+      >
+        Cancel
+      </button>
+    </div>
+  </modal-box>
+
+  <modal-box
     v-model="isSearchModalActive"
     title="Search Comic"
   >
@@ -124,6 +148,13 @@
                 Chapter
               </button>
             </router-link>
+
+            <button
+              class="mx-2 bg-blue-500 hover:bg-blue-700 text-white text-sm font-bold py-2 px-4 rounded"
+              @click="deleteComicPrompt(comic.id)"
+            >
+              Delete
+            </button>
           </div>
         </td>
       </tr>
@@ -165,68 +196,75 @@ import Comic from '@/firebase/comics/Comic.js'
 import Setting from '@/firebase/Setting.js'
 import { comicQueryPaginated, comicQueryNextPage, comicQueryPrevPage, searchQueryArrayAll } from '@/firebase/utils/queries.js'
 export default {
-  data () {
-    return {
-      comics: {},
-      numPages: 0,
-      currentPage: 1,
-      searchTerm: '',
-      isSearchModalActive: false,
-      disableNextButton: false,
-      disablePrevButton: false,
-      searching: false
-    }
-  },
-  mounted () {
-    this.fetchComics()
-  },
-  methods: {
-    goSearch () {
-      this.findComics()
-      this.isSearchModalActive = false
-    },
-    openSearchModal () {
-      this.isSearchModalActive = true
-    },
-    async nextComics () {
-      this.currentPage++
-      console.log(this.currentPage)
-      this.comics = await Comic.getDocuments(comicQueryNextPage('all', 'release_date', 'desc', this.comics[this.comics.length - 1].doc))
-    },
-    async prevComics () {
-      this.currentPage--
-      console.log(this.currentPage)
-      this.comics = await Comic.getDocuments(comicQueryPrevPage('all', 'release_date', 'desc', this.comics[0].doc))
-    },
-    async fetchComics () {
-      const comicsPromise = Comic.getDocuments(comicQueryPaginated('all', 'release_date', 'desc'))
-      const counterPromise = Setting.getComicCounter()
-      const [comics, comicCount] = await Promise.all([comicsPromise, counterPromise])
-      this.comics = comics
-      this.numPages = Math.ceil(comicCount / 10)
-      console.log(this.currentPage)
-    },
-    async findComics () {
-      const searchQuery = searchQueryArrayAll(this.searchTerm)
-      this.comics = await Comic.getDocuments(searchQuery)
-      this.searching = true
-      this.disableNextButton = true
-      this.disablePrevButton = true
-    },
-    closeSearch () {
-      this.searching = false
-      this.searchTerm = ''
-      this.disableNextButton = false
-      this.disablePrevButton = false
-      this.fetchComics()
-    }
-  }
+	data () {
+		return {
+			comics: {},
+			numPages: 0,
+			currentPage: 1,
+			searchTerm: '',
+			isSearchModalActive: false,
+			isModalDeletePromptActive: false,
+			disableNextButton: false,
+			disablePrevButton: false,
+			searching: false
+		}
+	},
+	mounted () {
+		this.fetchComics()
+	},
+	methods: {
+		deleteComic () {
+
+		},
+		deleteComicPrompt (id) {
+			this.isModalDeletePromptActive = true
+		},
+		goSearch () {
+			this.findComics()
+			this.isSearchModalActive = false
+		},
+		openSearchModal () {
+			this.isSearchModalActive = true
+		},
+		async nextComics () {
+			this.currentPage++
+			console.log(this.currentPage)
+			this.comics = await Comic.getDocuments(comicQueryNextPage('all', 'release_date', 'desc', this.comics[this.comics.length - 1].doc))
+		},
+		async prevComics () {
+			this.currentPage--
+			console.log(this.currentPage)
+			this.comics = await Comic.getDocuments(comicQueryPrevPage('all', 'release_date', 'desc', this.comics[0].doc))
+		},
+		async fetchComics () {
+			const comicsPromise = Comic.getDocuments(comicQueryPaginated('all', 'release_date', 'desc'))
+			const counterPromise = Setting.getComicCounter()
+			const [comics, comicCount] = await Promise.all([comicsPromise, counterPromise])
+			this.comics = comics
+			this.numPages = Math.ceil(comicCount / 10)
+			console.log(this.currentPage)
+		},
+		async findComics () {
+			const searchQuery = searchQueryArrayAll(this.searchTerm)
+			this.comics = await Comic.getDocuments(searchQuery)
+			this.searching = true
+			this.disableNextButton = true
+			this.disablePrevButton = true
+		},
+		closeSearch () {
+			this.searching = false
+			this.searchTerm = ''
+			this.disableNextButton = false
+			this.disablePrevButton = false
+			this.fetchComics()
+		}
+	}
 }
 </script>
 
 <script setup>
 defineProps({
-  checkable: Boolean
+	checkable: Boolean
 })
 
 const mainStore = useMainStore()
@@ -252,22 +290,22 @@ const tableTrOddStyle = computed(() => mainStore.tableTrOddStyle)
 const checkedRows = ref([])
 
 const remove = (arr, cb) => {
-  const newArr = []
+	const newArr = []
 
-  arr.forEach(item => {
-    if (!cb(item)) {
-      newArr.push(item)
-    }
-  })
+	arr.forEach(item => {
+		if (!cb(item)) {
+			newArr.push(item)
+		}
+	})
 
-  return newArr
+	return newArr
 }
 
 const checked = (isChecked, comic) => {
-  if (isChecked) {
-    checkedRows.value.push(comic)
-  } else {
-    checkedRows.value = remove(checkedRows.value, row => row.id === comic.id)
-  }
+	if (isChecked) {
+		checkedRows.value.push(comic)
+	} else {
+		checkedRows.value = remove(checkedRows.value, row => row.id === comic.id)
+	}
 }
 </script>

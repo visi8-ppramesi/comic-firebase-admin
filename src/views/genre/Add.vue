@@ -40,18 +40,18 @@ import { collection, addDoc } from 'firebase/firestore'
 import firebase from '@/firebase/firebase'
 
 export default {
-  data () {
-    return {
-      name: null
-    }
-  },
-  methods: {
-    async addGenres () {
-      const addData = await addDoc(collection(firebase.db, 'categories'), this.$data)
-      console.log(addData)
-      this.$router.push({ name: 'genre' })
-    }
-  }
+	data () {
+		return {
+			name: null
+		}
+	},
+	methods: {
+		async addGenres () {
+			const addData = await addDoc(collection(firebase.db, 'categories'), this.$data)
+			console.log(addData)
+			this.$router.push({ name: 'genre' })
+		}
+	}
 }
 </script>
 

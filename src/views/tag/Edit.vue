@@ -43,27 +43,27 @@ import Tag from '@/firebase/Tag.js'
 import { doc, updateDoc } from 'firebase/firestore'
 import firebase from '@/firebase/firebase'
 export default {
-  data () {
-    return {
-      tag: {}
-    }
-  },
-  created () {
-    this.fetchTag()
-  },
-  methods: {
-    async fetchTag () {
-      this.tag = await Tag.getDocumentWithStorageResource(this.$route.params.id)
-    },
-    async updateTags (tagId) {
-      const docRef = doc(firebase.db, 'tags', tagId)
-      await updateDoc(docRef, {
-        name: this.tag.name
-      })
-      console.log(docRef)
-      this.$router.push('/tag')
-    }
-  }
+	data () {
+		return {
+			tag: {}
+		}
+	},
+	created () {
+		this.fetchTag()
+	},
+	methods: {
+		async fetchTag () {
+			this.tag = await Tag.getDocumentWithStorageResource(this.$route.params.id)
+		},
+		async updateTags (tagId) {
+			const docRef = doc(firebase.db, 'tags', tagId)
+			await updateDoc(docRef, {
+				name: this.tag.name
+			})
+			console.log(docRef)
+			this.$router.push('/tag')
+		}
+	}
 }
 </script>
 

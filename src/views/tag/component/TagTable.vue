@@ -114,33 +114,33 @@ import Tag from '@/firebase/Tag.js'
 import { doc, deleteDoc } from 'firebase/firestore'
 import firebase from '@/firebase/firebase'
 export default {
-  data () {
-    return {
-      tags: {},
-      selectedDoc: null
-    }
-  },
-  mounted () {
-    this.fetchTags()
-  },
-  methods: {
-    async fetchTags () {
-      const tags = await Tag.getTags()
-      this.tags = tags
-    },
-    async deleteTags (tagId) {
-      const docRef = doc(firebase.db, 'tags', tagId)
-      await deleteDoc(docRef)
-      console.log(docRef)
-      this.$router.go()
-    }
-  }
+	data () {
+		return {
+			tags: {},
+			selectedDoc: null
+		}
+	},
+	mounted () {
+		this.fetchTags()
+	},
+	methods: {
+		async fetchTags () {
+			const tags = await Tag.getTags()
+			this.tags = tags
+		},
+		async deleteTags (tagId) {
+			const docRef = doc(firebase.db, 'tags', tagId)
+			await deleteDoc(docRef)
+			console.log(docRef)
+			this.$router.go()
+		}
+	}
 }
 </script>
 
 <script setup>
 defineProps({
-  checkable: Boolean
+	checkable: Boolean
 })
 
 const mainStore = useMainStore()
@@ -176,32 +176,32 @@ const numPages = computed(() => Math.ceil(items.value.length / perPage.value))
 const currentPageHuman = computed(() => currentPage.value + 1)
 
 const pagesList = computed(() => {
-  const pagesList = []
+	const pagesList = []
 
-  for (let i = 0; i < numPages.value; i++) {
-    pagesList.push(i)
-  }
+	for (let i = 0; i < numPages.value; i++) {
+		pagesList.push(i)
+	}
 
-  return pagesList
+	return pagesList
 })
 
 const remove = (arr, cb) => {
-  const newArr = []
+	const newArr = []
 
-  arr.forEach(item => {
-    if (!cb(item)) {
-      newArr.push(item)
-    }
-  })
+	arr.forEach(item => {
+		if (!cb(item)) {
+			newArr.push(item)
+		}
+	})
 
-  return newArr
+	return newArr
 }
 
 const checked = (isChecked, author) => {
-  if (isChecked) {
-    checkedRows.value.push(author)
-  } else {
-    checkedRows.value = remove(checkedRows.value, row => row.id === author.id)
-  }
+	if (isChecked) {
+		checkedRows.value.push(author)
+	} else {
+		checkedRows.value = remove(checkedRows.value, row => row.id === author.id)
+	}
 }
 </script>

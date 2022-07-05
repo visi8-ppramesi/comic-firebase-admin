@@ -66,43 +66,43 @@
 
 <script>
 import {
-  Listbox,
-  // ListboxLabel,
-  ListboxButton,
-  ListboxOptions,
-  ListboxOption
+	Listbox,
+	// ListboxLabel,
+	ListboxButton,
+	ListboxOptions,
+	ListboxOption
 } from '@headlessui/vue'
 import { CheckIcon, SelectorIcon } from '@heroicons/vue/solid'
 export default {
-  components: {
-    Listbox,
-    // ListboxLabel,
-    ListboxButton,
-    ListboxOptions,
-    ListboxOption,
-    CheckIcon,
-    SelectorIcon
-  },
-  props: ['settings', 'items', 'modelValue'],
-  data () {
-    return {
-    }
-  },
-  computed: {
-    localModelValue: {
-      get () {
-        return this.modelValue
-      },
-      set (newValue) {
-        this.$emit('update:modelValue', newValue)
-      }
-    }
-  },
-  methods: {
-    updateValue (event) {
-      this.$emit('update:modelValue', event.target.value)
-    }
-  }
+	components: {
+		Listbox,
+		// ListboxLabel,
+		ListboxButton,
+		ListboxOptions,
+		ListboxOption,
+		CheckIcon,
+		SelectorIcon
+	},
+	props: ['settings', 'items', 'modelValue'],
+	data () {
+		return {
+		}
+	},
+	computed: {
+		localModelValue: {
+			get () {
+				return this.modelValue
+			},
+			set (newValue) {
+				this.$emit('update:modelValue', newValue)
+			}
+		}
+	},
+	methods: {
+		updateValue (event) {
+			this.$emit('update:modelValue', event.target.value)
+		}
+	}
 }
 </script>
 

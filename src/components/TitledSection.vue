@@ -15,8 +15,8 @@
 
 <script setup>
 defineProps({
-  custom: Boolean,
-  first: Boolean,
-  last: Boolean
+	custom: Boolean,
+	first: Boolean,
+	last: Boolean
 })
 </script>

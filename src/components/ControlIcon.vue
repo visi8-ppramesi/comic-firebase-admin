@@ -11,14 +11,14 @@
 import Icon from '@/components/Icon.vue'
 
 defineProps({
-  icon: {
-    type: String,
-    default: null
-  },
-  h: {
-    type: String,
-    default: null
-  }
+	icon: {
+		type: String,
+		default: null
+	},
+	h: {
+		type: String,
+		default: null
+	}
 }
 )
 </script>

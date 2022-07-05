@@ -46,11 +46,11 @@ import Icon from '@/components/Icon.vue'
 import AsideMenuList from '@/components/AsideMenuList.vue'
 
 const props = defineProps({
-  item: {
-    type: Object,
-    required: true
-  },
-  isSubmenuList: Boolean
+	item: {
+		type: Object,
+		required: true
+	},
+	isSubmenuList: Boolean
 })
 
 const emit = defineEmits(['menu-click'])
@@ -80,10 +80,10 @@ const itemHref = computed(() => props.item.href || null)
 const itemTarget = computed(() => componentIs.value === 'a' && props.item.target ? props.item.target : null)
 
 const menuClick = event => {
-  emit('menu-click', event, props.item)
+	emit('menu-click', event, props.item)
 
-  if (hasDropdown.value) {
-    isDropdownActive.value = !isDropdownActive.value
-  }
+	if (hasDropdown.value) {
+		isDropdownActive.value = !isDropdownActive.value
+	}
 }
 </script>

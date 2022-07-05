@@ -1,7 +1,9 @@
 <template>
   <div class="my-2">
     <router-link :to="{name: 'pageAdd'}">
-      <button class="mx-2 bg-blue-500 hover:bg-blue-700 text-white text-sm font-bold py-2 px-4 rounded">Add New Page</button>
+      <button class="mx-2 bg-blue-500 hover:bg-blue-700 text-white text-sm font-bold py-2 px-4 rounded">
+        Add New Page
+      </button>
     </router-link>
   </div>
 
@@ -80,27 +82,27 @@ import CheckboxCell from '@/components/CheckboxCell.vue'
 import Level from '@/components/Level.vue'
 import Page from '@/firebase/comics/Page.js'
 export default {
-  data () {
-    return {
-      pages: []
-    }
-  },
-  mounted () {
-    this.fetchPages()
-  },
-  methods: {
-    async fetchPages () {
-      const pages = await Page.getPages(['comics', this.$route.params.comicId, 'chapters', this.$route.params.chapterId, 'pages'])
-      console.log(pages)
-      this.pages = pages
-    }
-  }
+	data () {
+		return {
+			pages: []
+		}
+	},
+	mounted () {
+		this.fetchPages()
+	},
+	methods: {
+		async fetchPages () {
+			const pages = await Page.getPages(['comics', this.$route.params.comicId, 'chapters', this.$route.params.chapterId, 'pages'])
+			console.log(pages)
+			this.pages = pages
+		}
+	}
 }
 </script>
 
 <script setup>
 defineProps({
-  checkable: Boolean
+	checkable: Boolean
 })
 
 const mainStore = useMainStore()
@@ -130,32 +132,32 @@ const numPages = computed(() => Math.ceil(items.value.length / perPage.value))
 const currentPageHuman = computed(() => currentPage.value + 1)
 
 const pagesList = computed(() => {
-  const pagesList = []
+	const pagesList = []
 
-  for (let i = 0; i < numPages.value; i++) {
-    pagesList.push(i)
-  }
+	for (let i = 0; i < numPages.value; i++) {
+		pagesList.push(i)
+	}
 
-  return pagesList
+	return pagesList
 })
 
 const remove = (arr, cb) => {
-  const newArr = []
+	const newArr = []
 
-  arr.forEach(item => {
-    if (!cb(item)) {
-      newArr.push(item)
-    }
-  })
+	arr.forEach(item => {
+		if (!cb(item)) {
+			newArr.push(item)
+		}
+	})
 
-  return newArr
+	return newArr
 }
 
 const checked = (isChecked, comic) => {
-  if (isChecked) {
-    checkedRows.value.push(comic)
-  } else {
-    checkedRows.value = remove(checkedRows.value, row => row.id === comic.id)
-  }
+	if (isChecked) {
+		checkedRows.value.push(comic)
+	} else {
+		checkedRows.value = remove(checkedRows.value, row => row.id === comic.id)
+	}
 }
 </script>

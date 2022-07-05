@@ -50,67 +50,67 @@ import { useMainStore } from '@/store/main'
 import ControlIcon from '@/components/ControlIcon.vue'
 
 const props = defineProps({
-  name: {
-    type: String,
-    default: null
-  },
-  id: {
-    type: String,
-    default: null
-  },
-  autocomplete: {
-    type: String,
-    default: null
-  },
-  placeholder: {
-    type: String,
-    default: null
-  },
-  icon: {
-    type: String,
-    default: null
-  },
-  options: {
-    type: Array,
-    default: null
-  },
-  type: {
-    type: String,
-    default: 'text'
-  },
-  modelValue: {
-    type: [String, Number, Boolean, Array, Object],
-    default: ''
-  },
-  required: Boolean,
-  borderless: Boolean,
-  transparent: Boolean,
-  ctrlKFocus: Boolean
+	name: {
+		type: String,
+		default: null
+	},
+	id: {
+		type: String,
+		default: null
+	},
+	autocomplete: {
+		type: String,
+		default: null
+	},
+	placeholder: {
+		type: String,
+		default: null
+	},
+	icon: {
+		type: String,
+		default: null
+	},
+	options: {
+		type: Array,
+		default: null
+	},
+	type: {
+		type: String,
+		default: 'text'
+	},
+	modelValue: {
+		type: [String, Number, Boolean, Array, Object],
+		default: ''
+	},
+	required: Boolean,
+	borderless: Boolean,
+	transparent: Boolean,
+	ctrlKFocus: Boolean
 })
 
 const emit = defineEmits(['update:modelValue', 'right-icon-click'])
 
 const computedValue = computed({
-  get: () => props.modelValue,
-  set: value => {
-    emit('update:modelValue', value)
-  }
+	get: () => props.modelValue,
+	set: value => {
+		emit('update:modelValue', value)
+	}
 })
 
 const inputElClass = computed(() => {
-  const base = [
-    'px-3 py-2 max-w-full focus:ring focus:outline-none border-gray-700 rounded w-full',
-    'dark:placeholder-gray-400',
-    computedType.value === 'textarea' ? 'h-24' : 'h-12',
-    props.borderless ? 'border-0' : 'border',
-    props.transparent ? 'bg-transparent' : 'bg-white dark:bg-gray-800'
-  ]
+	const base = [
+		'px-3 py-2 max-w-full focus:ring focus:outline-none border-gray-700 rounded w-full',
+		'dark:placeholder-gray-400',
+		computedType.value === 'textarea' ? 'h-24' : 'h-12',
+		props.borderless ? 'border-0' : 'border',
+		props.transparent ? 'bg-transparent' : 'bg-white dark:bg-gray-800'
+	]
 
-  if (props.icon) {
-    base.push('pl-10')
-  }
+	if (props.icon) {
+		base.push('pl-10')
+	}
 
-  return base
+	return base
 })
 
 const computedType = computed(() => props.options ? 'select' : props.type)
@@ -122,27 +122,27 @@ const mainStore = useMainStore()
 const inputEl = ref(null)
 
 if (props.ctrlKFocus) {
-  const fieldFocusHook = e => {
-    if (e.ctrlKey && e.key === 'k') {
-      e.preventDefault()
-      inputEl.value.focus()
-    } else if (e.key === 'Escape') {
-      inputEl.value.blur()
-    }
-  }
+	const fieldFocusHook = e => {
+		if (e.ctrlKey && e.key === 'k') {
+			e.preventDefault()
+			inputEl.value.focus()
+		} else if (e.key === 'Escape') {
+			inputEl.value.blur()
+		}
+	}
 
-  onMounted(() => {
-    if (!mainStore.isFieldFocusRegistered) {
-      window.addEventListener('keydown', fieldFocusHook)
-      mainStore.isFieldFocusRegistered = true
-    } else {
-      // console.error('Duplicate field focus event')
-    }
-  })
+	onMounted(() => {
+		if (!mainStore.isFieldFocusRegistered) {
+			window.addEventListener('keydown', fieldFocusHook)
+			mainStore.isFieldFocusRegistered = true
+		} else {
+			// console.error('Duplicate field focus event')
+		}
+	})
 
-  onBeforeUnmount(() => {
-    window.removeEventListener('keydown', fieldFocusHook)
-    mainStore.isFieldFocusRegistered = false
-  })
+	onBeforeUnmount(() => {
+		window.removeEventListener('keydown', fieldFocusHook)
+		mainStore.isFieldFocusRegistered = false
+	})
 }
 </script>

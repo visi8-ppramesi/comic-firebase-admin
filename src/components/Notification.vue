@@ -41,25 +41,25 @@ import Icon from '@/components/Icon.vue'
 import JbButton from '@/components/JbButton.vue'
 
 const props = defineProps({
-  icon: {
-    type: String,
-    default: null
-  },
-  outline: Boolean,
-  color: {
-    type: String,
-    required: true
-  }
+	icon: {
+		type: String,
+		default: null
+	},
+	outline: Boolean,
+	color: {
+		type: String,
+		required: true
+	}
 })
 
 const componentClass = computed(() => props.outline
-  ? colorsOutline[props.color]
-  : [colorsBg[props.color], colorsBorders[props.color]])
+	? colorsOutline[props.color]
+	: [colorsBg[props.color], colorsBorders[props.color]])
 
 const isDismissed = ref(false)
 
 const dismiss = () => {
-  isDismissed.value = true
+	isDismissed.value = true
 }
 
 const slots = useSlots()

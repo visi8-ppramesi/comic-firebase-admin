@@ -3,12 +3,13 @@
 // import settings from '../firebaseSettings.js'
 import Subcollection from '../Subcollection.js'
 import { collection, getDocs } from 'firebase/firestore'
+import { StorageLink } from '../types/index.js';
 
 export default class extends Subcollection {
     static collection = 'page'
     static fields = {
       page_number: Number,
-      page_image_url: String,
+      page_image_url: StorageLink,
       is_ar: Boolean,
       config: Object,
       media_type: String,
@@ -17,7 +18,7 @@ export default class extends Subcollection {
       ar_button_show_time: Object
 
     }
-    
+
     static async getPages(path){
         const page = await this.getDocuments(path)
         return page

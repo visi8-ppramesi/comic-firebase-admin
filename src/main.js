@@ -33,26 +33,27 @@ mainStore.setStyle(localStorage[styleKey] ?? 'basic')
 
 /* Dark mode */
 if ((!localStorage[darkModeKey] && window.matchMedia('(prefers-color-scheme: dark)').matches) || localStorage[darkModeKey] === '1') {
-  mainStore.setDarkMode(true)
+	mainStore.setDarkMode(true)
 }
 
 /* Default title tag */
 const defaultDocumentTitle = 'Webcomic Admin'
 
 /* Collapse mobile aside menu on route change */
+//eslint-disable-next-line no-unused-vars
 router.beforeEach(to => {
-  mainStore.asideMobileToggle(false)
-  mainStore.asideLgToggle(false)
+	mainStore.asideMobileToggle(false)
+	mainStore.asideLgToggle(false)
 })
 
 router.afterEach(to => {
-  /* Set document title from route meta */
-  if (to.meta && to.meta.title) {
-    document.title = `${to.meta.title} — ${defaultDocumentTitle}`
-  } else {
-    document.title = defaultDocumentTitle
-  }
+	/* Set document title from route meta */
+	if (to.meta && to.meta.title) {
+		document.title = `${to.meta.title} — ${defaultDocumentTitle}`
+	} else {
+		document.title = defaultDocumentTitle
+	}
 
-  /* Full screen mode */
-  mainStore.fullScreenToggle(!!to.meta.fullScreen)
+	/* Full screen mode */
+	mainStore.fullScreenToggle(!!to.meta.fullScreen)
 })

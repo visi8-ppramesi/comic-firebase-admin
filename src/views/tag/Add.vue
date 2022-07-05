@@ -41,18 +41,18 @@ import { collection, addDoc } from 'firebase/firestore'
 import firebase from '@/firebase/firebase'
 
 export default {
-  data () {
-    return {
-      name: null
-    }
-  },
-  methods: {
-    async addTags () {
-      const addData = await addDoc(collection(firebase.db, 'tags'), this.$data)
-      console.log(addData)
-      this.$router.push({ name: 'tag' })
-    }
-  }
+	data () {
+		return {
+			name: null
+		}
+	},
+	methods: {
+		async addTags () {
+			const addData = await addDoc(collection(firebase.db, 'tags'), this.$data)
+			console.log(addData)
+			this.$router.push({ name: 'tag' })
+		}
+	}
 }
 </script>
 

@@ -17,11 +17,11 @@ import { sectionBgLogin, sectionBgLoginDark, sectionBgError, sectionBgErrorDark 
 import MainSection from '@/components/MainSection.vue'
 
 const props = defineProps({
-  bg: {
-    type: String,
-    required: true,
-    validator: value => ['login', 'error'].includes(value)
-  }
+	bg: {
+		type: String,
+		required: true,
+		validator: value => ['login', 'error'].includes(value)
+	}
 })
 
 const mainStore = useMainStore()
@@ -29,13 +29,13 @@ const mainStore = useMainStore()
 const darkMode = computed(() => mainStore.darkMode)
 
 const colorClass = computed(() => {
-  switch (props.bg) {
-    case 'login':
-      return darkMode.value ? sectionBgLoginDark : sectionBgLogin
-    case 'error':
-      return darkMode.value ? sectionBgErrorDark : sectionBgError
-  }
+	switch (props.bg) {
+	case 'login':
+		return darkMode.value ? sectionBgLoginDark : sectionBgLogin
+	case 'error':
+		return darkMode.value ? sectionBgErrorDark : sectionBgError
+	}
 
-  return ''
+	return ''
 })
 </script>

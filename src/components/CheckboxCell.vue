@@ -17,10 +17,10 @@
 import { ref, watch } from 'vue'
 
 defineProps({
-  type: {
-    type: String,
-    default: 'td'
-  }
+	type: {
+		type: String,
+		default: 'td'
+	}
 })
 
 const emit = defineEmits(['checked'])
@@ -28,6 +28,6 @@ const emit = defineEmits(['checked'])
 const checked = ref(false)
 
 watch(checked, newVal => {
-  emit('checked', newVal)
+	emit('checked', newVal)
 })
 </script>

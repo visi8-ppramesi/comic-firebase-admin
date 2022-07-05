@@ -51,8 +51,8 @@ import CardComponent from '@/components/CardComponent.vue'
 import JbLogo from '@/components/JbLogo.vue'
 
 const styles = [
-  'white',
-  'basic'
+	'white',
+	'basic'
 ]
 
 const mainStore = useMainStore()
@@ -62,8 +62,8 @@ mainStore.setDarkMode(false)
 const router = useRouter()
 
 const click = slug => {
-  mainStore.setStyle(slug)
-  mainStore.setDarkMode(false)
-  router.push('/dashboard')
+	mainStore.setStyle(slug)
+	mainStore.setDarkMode(false)
+	router.push('/dashboard')
 }
 </script>

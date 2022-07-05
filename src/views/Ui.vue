@@ -423,15 +423,15 @@
 import { ref, computed } from 'vue'
 import { useMainStore } from '@/store/main'
 import {
-  mdiMonitorCellphone,
-  mdiSelectColor,
-  mdiFeather,
-  mdiInformationOutline,
-  mdiCheckCircleOutline,
-  mdiAlertCircle,
-  mdiAlertCircleOutline,
-  mdiOpenInNew,
-  mdiClose
+	mdiMonitorCellphone,
+	mdiSelectColor,
+	mdiFeather,
+	mdiInformationOutline,
+	mdiCheckCircleOutline,
+	mdiAlertCircle,
+	mdiAlertCircleOutline,
+	mdiOpenInNew,
+	mdiClose
 } from '@mdi/js'
 import MainSection from '@/components/MainSection.vue'
 import HeroBar from '@/components/HeroBar.vue'
@@ -471,6 +471,6 @@ const buttonsDisabled = computed(() => buttonSettingsModel.value.indexOf('disabl
 const mainStore = useMainStore()
 
 const darkModeToggle = () => {
-  mainStore.setDarkMode()
+	mainStore.setDarkMode()
 }
 </script>

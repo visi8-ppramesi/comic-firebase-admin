@@ -57,14 +57,14 @@ const routes = router.getRoutes()
 const screens = []
 
 for (const routeIndex in routes) {
-  const path = routes[routeIndex].path
-  const title = routes[routeIndex].meta && routes[routeIndex].meta.title ? routes[routeIndex].meta.title : null
+	const path = routes[routeIndex].path
+	const title = routes[routeIndex].meta && routes[routeIndex].meta.title ? routes[routeIndex].meta.title : null
 
-  if (title) {
-    screens.push({
-      path,
-      title
-    })
-  }
+	if (title) {
+		screens.push({
+			path,
+			title
+		})
+	}
 }
 </script>

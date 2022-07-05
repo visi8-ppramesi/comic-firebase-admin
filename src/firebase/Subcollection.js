@@ -3,6 +3,8 @@ import firebase from './firebase.js'
 import {
     doc,
     query,
+    updateDoc,
+    deleteDoc,
     // startAfter,
     collection,
     getDocs,
@@ -100,7 +102,7 @@ export default class{
             if(validation){
                 const eventRef = this.doc.ref
                 await updateDoc(eventRef, data)
-                this.setData(this.id, data)
+                this.setData(this.parentId, this.id, data, false, false)
                 return this
             }
         }catch(err){
@@ -109,20 +111,20 @@ export default class{
         }
     }
 
-    static async createDocument(parentPath, data) {
+    static async createDocument(parentId, parentPath, data) {
         try{
-            const validation = this.constructor.validateData(data)
+            const validation = this.validateData(data)
             if(validation){
                 const newRef = collection(this.db, ...parentPath, this.collection)
                 const newDocRef = await addDoc(newRef, data)
                 const newDoc = await getDoc(newDocRef)
                 const instance = new this()
-                await instance.setData(newDoc.id, data, newDoc, false)
+                await instance.setData(parentId, newDoc.id, data, newDoc, false, false)
 
                 return instance
             }
         }catch(err){
-            handleError(err, 'updateDocumentError')
+            handleError(err, 'createDocumentError')
             throw err
         }
     }
@@ -139,10 +141,8 @@ export default class{
             if(!weGood){
                 error.push(field)
             }
-            console.log(1.4)
             return acc && weGood
         }, true)
-        console.log(1.5)
         if(checkFields){
             return checkFields
         }else{
@@ -150,7 +150,7 @@ export default class{
         }
     }
 
-    async setData(parentId, id, data, doc = null, fetchStorageLink = true){
+    async setData(parentId, id, data, doc = null, fetchStorageLink = true, fetchInstanceStorageLink = false){
         this.empty = false
         this.id = id
         this.parentId = parentId
@@ -175,7 +175,7 @@ export default class{
                         const myData = data[field][i]
                         const instanceData = {}
                         for(let j = 0; j < fieldKeys.length; j++){
-                            await setDataHelper(this.constructor.fields[field].fields, instanceData, fieldKeys[j], myData, true, fetchStorageLink)
+                            await setDataHelper(this.constructor.fields[field].fields, instanceData, fieldKeys[j], myData, true, fetchInstanceStorageLink)
                         }
                         thisMyData.push(instanceData)
                     }
@@ -227,7 +227,7 @@ export default class{
         })
     }
 
-    static async getDocument(path, id){
+    static async getDocument(path, id, loadStorage = false, loadInstance = false){
         const eventRef = doc(firebase.db, ...path, id)
         try{
             const doc = await getDoc(eventRef)
@@ -239,7 +239,7 @@ export default class{
             const data = doc.data()
             const instance = new this()
             const parentId = path[path.length - 2]
-            await instance.setData(parentId, doc.id, data, doc, false)
+            await instance.setData(parentId, doc.id, data, doc, loadStorage, loadInstance)
 
             return instance
         }catch(err){
@@ -248,7 +248,7 @@ export default class{
         }
     }
 
-    static async getDocumentWithStorageResourceUrl(path, id, storageFields = []){
+    static async getDocumentWithStorageResourceUrl(path, id, storageFields = [], loadInstance = false){
         const eventRef = doc(firebase.db, ...path, id)
         const parentId = path[path.length - 2]
         try{
@@ -261,7 +261,7 @@ export default class{
             let data = doc.data()
 
             const instance = new this()
-            await instance.setData(parentId, doc.id, data, doc)
+            await instance.setData(parentId, doc.id, data, doc, false, loadInstance)
 
             try{
                 const resources = []
@@ -286,7 +286,7 @@ export default class{
         }
     }
 
-    static async getDocumentWithStorageResource(path, id, storageFields = []){
+    static async getDocumentWithStorageResource(path, id, storageFields = [], loadInstance = false){
         const eventRef = doc(firebase.db, ...path, id)
         const parentId = path[path.length - 2]
         try{
@@ -299,7 +299,7 @@ export default class{
             let data = doc.data()
 
             const instance = new this()
-            await instance.setData(parentId, doc.id, data, doc)
+            await instance.setData(parentId, doc.id, data, doc, false, loadInstance)
 
             try{
                 const resources = []
@@ -324,7 +324,7 @@ export default class{
         }
     }
 
-    static async getDocumentsWithStorageResourceUrl(path, queries = [], storageFields = []){
+    static async getDocumentsWithStorageResourceUrl(path, queries = [], storageFields = [], loadInstance = false){
         const eventRef = collection(firebase.db, ...path)
         const parentId = path[path.length - 2]
         let q;
@@ -353,7 +353,7 @@ export default class{
             data.id = docs[i].id
 
             const instance = new this()
-            await instance.setData(parentId, data.id, data, data.doc)
+            await instance.setData(parentId, data.id, data, data.doc, false, loadInstance)
 
             for(let j = 0; j < storageFields.length; j++){
                 resources.push(utils.getResourceUrlFromStorage(instance[storageFields[j]]))
@@ -376,7 +376,7 @@ export default class{
         return events
     }
 
-    static async getDocuments(path, queries = []){
+    static async getDocuments(path, queries = [], loadStorage = false, loadInstance = false){
         const eventRef = collection(firebase.db, ...path)
         const parentId = path[path.length - 2]
         let q;
@@ -393,7 +393,7 @@ export default class{
             }else{
                 return await Promise.all(utils.parseDocs(snap.docs).map(async (datum, idx) => {
                     const instance = new this()
-                    await instance.setData(parentId, datum.id, datum, snap.docs[idx], false)
+                    await instance.setData(parentId, datum.id, datum, snap.docs[idx], loadStorage, loadInstance)
                     return instance
                 }))
             }
@@ -403,7 +403,7 @@ export default class{
         }
     }
 
-    static async * generateDocumentsWithStorageResourceUrl(path, queries = [], storageFields = []){
+    static async * generateDocumentsWithStorageResourceUrl(path, queries = [], storageFields = [], loadInstance = false){
         const eventRef = collection(firebase.db, ...path)
         const parentId = path[path.length - 2]
         let q;
@@ -432,7 +432,7 @@ export default class{
             data.id = docs[i].id
 
             const instance = new this()
-            await instance.setData(parentId, data.id, data, data.doc)
+            await instance.setData(parentId, data.id, data, data.doc, false, loadInstance)
 
             for(let j = 0; j < storageFields.length; j++){
                 resources.push(utils.getResourceUrlFromStorage(instance[storageFields[j]]))
@@ -453,7 +453,7 @@ export default class{
         }
     }
 
-    static async getDocumentsWithStorageResource(path, queries = [], storageFields = []){
+    static async getDocumentsWithStorageResource(path, queries = [], storageFields = [], loadInstance = false){
         const eventRef = collection(firebase.db, ...path)
         const parentId = path[path.length - 2]
         let q;
@@ -480,7 +480,7 @@ export default class{
             const resources = []
 
             const instance = new this()
-            await instance.setData(parentId, docs[i].id, data, docs[i])
+            await instance.setData(parentId, docs[i].id, data, docs[i], false, loadInstance)
             for(let j = 0; j < storageFields.length; j++){
                 resources.push(utils.getDataUrlFromStorage(instance[storageFields[j]]))
             }
@@ -501,7 +501,7 @@ export default class{
         return results
     }
 
-    static async * generateDocumentsWithStorageResource(path, queries = [], storageFields = []){
+    static async * generateDocumentsWithStorageResource(path, queries = [], storageFields = [], loadInstance = false){
         const parentId = path[path.length - 2]
         const eventRef = collection(firebase.db, ...path)
         let q;
@@ -531,7 +531,7 @@ export default class{
             data.id = docs[i].id
 
             const instance = new this()
-            await instance.setData(parentId, docs[i].id, data, docs[i])
+            await instance.setData(parentId, docs[i].id, data, docs[i], false, loadInstance)
             for(let j = 0; j < storageFields.length; j++){
                 resources.push(utils.getDataUrlFromStorage(instance[storageFields[j]]))
             }
@@ -566,7 +566,7 @@ export default class{
                 const path = datum.doc.ref.path.split('/')
                 const parentId = path[path.length - 3]
                 const instance = new this()
-                await instance.setData(parentId, datum.id, datum, snap.docs[idx])
+                await instance.setData(parentId, datum.id, datum, snap.docs[idx], false, false)
                 return instance
             }))
         }catch(err){
@@ -575,7 +575,7 @@ export default class{
         }
     }
 
-    static async getDocumentsCollectionWithStorageResource(queries = [], storageFields = []){
+    static async getDocumentsCollectionWithStorageResource(queries = [], storageFields = [], loadInstance = false){
         const eventRef = collectionGroup(firebase.db, this.collection)
         let q;
         if(queries.length > 0){
@@ -600,7 +600,7 @@ export default class{
             const resources = []
 
             const instance = new this()
-            await instance.setData(parentId, docs[i].id, data, docs[i])
+            await instance.setData(parentId, docs[i].id, data, docs[i], false, loadInstance)
             for(let j = 0; j < storageFields.length; j++){
                 resources.push(utils.getDataUrlFromStorage(instance[storageFields[j]]))
             }
@@ -621,7 +621,7 @@ export default class{
         return results
     }
 
-    static async getDocumentsCollectionWithStorageResourceUrl(queries = [], storageFields = []){
+    static async getDocumentsCollectionWithStorageResourceUrl(queries = [], storageFields = [], loadInstance = false){
         const eventRef = collectionGroup(firebase.db, this.collection)
         let q;
         if(queries.length > 0){
@@ -648,7 +648,7 @@ export default class{
             data.id = docs[i].id
 
             const instance = new this()
-            await instance.setData(parentId, data.id, data, data.doc)
+            await instance.setData(parentId, data.id, data, data.doc, false, loadInstance)
 
             for(let j = 0; j < storageFields.length; j++){
                 resources.push(utils.getResourceUrlFromStorage(instance[storageFields[j]]))
