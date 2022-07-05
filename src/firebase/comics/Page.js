@@ -17,6 +17,11 @@ export default class extends Subcollection {
       ar_button_show_time: Object
 
     }
+    
+    static async getPages(path){
+        const page = await this.getDocuments(path)
+        return page
+    }
 
     async getScenes () {
       const { path } = this.getObjectPath()

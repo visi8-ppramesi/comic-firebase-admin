@@ -6,12 +6,18 @@ import ComicList from '@/views/comic/List.vue'
 import AuthorList from '@/views/author/List.vue'
 import GenreList from '@/views/genre/List.vue'
 import TagList from '@/views/tag/List.vue'
+import ChapterList from '@/views/chapter/List.vue'
+import PageList from '@/views/page/List.vue'
 import CommentList from '@/views/comment/List.vue'
 import UserList from '@/views/user/List.vue'
 import UserProfile from '@/views/user/Profile.vue'
 import Settings from '@/views/settings/settings.vue'
 import ComicAdd from '@/views/comic/Add.vue'
 import ComicEdit from '@/views/comic/Edit.vue'
+import ChapterAdd from '@/views/chapter/Add.vue'
+import ChapterEdit from '@/views/chapter/Edit.vue'
+import PageAdd from '@/views/page/Add.vue'
+import PageEdit from '@/views/page/Edit.vue'
 import AuthorAdd from '@/views/author/Add.vue'
 import AuthorEdit from '@/views/author/Edit.vue'
 import GenreAdd from '@/views/genre/Add.vue'
@@ -64,6 +70,72 @@ const authRoutes = [
     path: '/comic/:id',
     name: 'comicEdit',
     component: ComicEdit
+  },
+  {
+    // Document title tag
+    // We combine it with defaultDocumentTitle set in `src/main.js` on router.afterEach hook
+    meta: {
+      title: 'Chapter List',
+      requiresAuth: true
+    },
+    path: '/comic/:comicId/chapter',
+    name: 'chapter',
+    component: ChapterList
+  },
+  {
+    // Document title tag
+    // We combine it with defaultDocumentTitle set in `src/main.js` on router.afterEach hook
+    meta: {
+      title: 'Chapter Edit',
+      requiresAuth: true
+    },
+    path: '/comic/:comicId/chapter/:chapterId',
+    name: 'chapterEdit',
+    component: ChapterEdit
+  },
+  {
+    // Document title tag
+    // We combine it with defaultDocumentTitle set in `src/main.js` on router.afterEach hook
+    meta: {
+      title: 'Page List',
+      requiresAuth: true
+    },
+    path: '/comic/:comicId/chapter/:chapterId/page',
+    name: 'pageList',
+    component: PageList
+  },
+  {
+    // Document title tag
+    // We combine it with defaultDocumentTitle set in `src/main.js` on router.afterEach hook
+    meta: {
+      title: 'Page Edit',
+      requiresAuth: true
+    },
+    path: '/comic/:comicId/chapter/:chapterId/page/:pageId',
+    name: 'pageEdit',
+    component: PageEdit
+  },
+  {
+    // Document title tag
+    // We combine it with defaultDocumentTitle set in `src/main.js` on router.afterEach hook
+    meta: {
+      title: 'Chapter Add',
+      requiresAuth: true
+    },
+    path: '/chapter/add',
+    name: 'chapter add',
+    component: ChapterAdd
+  },
+  {
+    // Document title tag
+    // We combine it with defaultDocumentTitle set in `src/main.js` on router.afterEach hook
+    meta: {
+      title: 'Page Add',
+      requiresAuth: true
+    },
+    path: '/page/add',
+    name: 'page add',
+    component: PageAdd
   },
   {
     // Document title tag
