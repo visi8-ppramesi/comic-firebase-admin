@@ -29,7 +29,6 @@ export class ProfilePicture{
 
 export class StorageLink{
   async adminUploadField(fieldName, path, file){
-    console.log(this.doc)
     const tempPathArray = []
     tempPathArray.push(file.name)
     tempPathArray.unshift('temporary_files')
@@ -38,6 +37,7 @@ export class StorageLink{
     pathArray.push(file.name)
     const fileRef = ref(firebase.storage, tempPathArray.join('/'))
     try{
+      //eslint-disable-next-line no-unused-vars
         const { ref } = await uploadBytes(fileRef, file, { cacheControl: 'public,max-age=86400' })
 
         const tempDocRef = collection(firebase.db, 'temporary_files')
@@ -46,11 +46,12 @@ export class StorageLink{
           move_path: pathArray.join('/')
         })
         const moverFunction = httpsCallable(firebase.functions, 'moveTemporaryFile-moveTemporaryFile')
-        const { path } = await moverFunction({
+        //eslint-disable-next-line no-unused-vars
+        const { path: newPath } = await moverFunction({
           temporaryId: tempDoc.id
         })
         return await setDoc(this.doc.ref, {
-            [fieldName]: firebase.buildGsPath(path.split('/'))
+            [fieldName]: firebase.buildGsPath(pathArray.join('/'))
         }, {merge: true})
     }catch(err){
         console.error(err)

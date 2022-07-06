@@ -186,7 +186,7 @@ export default {
 				if (this.coverImageChanged) {
 					try {
 						console.log('asdfasdf')
-						await newChapter.adminUploadField('chapter_preview_url', 'covers/' + newChapter.id, this.coverImage)
+						await newChapter.adminUploadField('chapter_preview_url', 'previews/' + newChapter.id, this.coverImage)
 					} catch (err) {
 						await newChapter.deleteDocument()
 						console.error('error... deleting...')
