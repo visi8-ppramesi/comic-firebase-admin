@@ -89,7 +89,6 @@ export default class{
 
     async deleteDocument(){
       try {
-        console.log('ref', this.doc.ref)
         await deleteDoc(this.doc.ref)
         return true
       } catch (err) {

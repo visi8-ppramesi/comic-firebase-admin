@@ -1,4 +1,5 @@
-//disable-eslint
+// disable-eslint
+/* global globalThis */
 const devtools = {
 	isOpen: false,
 	orientation: undefined
