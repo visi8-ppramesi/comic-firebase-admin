@@ -1,4 +1,3 @@
-/* eslint-disable */
 <template>
   <title-bar :title-stack="titleStack" />
   <hero-bar>Add a New Page</hero-bar>

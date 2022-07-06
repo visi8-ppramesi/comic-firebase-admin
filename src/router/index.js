@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { createRouter, createWebHistory } from 'vue-router'
 import emitter from '@/utils/emitter'
 import Home from '@/views/Home.vue'

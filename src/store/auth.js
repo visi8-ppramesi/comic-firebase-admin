@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { defineStore } from "pinia";
 import User from "@/firebase/users/User";
 import { getDoc, doc } from "firebase/firestore";

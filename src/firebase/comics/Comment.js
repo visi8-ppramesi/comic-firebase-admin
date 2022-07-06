@@ -1,4 +1,3 @@
-/* eslint-disable */
 import Subcollection from '../Subcollection'
 import { addDoc, doc, collection, onSnapshot, query, orderBy, limit, deleteDoc } from 'firebase/firestore'
 import handleError from '@/utils/handleError'

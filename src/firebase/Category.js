@@ -1,4 +1,3 @@
-/* eslint-disable */
 import Collection from "./Collection";
 
 export default class extends Collection{

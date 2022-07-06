@@ -1,4 +1,3 @@
-/* eslint-disable */
 import Collection from '../Collection.js'
 import Subcollection from '../Subcollection.js'
 import { updateDoc, doc } from 'firebase/firestore'

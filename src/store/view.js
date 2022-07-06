@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { defineStore } from "pinia"
 import errorHandler from "./utils/errorHandler"
 import _ from 'lodash'

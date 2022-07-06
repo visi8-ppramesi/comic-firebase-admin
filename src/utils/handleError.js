@@ -1,4 +1,3 @@
-/* eslint-disable */
 import emitter from './emitter.js'
 import app from '../main.js'
 
