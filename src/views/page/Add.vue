@@ -59,10 +59,10 @@
             </label>
             <input
               id="grid-first-name"
-              v-model="page.price"
+              v-model="page.page_number"
               class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
               type="text"
-              placeholder="Price"
+              placeholder="Page Number"
             >
           </div>
         </div>
@@ -172,11 +172,20 @@ export default {
 			try {
 				// eslint-disable-next-line camelcase
 				const { is_ar, media_type, page_number } = this.page
-				const newPage = await Page.createDocument(['comics', this.$route.params.comicId, 'chapters', this.$route.params.chapterId], { is_ar, media_type, page_number, release_date: new Date() })
+				const newPage = await Page.createDocument(
+          this.$route.params.chapterId,
+          ['comics', this.$route.params.comicId, 'chapters', this.$route.params.chapterId], 
+          {
+            is_ar: String(is_ar), 
+            media_type: String(media_type), 
+            page_number: parseInt(page_number)
+          }
+        )
 				console.log(newPage)
 				if (this.coverImageChanged) {
 					try {
-						await newPage.adminUploadField('page_image_url', 'covers/' + newPage.id, this.coverImage)
+            console.log('asdfasdf')
+						await newPage.adminUploadField('page_image_url', 'pages/' + newPage.id, this.coverImage)
 					} catch (err) {
 						await newPage.deleteDocument()
 						console.error('error... deleting...')

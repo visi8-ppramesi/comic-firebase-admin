@@ -150,7 +150,7 @@
             </router-link>
 
             <button
-              class="mx-2 bg-blue-500 hover:bg-blue-700 text-white text-sm font-bold py-2 px-4 rounded"
+              class="mx-2 bg-red-500 hover:bg-red-700 text-white text-sm font-bold py-2 px-4 rounded"
               @click="deleteComicPrompt(comic.id)"
             >
               Delete
@@ -216,7 +216,7 @@ export default {
 		deleteComic () {
 
 		},
-		deleteComicPrompt (id) {
+		deleteComicPrompt () {
 			this.isModalDeletePromptActive = true
 		},
 		goSearch () {

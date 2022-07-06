@@ -211,7 +211,7 @@ export default {
 					position: 'bottom'
 				})
 			}
-			//   this.$router.back()
+			this.$router.back()
 		}
 	}
 }
