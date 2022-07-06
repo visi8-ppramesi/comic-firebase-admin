@@ -81,8 +81,4 @@ const isAsideLgActive = computed(() => mainStore.isAsideLgActive)
 const asideLgClose = () => {
 	mainStore.asideLgToggle(false)
 }
-
-const menuClick = (event, item) => {
-	//
-}
 </script>
