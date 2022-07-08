@@ -382,4 +382,9 @@ export default class extends Collection {
         throw error
       }
     }
+
+    static async getUsers(){
+      const users = await this.getDocuments()
+      return users
+  }
 }

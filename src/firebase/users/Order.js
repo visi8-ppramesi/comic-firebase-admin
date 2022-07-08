@@ -14,4 +14,9 @@ export default class extends Subcollection {
       notification_response: Object,
       charge_response: Object
     }
+
+    static async getOrders(path){
+      const orders = await this.getDocuments(path)
+      return orders
+    }
 }
