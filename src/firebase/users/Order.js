@@ -1,4 +1,3 @@
-/* eslint-disable */
 import Subcollection from '../Subcollection'
 // import Comic from "../comics/Comic";
 
@@ -14,5 +13,10 @@ export default class extends Subcollection {
       items: Array,
       notification_response: Object,
       charge_response: Object
+    }
+
+    static async getOrders(path){
+      const orders = await this.getDocuments(path)
+      return orders
     }
 }

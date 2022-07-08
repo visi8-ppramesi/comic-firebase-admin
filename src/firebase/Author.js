@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { where } from "firebase/firestore";
 import Collection from "./Collection.js";
 import Comic from "./comics/Comic.js";

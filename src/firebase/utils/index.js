@@ -1,4 +1,3 @@
-/* eslint-disable */
 import firebase from '../firebase.js'
 // import { collection, orderBy, startAt, endAt, query, getDocs } from 'firebase/firestore'
 import { getDownloadURL, getBlob as getStorageBlob, ref } from 'firebase/storage'

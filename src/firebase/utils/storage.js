@@ -1,4 +1,3 @@
-/* eslint-disable */
 import firebase from '../firebase.js'
 import { getBlob as getStorageBlob, ref } from 'firebase/storage'
 

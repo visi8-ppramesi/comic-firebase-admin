@@ -1,4 +1,3 @@
-/* eslint-disable */
 import Collection from "./Collection";
 // import { collection, addDoc } from "firebase/firestore";
 import firebase from './firebase.js'

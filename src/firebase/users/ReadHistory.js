@@ -1,4 +1,3 @@
-/* eslint-disable */
 import Subcollection from '../Subcollection'
 // import Comic from "../comics/Comic";
 // import Chapter from "../comics/Chapter";

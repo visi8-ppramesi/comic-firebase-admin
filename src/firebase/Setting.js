@@ -1,4 +1,3 @@
-/* eslint-disable */
 import Collection from "./Collection";
 import utils from "./utils";
 

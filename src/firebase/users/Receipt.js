@@ -1,4 +1,3 @@
-/* eslint-disable */
 import Subcollection from '../Subcollection'
 
 export default class extends Subcollection {

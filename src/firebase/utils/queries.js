@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { where, limit, orderBy, startAfter, doc, FieldPath, endBefore } from 'firebase/firestore'
 import firebase from '../firebase.js'
 import _ from 'lodash'

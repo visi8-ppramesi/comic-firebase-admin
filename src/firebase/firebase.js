@@ -1,14 +1,13 @@
-/* eslint-disable */
 import { initializeApp } from 'firebase/app'
 import { getAnalytics } from 'firebase/analytics'
-import { getFirestore, connectFirestoreEmulator } from 'firebase/firestore'
-import { getFunctions, connectFunctionsEmulator } from 'firebase/functions'
+import { getFirestore } from 'firebase/firestore'
+import { getFunctions} from 'firebase/functions'
 import {
   browserLocalPersistence,
   getAuth,
   setPersistence
 } from 'firebase/auth'
-import { getStorage, connectStorageEmulator } from 'firebase/storage'
+import { getStorage } from 'firebase/storage'
 import { getPerformance } from 'firebase/performance'
 // import _ from 'lodash'
 // import dotenv from 'dotenv'

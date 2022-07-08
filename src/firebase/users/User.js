@@ -1,4 +1,3 @@
-/* eslint-disable */
 import Collection from '../Collection.js'
 import Subcollection from '../Subcollection.js'
 import firebase from '../firebase.js'
@@ -383,4 +382,9 @@ export default class extends Collection {
         throw error
       }
     }
+
+    static async getUsers(){
+      const users = await this.getDocuments()
+      return users
+  }
 }

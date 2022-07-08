@@ -39,13 +39,13 @@
         <th>Id</th>
         <th>Name</th>
         <th>Email</th>
-        <th>Role</th>
+        <th class="flex justify-center">Actions</th>
         <th />
       </tr>
     </thead>
     <tbody>
       <tr
-        v-for="(user, index) in itemsPaginated"
+        v-for="(user, index) in users"
         :key="user.id"
         :class="[tableTrStyle, index % 2 === 0 ? tableTrOddStyle : '']"
       >
@@ -62,27 +62,19 @@
         <td data-label="Email">
           {{ user.email }}
         </td>
-        <td data-label="Role">
-          {{ user.role }}
-        </td>
         <td class="actions-cell">
-          <jb-buttons
-            type="justify-start lg:justify-end"
+          <div
+            class="flex justify-end"
             no-wrap
           >
-            <jb-button
-              color="info"
-              :icon="mdiEye"
-              small
-              @click="isModalActive = true"
-            />
-            <jb-button
-              color="danger"
-              :icon="mdiTrashCan"
-              small
-              @click="isModalDangerActive = true"
-            />
-          </jb-buttons>
+            <div class="px-2">
+              <router-link :to="{name: 'userDetail', params: { id: user.id}}">
+                <button class="bg-green-500 hover:bg-green-700 text-white text-sm font-bold py-2 px-4 rounded">
+                  Detail
+                </button>
+              </router-link>
+            </div>
+          </div>
         </td>
       </tr>
     </tbody>
@@ -108,16 +100,32 @@
   </div>
 </template>
 
-<script setup>
+<script>
 import { computed, ref } from 'vue'
 import { useMainStore } from '@/store/main'
-import { mdiEye, mdiTrashCan } from '@mdi/js'
 import ModalBox from '@/components/ModalBox.vue'
 import CheckboxCell from '@/components/CheckboxCell.vue'
 import Level from '@/components/Level.vue'
-import JbButtons from '@/components/JbButtons.vue'
-import JbButton from '@/components/JbButton.vue'
+import User from '@/firebase/users/User'
+export default {
+	data () {
+		return {
+			users: {}
+		}
+	},
+	mounted () {
+		this.fetchUsers()
+	},
+	methods: {
+		async fetchUsers () {
+			const users = await User.getUsers()
+			this.users = users
+		}
+	}
+}
+</script>
 
+<script setup>
 defineProps({
 	checkable: Boolean
 })
@@ -145,10 +153,6 @@ const perPage = ref(10)
 const currentPage = ref(0)
 
 const checkedRows = ref([])
-
-const itemsPaginated = computed(
-	() => items.value.slice(perPage.value * currentPage.value, perPage.value * (currentPage.value + 1))
-)
 
 const numPages = computed(() => Math.ceil(items.value.length / perPage.value))
 

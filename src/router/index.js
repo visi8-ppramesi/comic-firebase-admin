@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { createRouter, createWebHistory } from 'vue-router'
 import emitter from '@/utils/emitter'
 import Home from '@/views/Home.vue'
@@ -24,6 +23,8 @@ import GenreAdd from '@/views/genre/Add.vue'
 import GenreEdit from '@/views/genre/Edit.vue'
 import TagAdd from '@/views/tag/Add.vue'
 import TagEdit from '@/views/tag/Edit.vue'
+import UserDetail from '@/views/user/Detail.vue'
+import OrderDetail from '@/views/user/order/Detail.vue'
 import Logout from '@/views/Logout.vue'
 
 const authRoutes = [
@@ -257,6 +258,28 @@ const authRoutes = [
     path: '/user',
     name: 'user',
     component: UserList
+  },
+  {
+    // Document title tag
+    // We combine it with defaultDocumentTitle set in `src/main.js` on router.afterEach hook
+    meta: {
+      title: 'User Detail',
+      requiresAuth: true
+    },
+    path: '/user/:id',
+    name: 'userDetail',
+    component: UserDetail
+  },
+  {
+    // Document title tag
+    // We combine it with defaultDocumentTitle set in `src/main.js` on router.afterEach hook
+    meta: {
+      title: 'Order Detail',
+      requiresAuth: true
+    },
+    path: '/user/:id/order/:orderId',
+    name: 'orderDetail',
+    component: OrderDetail
   },
   {
     // Document title tag
