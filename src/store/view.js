@@ -1,6 +1,8 @@
 import { defineStore } from "pinia"
 import errorHandler from "./utils/errorHandler"
-import _ from 'lodash'
+// import _ from 'lodash'
+import isNil from 'lodash/isNil'
+import includes from 'lodash/includes'
 
 const storageComicsViewed = localStorage.getItem('comics_viewed')
 const storageChaptersViewed = localStorage.getItem('chapters_viewed')
@@ -32,23 +34,23 @@ const viewChapterHelper = (id, chapter, store) => {
 
 export const useViewStore = defineStore('comicViewed', {
     state: () => ({
-        comics_viewed: _.isNil(storageComicsViewed) ? [] : JSON.parse(storageComicsViewed),
-        view_date: _.isNil(storageDateViewed) ? {} : JSON.parse(storageDateViewed),
-        chapters_viewed: _.isNil(storageChaptersViewed) ? [] : JSON.parse(storageChaptersViewed)
+        comics_viewed: isNil(storageComicsViewed) ? [] : JSON.parse(storageComicsViewed),
+        view_date: isNil(storageDateViewed) ? {} : JSON.parse(storageDateViewed),
+        chapters_viewed: isNil(storageChaptersViewed) ? [] : JSON.parse(storageChaptersViewed)
     }),
-    
+
     getters: {},
 
     actions: {
         viewChapter(chapterInstance){
             const id = chapterInstance.id
-            if(!_.includes(this.chapters_viewed, id)){
+            if(!includes(this.chapters_viewed, id)){
                 return viewChapterHelper(id, chapterInstance, this)
             }
         },
         viewComic(comicInstance){
             const id = comicInstance.id
-            if(!_.includes(this.comics_viewed, id)){
+            if(!includes(this.comics_viewed, id)){
                 if(!(id in this.view_date)){
                     return viewHelper(id, comicInstance, this)
                 }/*else{

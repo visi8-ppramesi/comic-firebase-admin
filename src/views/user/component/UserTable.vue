@@ -39,7 +39,9 @@
         <th>Id</th>
         <th>Name</th>
         <th>Email</th>
-        <th class="flex justify-center">Actions</th>
+        <th class="flex justify-center">
+          Actions
+        </th>
         <th />
       </tr>
     </thead>
