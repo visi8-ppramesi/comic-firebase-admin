@@ -7,6 +7,10 @@ export default class extends Collection{
         'value': Object
     }
 
+    static async getUserCounter(){
+        return (await this.getDocument('user_counter')).value
+    }
+
     static async getComicCounter(){
         return (await this.getDocument('comic_counter')).value
     }

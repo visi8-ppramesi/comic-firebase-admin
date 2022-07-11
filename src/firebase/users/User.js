@@ -62,7 +62,7 @@ export default class extends Collection {
       profile_image_url: ProfilePicture
     }
 
-    async setPurchasedComic(comicId, chapterId){
+    async bestowComic(comicId, chapterId){
       const chaptersPurchased = await this.getPurchasedComicStatus(comicId)
       if(chaptersPurchased.chapters.includes(chapterId) || chaptersPurchased.chapters.includes('all')){
         return

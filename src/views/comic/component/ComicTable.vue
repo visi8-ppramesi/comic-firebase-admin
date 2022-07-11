@@ -238,14 +238,12 @@ export default {
 			this.isSearchModalActive = true
 		},
 		async nextComics () {
-			this.currentPage++
-			console.log(this.currentPage)
 			this.comics = await Comic.getDocuments(comicQueryNextPage('all', 'release_date', 'desc', this.comics[this.comics.length - 1].doc))
-		},
+			this.currentPage++
+    },
 		async prevComics () {
-			this.currentPage--
-			console.log(this.currentPage)
 			this.comics = await Comic.getDocuments(comicQueryPrevPage('all', 'release_date', 'desc', this.comics[0].doc))
+			this.currentPage--
 		},
 		async fetchComics () {
 			const comicsPromise = Comic.getDocuments(comicQueryPaginated('all', 'release_date', 'desc'))

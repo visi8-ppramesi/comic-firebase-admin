@@ -23,6 +23,30 @@ export const actionQueryLimitTen = [ ...actionQuery, ...orderByLimit ]
 export const adventureQuery = [ where('categories', 'array-contains', 'adventure') ]
 export const adventureQueryLimitTen = [ ...adventureQuery, ...orderByLimit ]
 
+export const userQueryNextPage = (orderByParam = "email", orderBySort = "asc", startAtParam = null) => {
+    if(startAtParam){
+        return [ orderBy(orderByParam, orderBySort), limit(10), startAfter(startAtParam) ]
+    }else{
+        return [ orderBy(orderByParam, orderBySort), limit(10)]
+    }
+}
+
+export const userQueryPrevPage = (orderByParam = "email", orderBySort = "asc", endBeforeParam = null) => {
+    if(endBeforeParam){
+        return [ orderBy(orderByParam, orderBySort), limit(10), endBefore(endBeforeParam) ]
+    }else{
+        return [ orderBy(orderByParam, orderBySort), limit(10)]
+    }
+}
+
+export const userQueryPaginated = (orderByParam = "email", orderBySort = "asc", startAtParam = null) => {
+    if(startAtParam){
+        return [ orderBy(orderByParam, orderBySort), limit(10), startAfter(startAtParam) ]
+    }else{
+        return [ orderBy(orderByParam, orderBySort), limit(10)]
+    }
+}
+
 export const comicQueryNextPage = (comic, orderByParam = "title", orderBySort = "asc", startAtParam = null) => {
     const comQuery = !comic || comic == 'all' ? [] : [ where('comics', 'array-contains', comic) ]
     if(startAtParam){
@@ -89,6 +113,14 @@ export const genreQueryPaginated = (genre, orderByParam = "name", startAtParam =
 export const authorComicsQuery = (authorId) => {
     const docRef = doc(firebase.db, 'authors', authorId)
     return [ where('authors', 'array-contains', docRef), limit(6) ]
+}
+
+export const searchUserQuery = (search, field = "email", startAtParam = null) => {
+    if(startAtParam){
+      return [ where(field, '==', search), startAfter(startAtParam)]
+    }else{
+      return [ where(field, '==', search) ]
+    }
 }
 
 export const searchQueryArrayAll = (searchQ, orderByParam = 'title', startAtParam = null) => {
