@@ -229,7 +229,7 @@ export default {
 						throw err
 					}
 				}
-        const processedData = this.author.toDataJSON(['name', 'email', 'description', 'social_media_links.facebook', 'social_media_links.twitter'])
+        const processedData = this.author.toDataJSON(['name', 'email', 'description', 'social_media_links'])
 				await this.author.updateDocument(processedData)
 				this.$toast.open({
 					message: 'Success!',
