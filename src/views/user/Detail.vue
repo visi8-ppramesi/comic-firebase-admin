@@ -11,6 +11,14 @@
       </div>
     </div>
 
+    <button
+      class="bg-blue-500 hover:bg-blue-700 text-white text-sm font-bold py-2 px-4 rounded"
+      @click="$refs.comicBestowal.openModal()"
+    >
+      Give Comic
+    </button>
+    <comic-bestowal ref="comicBestowal" :user="user"></comic-bestowal>
+
     <div class="my-3 text-2xl font-bold">
       User's Order
     </div>
@@ -94,6 +102,7 @@
 
 <script>
 import { ref } from 'vue'
+import ComicBestowal from '@/views/user/component/ComicBestowal.vue'
 import MainSection from '@/components/MainSection.vue'
 import TitleBar from '@/components/TitleBar.vue'
 import HeroBar from '@/components/HeroBar.vue'
@@ -116,6 +125,9 @@ export default {
         this.fetchOrder()
         this.fetchHistory()
 	},
+  components: {
+    ComicBestowal
+  },
 	methods: {
 		async fetchUser () {
 			this.user = await User.getDocument(this.$route.params.id)

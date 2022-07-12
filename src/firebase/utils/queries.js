@@ -92,7 +92,7 @@ export const categoryQueryPaginated = (category, orderByParam = "title", startAt
     }
 }
 
-export const tagQueryPaginated = (tag, orderByParam = "name", startAtParam = null) => {
+export const tagQueryPaginated = (tag, orderByParam = "title", startAtParam = null) => {
     const tagQuery = !tag || tag == 'all' ? [] : [ where('tags', 'array-contains', tag) ]
     if(startAtParam){
         return [ ...tagQuery, orderBy(orderByParam), limit(10), startAfter(startAtParam) ]
@@ -173,4 +173,12 @@ export const searchQueryMap = (searchQ) => {//, orderByParam = 'title', startAtP
     // }else{
     //     return [...whereQueries, orderBy(orderByParam), limit(10)]
     // }
+}
+
+export const searchComicByName = (searchQ, orderByParam = 'title', startAtParam = null) => {
+    if(startAtParam){
+        return [where('title', '==', searchQ), orderBy(orderByParam), limit(10), startAfter(startAtParam)]
+    }else{
+        return [where('title', '==', searchQ), orderBy(orderByParam), limit(10)]
+    }
 }

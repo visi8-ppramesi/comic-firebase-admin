@@ -62,12 +62,23 @@ export default class extends Collection {
       profile_image_url: ProfilePicture
     }
 
-    async bestowComic(comicId, chapterId){
+    async bestowComic(comicId, chapterIds){
       const chaptersPurchased = await this.getPurchasedComicStatus(comicId)
-      if(chaptersPurchased.chapters.includes(chapterId) || chaptersPurchased.chapters.includes('all')){
+      if(chaptersPurchased.chapters.includes('all')){
         return
       }
-      chaptersPurchased.chapters.push(chapterId)
+      if(chapterIds.includes('all')){
+        chaptersPurchased.chapters.push('all')
+      }else{
+        const allChapters = [...new Set([...chapterIds, ...chaptersPurchased.chapters.map(v => v.id)])]
+        chaptersPurchased.chapters = allChapters.map((c) => {
+          return doc(this.constructor.db, 'comics', comicId, 'chapters', c)
+        })
+      }
+
+      if(chaptersPurchased.empty){
+        chaptersPurchased.setDocumentReference(['users', this.id, 'purchased_comics', comicId])
+      }
       return chaptersPurchased.saveDocument()
     }
 
