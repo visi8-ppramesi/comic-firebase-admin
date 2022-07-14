@@ -11,11 +11,10 @@
     >
       <form
         class="w-full max-w-full"
-        @submit.prevent="addAuthors"
       >
         <div class="flex items-center border-b border-teal-500 py-2 max-w-3xl">
           <input
-            v-model="name"
+            v-model="author.name"
             class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
             type="text"
             placeholder="Author's Name"
@@ -32,7 +31,7 @@
             </label>
             <input
               id="grid-first-name"
-              v-model="email"
+              v-model="author.email"
               class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
               type="text"
               placeholder="Enter Author's Email"
@@ -47,7 +46,7 @@
           >Description</label>
           <textarea
             id="exampleFormControlTextarea1"
-            v-model="description"
+            v-model="author.description"
             class="
                 form-control
                 block
@@ -80,7 +79,7 @@
               </p>
               <input
                 id="grid-first-name"
-                v-model="social_media_links.facebook"
+                v-model="author.social_media_links.facebook"
                 class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                 type="text"
                 placeholder="Enter Author's Social Media Link"
@@ -94,7 +93,7 @@
               </p>
               <input
                 id="grid-first-name"
-                v-model="social_media_links.twitter"
+                v-model="author.social_media_links.twitter"
                 class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                 type="text"
                 placeholder="Enter Author's Social Media Link"
@@ -117,37 +116,62 @@
             </div>
           </div>
 
-          <p class="font-bold text-gray-700">
-            Profile Photo :
-          </p>
-
-          <div class="max-w-xl mt-3">
-            <div>
-              <img
-                v-if="imageDataUrl"
-                class="preview"
-                height="268"
-                width="356"
-                :src="imageDataUrl"
+          <div>
+            <div class="max-w-xl mt-3">
+              <p class="font-bold text-gray-700">
+                Profile Image :
+              </p>
+              <label
+                class="flex justify-center w-full h-32 px-4 mt-2 transition bg-white border-2 border-gray-300 border-dashed rounded-md appearance-none cursor-pointer hover:border-gray-400 focus:outline-none"
               >
-              <input
-                ref="profilePictureRef"
-                type="file"
-                style="display:none"
-                @change="onFileChange"
-              >
-              <button
-                class="font-bold px-3 border-2 rounded"
-                @click="selectProfile"
-              >
-                Choose Profile Picture
-              </button>
+                <img
+                  v-if="imageDataUrl"
+                  :src="imageDataUrl"
+                >
+                <img
+                  v-else-if="coverLoaded"
+                  :src="author.profile_picture_url"
+                >
+                <span
+                  v-else
+                  class="flex items-center space-x-2"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="w-6 h-6 text-gray-600"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                    />
+                  </svg>
+                  <span class="font-medium text-gray-600">
+                    Drop files to Attach, or
+                    <span class="text-blue-600 underline">browse</span>
+                  </span>
+                </span>
+                <input
+                  accept="image/*"
+                  type="file"
+                  name="file_upload"
+                  class="hidden"
+                  @change="onFileChange"
+                >
+              </label>
             </div>
-          </div>
 
-          <button class="mt-5 bg-blue-500 hover:bg-blue-700 text-white text-sm font-bold py-2 px-4 rounded">
-            Save
-          </button>
+            <button
+              class="mt-5 bg-blue-500 hover:bg-blue-700 text-white text-sm font-bold py-2 px-4 rounded"
+              @click.prevent="submitData"
+            >
+              Save
+            </button>
+          </div>
         </div>
       </form>
     </author-card>
