@@ -1,6 +1,9 @@
 import { where, limit, orderBy, startAfter, doc, FieldPath, endBefore } from 'firebase/firestore'
 import firebase from '../firebase.js'
-import _ from 'lodash'
+// import _ from 'lodash'
+// import isEqual from 'lodash/isEqual'
+import isObject from 'lodash/isObject'
+import toLower from 'lodash/toLower'
 
 export const orderByDateDesc = (startAtParam = null) =>
     startAtParam ?
@@ -19,6 +22,30 @@ export const actionQueryLimitTen = [ ...actionQuery, ...orderByLimit ]
 
 export const adventureQuery = [ where('categories', 'array-contains', 'adventure') ]
 export const adventureQueryLimitTen = [ ...adventureQuery, ...orderByLimit ]
+
+export const userQueryNextPage = (orderByParam = "email", orderBySort = "asc", startAtParam = null) => {
+    if(startAtParam){
+        return [ orderBy(orderByParam, orderBySort), limit(10), startAfter(startAtParam) ]
+    }else{
+        return [ orderBy(orderByParam, orderBySort), limit(10)]
+    }
+}
+
+export const userQueryPrevPage = (orderByParam = "email", orderBySort = "asc", endBeforeParam = null) => {
+    if(endBeforeParam){
+        return [ orderBy(orderByParam, orderBySort), limit(10), endBefore(endBeforeParam) ]
+    }else{
+        return [ orderBy(orderByParam, orderBySort), limit(10)]
+    }
+}
+
+export const userQueryPaginated = (orderByParam = "email", orderBySort = "asc", startAtParam = null) => {
+    if(startAtParam){
+        return [ orderBy(orderByParam, orderBySort), limit(10), startAfter(startAtParam) ]
+    }else{
+        return [ orderBy(orderByParam, orderBySort), limit(10)]
+    }
+}
 
 export const comicQueryNextPage = (comic, orderByParam = "title", orderBySort = "asc", startAtParam = null) => {
     const comQuery = !comic || comic == 'all' ? [] : [ where('comics', 'array-contains', comic) ]
@@ -65,7 +92,7 @@ export const categoryQueryPaginated = (category, orderByParam = "title", startAt
     }
 }
 
-export const tagQueryPaginated = (tag, orderByParam = "name", startAtParam = null) => {
+export const tagQueryPaginated = (tag, orderByParam = "title", startAtParam = null) => {
     const tagQuery = !tag || tag == 'all' ? [] : [ where('tags', 'array-contains', tag) ]
     if(startAtParam){
         return [ ...tagQuery, orderBy(orderByParam), limit(10), startAfter(startAtParam) ]
@@ -88,14 +115,22 @@ export const authorComicsQuery = (authorId) => {
     return [ where('authors', 'array-contains', docRef), limit(6) ]
 }
 
+export const searchUserQuery = (search, field = "email", startAtParam = null) => {
+    if(startAtParam){
+      return [ where(field, '==', search), startAfter(startAtParam)]
+    }else{
+      return [ where(field, '==', search) ]
+    }
+}
+
 export const searchQueryArrayAll = (searchQ, orderByParam = 'title', startAtParam = null) => {
     if(typeof searchQ == 'string'){
         searchQ = [...new Set([...searchQ.split(' ')])]
-    }else if(_.isObject(searchQ)){
+    }else if(isObject(searchQ)){
         searchQ = Object.keys(searchQ)
     }
 
-    searchQ = searchQ.map(_.toLower)
+    searchQ = searchQ.map(toLower)
 
     if(startAtParam){
         return [where('keywords', 'array-contains-any', searchQ), orderBy(orderByParam), startAfter(startAtParam)]
@@ -107,11 +142,11 @@ export const searchQueryArrayAll = (searchQ, orderByParam = 'title', startAtPara
 export const searchQueryArray = (searchQ, orderByParam = 'title', startAtParam = null) => {
     if(typeof searchQ == 'string'){
         searchQ = [...new Set([...searchQ.split(' ')])]
-    }else if(_.isObject(searchQ)){
+    }else if(isObject(searchQ)){
         searchQ = Object.keys(searchQ)
     }
 
-    searchQ = searchQ.map(_.toLower)
+    searchQ = searchQ.map(toLower)
 
     if(startAtParam){
         return [where('keywords', 'array-contains-any', searchQ), orderBy(orderByParam), limit(10), startAfter(startAtParam)]
@@ -123,11 +158,11 @@ export const searchQueryArray = (searchQ, orderByParam = 'title', startAtParam =
 export const searchQueryMap = (searchQ) => {//, orderByParam = 'title', startAtParam = null) => {
     if(typeof searchQ == 'string'){
         searchQ = [...new Set([...searchQ.split(' ')])]
-    }else if(_.isObject(searchQ)){
+    }else if(isObject(searchQ)){
         searchQ = Object.keys(searchQ)
     }
 
-    searchQ = searchQ.map(_.toLower)
+    searchQ = searchQ.map(toLower)
 
     const whereQueries = searchQ.map((key) => {
         return where(new FieldPath('keywords', key), '==', true)
@@ -138,4 +173,12 @@ export const searchQueryMap = (searchQ) => {//, orderByParam = 'title', startAtP
     // }else{
     //     return [...whereQueries, orderBy(orderByParam), limit(10)]
     // }
+}
+
+export const searchComicByName = (searchQ, orderByParam = 'title', startAtParam = null) => {
+    if(startAtParam){
+        return [where('title', '==', searchQ), orderBy(orderByParam), limit(10), startAfter(startAtParam)]
+    }else{
+        return [where('title', '==', searchQ), orderBy(orderByParam), limit(10)]
+    }
 }

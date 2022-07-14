@@ -1,13 +1,12 @@
 import Collection from "./Collection";
 // import { collection, addDoc } from "firebase/firestore";
-import firebase from './firebase.js'
+// import firebase from './firebase.js'
 
 export default class extends Collection{
     static collection = 'tags'
     static fields = {
         'name': String
     }
-    static db = firebase.db
 
     static async getTags(){
         const tags = await this.getDocuments()

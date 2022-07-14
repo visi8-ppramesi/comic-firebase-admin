@@ -23,13 +23,14 @@ import {
 } from 'firebase/firestore'
 import PurchasedComic from './PurchasedComic.js'
 import { ProfilePicture } from '../types/index.js'
-import _ from 'lodash'
+// import _ from 'lodash'
+import isEqual from 'lodash/isEqual'
 import handleError from '@/utils/handleError.js'
 import ComicNotification from '../notifications/Comic.js'
 
 const validateUserProfileData = (data) => {
   const acceptedFields = ['name', 'full_name']
-  if (!_.isEqual(Object.keys(data).sort(), acceptedFields.sort())) {
+  if (!isEqual(Object.keys(data).sort(), acceptedFields.sort())) {
     return false
   }
   return data
@@ -59,6 +60,26 @@ export default class extends Collection {
       comic_subscriptions: Array,
       email_verified_at: Date,
       profile_image_url: ProfilePicture
+    }
+
+    async bestowComic(comicId, chapterIds){
+      const chaptersPurchased = await this.getPurchasedComicStatus(comicId)
+      if(chaptersPurchased.chapters.includes('all')){
+        return
+      }
+      if(chapterIds.includes('all')){
+        chaptersPurchased.chapters.push('all')
+      }else{
+        const allChapters = [...new Set([...chapterIds, ...chaptersPurchased.chapters.map(v => v.id)])]
+        chaptersPurchased.chapters = allChapters.map((c) => {
+          return doc(this.constructor.db, 'comics', comicId, 'chapters', c)
+        })
+      }
+
+      if(chaptersPurchased.empty){
+        chaptersPurchased.setDocumentReference(['users', this.id, 'purchased_comics', comicId])
+      }
+      return chaptersPurchased.saveDocument()
     }
 
     async getRoles () {

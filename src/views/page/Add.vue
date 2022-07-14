@@ -173,10 +173,10 @@ export default {
 				const { is_ar, media_type, page_number } = this.page
 				const newPage = await Page.createDocument(
           this.$route.params.chapterId,
-          ['comics', this.$route.params.comicId, 'chapters', this.$route.params.chapterId], 
+          ['comics', this.$route.params.comicId, 'chapters', this.$route.params.chapterId],
           {
-            is_ar: String(is_ar), 
-            media_type: String(media_type), 
+            is_ar: String(is_ar),
+            media_type: String(media_type),
             page_number: parseInt(page_number)
           }
         )
@@ -184,7 +184,7 @@ export default {
 				if (this.coverImageChanged) {
 					try {
             console.log('asdfasdf')
-						await newPage.adminUploadField('page_image_url', 'pages/' + newPage.id, this.coverImage)
+						await newPage.adminUploadField('page_image_url', 'comics/' + this.$route.params.comicId + '/chapters/' + this.$route.params.chapterId + '/pages/' + newPage.id, this.coverImage)
 					} catch (err) {
 						await newPage.deleteDocument()
 						console.error('error... deleting...')
