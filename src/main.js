@@ -5,16 +5,29 @@ import App from './App.vue'
 import router from './router'
 import { useMainStore } from '@/store/main'
 import { darkModeKey, styleKey } from '@/config.js'
-import VueToast from 'vue-toast-notification'
+// import VueToast from 'vue-toast-notification'
+import Toaster from './utils/toaster.js'
 import 'vue-toast-notification/dist/theme-sugar.css'
 
 import './css/main.css'
+
+
+
+const vuePropertySetter = (app, name, instance) => {
+  app.provide(name, instance)
+  app.config.globalProperties[name] = instance
+}
+const injector = {
+  install(app){
+      vuePropertySetter(app, '$toast', Toaster)
+  }
+}
 
 /* Init Pinia */
 const pinia = createPinia()
 
 /* Create Vue app */
-createApp(App).use(VueToast).use(router).use(pinia).mount('#app')
+createApp(App).use(injector)/*.use(VueToast)*/.use(router).use(pinia).mount('#app')
 
 /* Init Pinia main store */
 const mainStore = useMainStore(pinia)

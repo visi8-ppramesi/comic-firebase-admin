@@ -1,7 +1,7 @@
 import firebase from '../firebase.js'
 // import { collection, orderBy, startAt, endAt, query, getDocs } from 'firebase/firestore'
 import { getDownloadURL, getBlob as getStorageBlob, ref } from 'firebase/storage'
-import router from '../../router/index.js'
+// import router from '../../router/index.js'
 import emitter from '@/utils/emitter.js'
 // import geofire from 'geofire-common'
 
@@ -32,7 +32,7 @@ const getDataUrlFromStorage = async (gsPath) => {
     // img.onload = () => {
     //     URL.revokeObjectURL(url)
     // }
-    
+
     return await new Promise((resolve, reject) => {
         var a = new FileReader();
         a.onload = function(e) {
@@ -112,9 +112,9 @@ const parseDocs = (docs, extraFields = []) => {
 //     })
 // }
 
-const redirectToLogin = () => {
-    router.push({name: 'Login'})
-}
+// const redirectToLogin = () => {
+//     router.push({name: 'Login'})
+// }
 
 const handleError = function(err, type){
     switch(type){
@@ -138,4 +138,4 @@ const handleError = function(err, type){
     return err
 }
 
-export default { redirectToLogin, getResourceUrlFromStorage, handleError, getBlob, getDataUrlFromStorage, constructArtistUrl, constructEventUrl, parseDocs, getProtectedDataUrlFromStorage, revokeDataUrl }
+export default { getResourceUrlFromStorage, handleError, getBlob, getDataUrlFromStorage, constructArtistUrl, constructEventUrl, parseDocs, getProtectedDataUrlFromStorage, revokeDataUrl }
