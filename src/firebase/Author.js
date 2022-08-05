@@ -1,13 +1,13 @@
 import { where } from "firebase/firestore";
 import Collection from "./Collection.js";
 import Comic from "./comics/Comic.js";
-import { LongText, ProfilePicture } from "./types/index.js";
+import { LongText, StorageLink } from "./types/index.js";
 
 export default class extends Collection{
     static collection = 'authors'
     static fields = {
         'name': String,
-        'profile_picture_url': ProfilePicture,
+        'profile_picture_url': StorageLink,
         'description': LongText,
         'social_media_links': Array,
         'email': String

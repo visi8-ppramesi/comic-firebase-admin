@@ -182,7 +182,7 @@ export default {
 						throw err
 					}
 				}
-                const processedData = this.page.toDataJSON(['is_ar', 'media_type', 'page_number'])
+        const processedData = this.page.toDataJSON(['is_ar', 'media_type', 'page_number'])
 				await this.page.updateDocument(processedData)
 				this.$toast.open({
 					message: 'Success!',

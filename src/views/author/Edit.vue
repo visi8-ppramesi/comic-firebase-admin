@@ -106,35 +106,62 @@
           Profile Photo :
         </p>
 
-        <div class="max-w-xl mt-3">
-          <div>
-            <img
-              v-if="imageDataUrl"
-              :src="imageDataUrl"
+        <div>
+          <div class="max-w-xl mt-3">
+            <p class="font-bold text-gray-700">
+              Cover Image :
+            </p>
+            <label
+              class="flex justify-center w-full h-32 px-4 mt-2 transition bg-white border-2 border-gray-300 border-dashed rounded-md appearance-none cursor-pointer hover:border-gray-400 focus:outline-none"
             >
-            <input
-              ref="profilePictureRef"
-              type="file"
-              style="display:none"
-              @change="onFileChange"
-            >
-            <button
-              class="font-bold px-3 border-2 rounded"
-              @click="selectProfile"
-            >
-              Select Profile Picture
-            </button>
+              <img
+                v-if="imageDataUrl"
+                :src="imageDataUrl"
+              >
+              <img
+                v-else-if="coverLoaded"
+                :src="author.profile_picture_url"
+              >
+              <span
+                v-else
+                class="flex items-center space-x-2"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="w-6 h-6 text-gray-600"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                  />
+                </svg>
+                <span class="font-medium text-gray-600">
+                  Drop files to Attach, or
+                  <span class="text-blue-600 underline">browse</span>
+                </span>
+              </span>
+              <input
+                accept="image/*"
+                type="file"
+                name="file_upload"
+                class="hidden"
+                @change="onFileChange"
+              >
+            </label>
           </div>
-        </div>
 
-        <router-link :to="{name: 'author', params: { id: author.id}}">
           <button
-            class="mt-3 bg-blue-500 hover:bg-blue-700 text-white text-sm font-bold py-2 px-4 rounded"
-            @click="updateAuthors(author.id)"
+            class="mt-5 bg-blue-500 hover:bg-blue-700 text-white text-sm font-bold py-2 px-4 rounded"
+            @click.prevent="submitData"
           >
             Save
           </button>
-        </router-link>
+        </div>
       </div>
     </author-card>
   </main-section>
@@ -148,8 +175,8 @@ import AuthorCard from '@/views/author/component/AuthorCard.vue'
 import TitleBar from '@/components/TitleBar.vue'
 import HeroBar from '@/components/HeroBar.vue'
 import Author from '@/firebase/Author.js'
-import { doc, updateDoc } from 'firebase/firestore'
-import firebase from '@/firebase/firebase'
+import handleError from '@/utils/handleError.js'
+import utils from '@/firebase/utils/index.js'
 export default {
 	data () {
 		return {
@@ -158,13 +185,16 @@ export default {
 			//   link: ''
 			// }],
 			author: {
-				social_media_links: {
-					facebook: null,
-					twitter: null
-				}
-			},
-			profile_picture_url: null,
-			profilePictureChanged: false,
+        name: [],
+        email: [],
+        description: [],
+        social_media_links: {
+          facebook: [],
+          twitter: []
+        },
+      },
+			coverImage: null,
+			coverImageChanged: false,
 			imageDataUrl: null
 		}
 	},
@@ -172,34 +202,53 @@ export default {
 		this.fetchAuthor()
 	},
 	methods: {
-		async fetchAuthor () {
-			this.author = await Author.getDocumentWithStorageResource(this.$route.params.id, ['profile_picture_url'])
-			console.log(this.author)
+		onFileChange (event) {
+			this.coverImage = event.target.files[0]
+			this.imageDataUrl = URL.createObjectURL(this.coverImage)
+			this.coverImageChanged = true
 		},
-		async updateAuthors (authorId) {
-			const docRef = doc(firebase.db, 'authors', authorId)
-			await updateDoc(docRef, {
-				name: this.author.name,
-				email: this.author.email,
-				description: this.author.description,
-				social_media_links: {
-					facebook: this.social_media_links.facebook,
-					twitter: this.social_media_links.twitter
-				},
-				profile_picture_url: this.imageDataUrl
-			})
-			console.log(docRef)
-			this.$router.push('/author')
+    async fetchAuthor () {
+			this.author = await Author.getDocument(this.$route.params.id)
+			if (this.author.profile_picture_url) {
+				this.author.profile_picture_url = await utils.getDataUrlFromStorage(this.author.profile_picture_url).then((cover) => {
+					this.coverLoaded = true
+					return cover
+				})
+			}
+		},
+		async submitData () {
+			try {
+				if (this.coverImageChanged) {
+					try {
+            console.log('asdfasdf')
+						await this.author.adminUploadField('profile_picture_url', 'authors/' + this.author.id, this.coverImage)
+					} catch (err) {
+						await this.author.deleteDocument()
+						console.error('error... deleting...')
+						handleError(err, 'uploadFileError')
+						throw err
+					}
+				}
+        const processedData = this.author.toDataJSON(['name', 'email', 'description', 'social_media_links'])
+				await this.author.updateDocument(processedData)
+				this.$toast.open({
+					message: 'Success!',
+					type: 'success',
+					duration: 5000,
+					dismissible: true,
+					position: 'bottom'
+				})
+			} catch (err) {
+				this.$toast.open({
+					message: err.toString(),
+					type: 'error',
+					duration: 5000,
+					dismissible: true,
+					position: 'bottom'
+				})
+			}
+			this.$router.back()
 		}
-		// addNewSocialMedia () {
-		//   this.social_media.push({
-		//     name: '',
-		//     link: ''
-		//   })
-		// },
-		// deleteSocialMedia (index) {
-		//   this.social_media.splice(index, 1)
-		// }
 	}
 }
 </script>
