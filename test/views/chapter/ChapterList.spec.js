@@ -1,11 +1,17 @@
 import ChapterList from '../../../src/views/chapter/List.vue'
-import { mount } from '@vue/test-utils'
+import { mount, flushPromises } from '@vue/test-utils'
 import options from '../../utils/pluginInitializer.js'
+import { nextTick } from 'vue'
 
 test('ChapterList', async () => {
+    window.localStorage.setItem('uid', 'test-uid')
     options.plugins.router.push({ name: 'chapter', params: { comicId: 'comic-1', chapterId: 'chapter-1' } })
     await options.plugins.router.isReady()
-    
+    await nextTick()
+    await nextTick()
+    await flushPromises()
+    await flushPromises()
+
     const wrapper = mount(ChapterList, {
         global: {
             plugins: [...Object.values(options.plugins)],

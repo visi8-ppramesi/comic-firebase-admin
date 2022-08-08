@@ -1,6 +1,6 @@
-import AuthorList from '../../src/views/author/List.vue'
+import AuthorList from '../../../src/views/author/List.vue'
 import { mount } from '@vue/test-utils'
-import options from '../utils/pluginInitializer.js'
+import options from '../../utils/pluginInitializer.js'
 
 test('AuthorList', async () => {
     const wrapper = mount(AuthorList, {
