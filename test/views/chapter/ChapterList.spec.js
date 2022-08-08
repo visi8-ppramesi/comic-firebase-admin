@@ -1,9 +1,9 @@
-import ChapterList from '../../src/views/chapter/List.vue'
+import ChapterList from '../../../src/views/chapter/List.vue'
 import { mount } from '@vue/test-utils'
-import options from '../utils/pluginInitializer.js'
+import options from '../../utils/pluginInitializer.js'
 
 test('ChapterList', async () => {
-    options.plugins.router.push({ name: 'chapter', params: { comicId: 'comic-1'} })
+    options.plugins.router.push({ name: 'chapter', params: { comicId: 'comic-1', chapterId: 'chapter-1' } })
     await options.plugins.router.isReady()
     
     const wrapper = mount(ChapterList, {

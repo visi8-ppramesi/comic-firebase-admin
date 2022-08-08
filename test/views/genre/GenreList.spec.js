@@ -1,6 +1,6 @@
-import GenreList from '../../src/views/genre/List.vue'
+import GenreList from '../../../src/views/genre/List.vue'
 import { mount } from '@vue/test-utils'
-import options from '../utils/pluginInitializer.js'
+import options from '../../utils/pluginInitializer.js'
 
 test('GenreList', async () => {
     const wrapper = mount(GenreList, {

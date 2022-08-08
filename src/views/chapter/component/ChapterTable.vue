@@ -49,13 +49,13 @@
             class="justify-start lg:justify-end"
             no-wrap
           >
-            <router-link :to="{name: 'chapterEdit', params: { chapterId: item.id}}">
+            <router-link :to="{name: 'chapterEdit', params: { chapterId: item.id, comicId: $route.params.comicId}}">
               <button class="bg-green-500 hover:bg-green-700 text-white text-sm font-bold py-2 px-4 rounded">
                 Edit
               </button>
             </router-link>
 
-            <router-link :to="{name: 'pageList', params: { chapterId: item.id}}">
+            <router-link :to="{name: 'pageList', params: { chapterId: item.id, comicId: $route.params.comicId}}">
               <button class="mx-2 bg-blue-500 hover:bg-blue-700 text-white text-sm font-bold py-2 px-4 rounded">
                 pages
               </button>

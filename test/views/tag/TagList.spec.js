@@ -1,6 +1,6 @@
-import TagList from '../../src/views/tag/List.vue'
+import TagList from '../../../src/views/tag/List.vue'
 import { mount } from '@vue/test-utils'
-import options from '../utils/pluginInitializer.js'
+import options from '../../utils/pluginInitializer.js'
 
 test('TagList', async () => {
     const wrapper = mount(TagList, {
