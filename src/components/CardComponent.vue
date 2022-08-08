@@ -7,6 +7,7 @@
   >
     <header
       v-if="title"
+      id="card-component-title"
       :class="lightBorderStyle"
       class="flex items-stretch border-b dark:border-gray-800"
     >
@@ -34,13 +35,13 @@
       v-if="empty"
       class="text-center py-24 text-gray-500 dark:text-gray-400"
     >
-      <p>Nothing's here…</p>
+      <p id="card-component-empty">Nothing's here…</p>
     </div>
     <div
       v-else
       :class="{'p-6':!hasTable}"
     >
-      <slot />
+      <slot id="card-component-slot" />
     </div>
   </component>
 </template>

@@ -10,10 +10,12 @@
   >
     <icon
       v-if="icon"
+	  id="jb-icon"
       :path="icon"
     />
     <span
       v-if="label"
+	  id="jb-label"
       :class="labelClass"
     >{{ label }}</span>
   </component>

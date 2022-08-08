@@ -7,7 +7,7 @@
       :class="cardClass"
       :rounded="cardRounded"
     >
-      <div class="space-y-3">
+      <div id="error-text" class="space-y-3">
         <h1 class="text-2xl">
           Unhandled exception
         </h1>

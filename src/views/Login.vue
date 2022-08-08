@@ -3,7 +3,7 @@
     <div class="w-full md:w-96 md:mx-auto min-h-screen flex flex-col p-5 justify-center">
       <div class="mb-4">
         <input
-          id="email"
+          id="login-email"
           v-model="email"
           name="email"
           for="email"
@@ -14,7 +14,7 @@
       </div>
       <div class="pass-form">
         <input
-          id="password"
+          id="login-password"
           v-model="password"
           name="password"
           for="password"
@@ -23,19 +23,21 @@
           placeholder="Password"
         >
       </div>
-      <div class="text-sm text-center text-white mb-10">
+      <div id="login-forgot" class="text-sm text-center text-white mb-10">
         <router-link to="#">
           Forgot Password?
         </router-link>
       </div>
       <div
+      id="login-wrong"
         v-if="loginFailed"
         class="text-red-400 mb-2"
       >
         Wrong password or email
       </div>
-      <div class="flex items-center justify-between">
+      <div id="login-button-container" class="flex items-center justify-between">
         <button
+        id="login-button"
           class="bg-green-400 w-full hover:bg-blue-dark text-white font-bold py-2 px-4 rounded-full"
           type="button"
           @click="login"
@@ -44,9 +46,9 @@
         </button>
       </div>
       <div class="text-m text-center mt-6 text-white">
-        <p>Dont have an account yet? Sign up</p>
+        <p id="login-description">Dont have an account yet? Sign up</p>
       </div>
-      <div class="flex flex-row items-center justify-center pt-5">
+      <div id="login-google" class="flex flex-row items-center justify-center pt-5">
         <img
           class="w-10"
           :src="facebookIcon"

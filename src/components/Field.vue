@@ -2,6 +2,7 @@
   <div class="mb-6 last:mb-0">
     <label
       v-if="label"
+	  id="field-label"
       class="block font-bold mb-2"
     >{{ label }}</label>
     <div :class="wrapperClass">
@@ -9,6 +10,7 @@
     </div>
     <div
       v-if="help"
+	  id="field-help"
       class="text-xs text-gray-500 dark:text-gray-400 mt-1"
     >
       {{ help }}
