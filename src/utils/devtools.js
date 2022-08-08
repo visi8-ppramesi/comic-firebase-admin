@@ -1,52 +1,45 @@
-// disable-eslint
-/* global globalThis */
 const devtools = {
 	isOpen: false,
-	orientation: undefined
-}
+	orientation: undefined,
+};
 
-const threshold = 160
-// eslint-disable-next-line no-undef
+const threshold = 160;
+
 const emitEvent = (isOpen, orientation) => {
 	globalThis.dispatchEvent(new globalThis.CustomEvent('devtoolschange', {
 		detail: {
 			isOpen,
-			orientation
-		}
-	}))
-}
+			orientation,
+		},
+	}));
+};
 
-// eslint-disable-next-line no-undef
-const main = ({ emitEvents = true } = {}) => {
-	// eslint-disable-next-line no-undef
-	const widthThreshold = globalThis.outerWidth - globalThis.innerWidth > threshold
-	const heightThreshold = globalThis.outerHeight - globalThis.innerHeight > threshold
-	const orientation = widthThreshold ? 'vertical' : 'horizontal'
+const main = ({emitEvents = true} = {}) => {
+	const widthThreshold = globalThis.outerWidth - globalThis.innerWidth > threshold;
+	const heightThreshold = globalThis.outerHeight - globalThis.innerHeight > threshold;
+	const orientation = widthThreshold ? 'vertical' : 'horizontal';
 
 	if (
-		// eslint-disable-next-line no-undef
-		!(heightThreshold && widthThreshold) &&
-		// eslint-disable-next-line no-tabs
-		// eslint-disable-next-line no-undef
-		((globalThis.Firebug && globalThis.Firebug.chrome && globalThis.Firebug.chrome.isInitialized) || widthThreshold || heightThreshold)
+		!(heightThreshold && widthThreshold)
+		&& ((globalThis.Firebug && globalThis.Firebug.chrome && globalThis.Firebug.chrome.isInitialized) || widthThreshold || heightThreshold)
 	) {
 		if ((!devtools.isOpen || devtools.orientation !== orientation) && emitEvents) {
-			emitEvent(true, orientation)
+			emitEvent(true, orientation);
 		}
 
-		devtools.isOpen = true
-		devtools.orientation = orientation
+		devtools.isOpen = true;
+		devtools.orientation = orientation;
 	} else {
 		if (devtools.isOpen && emitEvents) {
-			emitEvent(false, undefined)
+			emitEvent(false, undefined);
 		}
 
-		devtools.isOpen = false
-		devtools.orientation = undefined
+		devtools.isOpen = false;
+		devtools.orientation = undefined;
 	}
-}
+};
 
-main({ emitEvents: false })
-setInterval(main, 500)
+main({emitEvents: false});
+setInterval(main, 500);
 
-export default devtools
+export default devtools;

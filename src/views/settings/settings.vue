@@ -47,6 +47,7 @@
             <div class="tab-content tab-space">
               <div :class="{'hidden': openTab !== 1, 'block': openTab === 1}">
                 <button
+                  id="banner-button" 
                   class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                   @click="addNewBanner"
                 >
@@ -55,7 +56,7 @@
                 <div
                   v-for="item in banners"
                   :key="item.index"
-                  class="py-4 bg-white shadow shadow-2xl rounded-xl max-w-md mt-3"
+                  class="settings-banner py-4 bg-white shadow shadow-2xl rounded-xl max-w-md mt-3"
                 >
                   <div class="w-full md:w-1/2 px-3 md:mb-0">
                     <input
@@ -103,6 +104,7 @@
                     </label>
                   </div>
                   <button
+                    id="banner-button-delete"
                     class="mx-4 my-3 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
                     @click="deleteBanner(index)"
                   >
@@ -110,12 +112,13 @@
                   </button>
                 </div>
 
-                <button class="my-3 mx-4  w-24 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                <button id="banner-button-save" class="my-3 mx-4  w-24 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
                   Save
                 </button>
               </div>
               <div :class="{'hidden': openTab !== 2, 'block': openTab === 2}">
                 <button
+                  id="tag-button"
                   class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                   @click="addNewTag"
                 >
@@ -124,7 +127,7 @@
                 <div
                   v-for="item in tags"
                   :key="item.index"
-                  class="py-4 bg-white shadow shadow-2xl rounded-xl max-w-md mt-3"
+                  class="settings-tag py-4 bg-white shadow shadow-2xl rounded-xl max-w-md mt-3"
                 >
                   <div class="w-full md:w-1/2 px-3 md:mb-0">
                     <label class="font-bold my-3 text-gray-700">Tags Name</label>
@@ -136,6 +139,7 @@
                         placeholder="Tag's Name"
                       >
                       <button
+                        id="tag-button-delete"
                         class="mx-4 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
                         @click="deleteTag(index)"
                       >
@@ -145,12 +149,13 @@
                   </div>
                 </div>
 
-                <button class="my-3 mx-4  w-24 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                <button id="tag-button-save" class="my-3 mx-4  w-24 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
                   Save
                 </button>
               </div>
               <div :class="{'hidden': openTab !== 3, 'block': openTab === 3}">
                 <button
+                  id="price-button"
                   class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                   @click="addNewPrice"
                 >
@@ -159,7 +164,7 @@
                 <div
                   v-for="item in prices"
                   :key="item.index"
-                  class="py-4 bg-white shadow shadow-2xl rounded-xl max-w-md mt-3"
+                  class="settings-prices py-4 bg-white shadow shadow-2xl rounded-xl max-w-md mt-3"
                 >
                   <div class="w-full md:w-1/2 px-3 md:mb-0">
                     <div class="flex">
@@ -185,6 +190,7 @@
                             placeholder="Token's Amount"
                           >
                           <button
+                            id="price-button-delete"
                             class="mx-4 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
                             @click="deletePrice(index)"
                           >
@@ -196,21 +202,22 @@
                   </div>
                 </div>
 
-                <button class="my-3 mx-4  w-24 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                <button id="price-button-save" class="my-3 mx-4  w-24 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
                   Save
                 </button>
               </div>
               <div :class="{'hidden': openTab !== 4, 'block': openTab === 4}">
                 <button
+                  id="social-button"
                   class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                   @click="addNewSocialMedia"
                 >
-                  Add Banners
+                  Add Social Media
                 </button>
                 <div
                   v-for="item in social_media"
                   :key="item.index"
-                  class="py-4 bg-white shadow shadow-2xl rounded-xl max-w-md mt-3"
+                  class="settings-social py-4 bg-white shadow shadow-2xl rounded-xl max-w-md mt-3"
                 >
                   <div class="w-full md:w-1/2 px-3 md:mb-0">
                     <label class="font-bold text-gray-700">Social Media Name</label>
@@ -230,6 +237,7 @@
                     </div>
                   </div>
                   <button
+                    id="social-button-delete"
                     class="mx-4 my-3 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
                     @click="deleteSocialMedia(index)"
                   >
@@ -237,7 +245,7 @@
                   </button>
                 </div>
 
-                <button class="my-3 mx-4  w-24 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                <button id="social-button-save" class="my-3 mx-4  w-24 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
                   Save
                 </button>
               </div>

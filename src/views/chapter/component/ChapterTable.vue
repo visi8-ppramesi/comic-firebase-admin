@@ -1,6 +1,6 @@
 <template>
   <div class="my-2">
-    <router-link :to="{name: 'chapterAdd'}">
+    <router-link :to="{name: 'chapterAdd', params: { comicId: $route.params.comicId }}">
       <button class="mx-2 bg-blue-500 hover:bg-blue-700 text-white text-sm font-bold py-2 px-4 rounded">
         Add New Chapter
       </button>
@@ -101,6 +101,9 @@ export default {
 	mounted () {
 		this.fetchChapters()
 	},
+  computed: {
+
+  },
 	methods: {
 		async fetchChapters () {
 			this.chapters = await Chapter.getChapters(['comics', this.$route.params.comicId, 'chapters'])

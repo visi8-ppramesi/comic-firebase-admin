@@ -1,31 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import emitter from '@/utils/emitter'
-import Home from '@/views/Home.vue'
-import ComicList from '@/views/comic/List.vue'
-import AuthorList from '@/views/author/List.vue'
-import GenreList from '@/views/genre/List.vue'
-import TagList from '@/views/tag/List.vue'
-import ChapterList from '@/views/chapter/List.vue'
-import PageList from '@/views/page/List.vue'
-import CommentList from '@/views/comment/List.vue'
-import UserList from '@/views/user/List.vue'
-import UserProfile from '@/views/user/Profile.vue'
-import Settings from '@/views/settings/settings.vue'
-import ComicAdd from '@/views/comic/Add.vue'
-import ComicEdit from '@/views/comic/Edit.vue'
-import ChapterAdd from '@/views/chapter/Add.vue'
-import ChapterEdit from '@/views/chapter/Edit.vue'
-import PageAdd from '@/views/page/Add.vue'
-import PageEdit from '@/views/page/Edit.vue'
-import AuthorAdd from '@/views/author/Add.vue'
-import AuthorEdit from '@/views/author/Edit.vue'
-import GenreAdd from '@/views/genre/Add.vue'
-import GenreEdit from '@/views/genre/Edit.vue'
-import TagAdd from '@/views/tag/Add.vue'
-import TagEdit from '@/views/tag/Edit.vue'
-import UserDetail from '@/views/user/Detail.vue'
-import OrderDetail from '@/views/user/order/Detail.vue'
-import Logout from '@/views/Logout.vue'
 
 const authRoutes = [
   {
@@ -37,7 +11,7 @@ const authRoutes = [
     },
     path: '/dashboard',
     name: 'Dashboard',
-    component: Home
+    component: () => import('@/views/Home.vue')
   },
   {
     // Document title tag
@@ -48,7 +22,7 @@ const authRoutes = [
     },
     path: '/comic',
     name: 'comic',
-    component: ComicList
+    component: () => import('@/views/comic/List.vue')
   },
   {
     // Document title tag
@@ -59,7 +33,7 @@ const authRoutes = [
     },
     path: '/comic/add',
     name: 'comic add',
-    component: ComicAdd
+    component: () => import('@/views/comic/Add.vue')
   },
   {
     // Document title tag
@@ -70,7 +44,7 @@ const authRoutes = [
     },
     path: '/comic/:id',
     name: 'comicEdit',
-    component: ComicEdit
+    component: () => import('@/views/comic/Edit.vue')
   },
   {
     // Document title tag
@@ -81,7 +55,7 @@ const authRoutes = [
     },
     path: '/comic/:comicId/chapter',
     name: 'chapter',
-    component: ChapterList
+    component: () => import('@/views/chapter/List.vue')
   },
   {
     // Document title tag
@@ -92,7 +66,7 @@ const authRoutes = [
     },
     path: '/comic/:comicId/chapter/:chapterId',
     name: 'chapterEdit',
-    component: ChapterEdit
+    component: () => import('@/views/chapter/Edit.vue')
   },
   {
     // Document title tag
@@ -103,7 +77,7 @@ const authRoutes = [
     },
     path: '/comic/:comicId/chapter/:chapterId/page',
     name: 'pageList',
-    component: PageList
+    component: () => import('@/views/page/List.vue')
   },
   {
     // Document title tag
@@ -114,7 +88,7 @@ const authRoutes = [
     },
     path: '/comic/:comicId/chapter/:chapterId/page/:pageId',
     name: 'pageEdit',
-    component: PageEdit
+    component: () => import('@/views/page/Edit.vue')
   },
   {
     // Document title tag
@@ -125,7 +99,7 @@ const authRoutes = [
     },
     path: '/comic/:comicId/chapter/add',
     name: 'chapterAdd',
-    component: ChapterAdd
+    component: () => import('@/views/chapter/Add.vue')
   },
   {
     // Document title tag
@@ -136,7 +110,7 @@ const authRoutes = [
     },
     path: '/comic/:comicId/chapter/:chapterId/page/add',
     name: 'pageAdd',
-    component: PageAdd
+    component: () => import('@/views/page/Add.vue')
   },
   {
     // Document title tag
@@ -147,7 +121,7 @@ const authRoutes = [
     },
     path: '/author',
     name: 'author',
-    component: AuthorList
+    component: () => import('@/views/author/List.vue')
   },
   {
     // Document title tag
@@ -158,7 +132,7 @@ const authRoutes = [
     },
     path: '/author/add',
     name: 'author add',
-    component: AuthorAdd
+    component: () => import('@/views/author/Add.vue')
   },
   {
     // Document title tag
@@ -169,7 +143,7 @@ const authRoutes = [
     },
     path: '/author/:id',
     name: 'authorEdit',
-    component: AuthorEdit
+    component: () => import('@/views/author/Edit.vue')
   },
   {
     // Document title tag
@@ -180,7 +154,7 @@ const authRoutes = [
     },
     path: '/genre',
     name: 'genre',
-    component: GenreList
+    component: () => import('@/views/genre/List.vue')
   },
   {
     // Document title tag
@@ -191,7 +165,7 @@ const authRoutes = [
     },
     path: '/genre/add',
     name: 'genre add',
-    component: GenreAdd
+    component: () => import('@/views/genre/Add.vue')
   },
   {
     // Document title tag
@@ -202,7 +176,7 @@ const authRoutes = [
     },
     path: '/genre/:id',
     name: 'genreEdit',
-    component: GenreEdit
+    component: () => import('@/views/genre/Edit.vue')
   },
   {
     // Document title tag
@@ -213,7 +187,7 @@ const authRoutes = [
     },
     path: '/tag',
     name: 'tag',
-    component: TagList
+    component: () => import('@/views/tag/List.vue')
   },
   {
     // Document title tag
@@ -224,7 +198,7 @@ const authRoutes = [
     },
     path: '/tag/add',
     name: 'tag add',
-    component: TagAdd
+    component: () => import('@/views/tag/Add.vue')
   },
   {
     // Document title tag
@@ -235,7 +209,7 @@ const authRoutes = [
     },
     path: '/tag/:id',
     name: 'tagEdit',
-    component: TagEdit
+    component: () => import('@/views/tag/Edit.vue')
   },
   {
     // Document title tag
@@ -246,7 +220,7 @@ const authRoutes = [
     },
     path: '/comment',
     name: 'comment',
-    component: CommentList
+    component: () => import('@/views/comment/List.vue')
   },
   {
     // Document title tag
@@ -257,7 +231,7 @@ const authRoutes = [
     },
     path: '/user',
     name: 'user',
-    component: UserList
+    component: () => import('@/views/user/List.vue')
   },
   {
     // Document title tag
@@ -268,7 +242,7 @@ const authRoutes = [
     },
     path: '/user/:id',
     name: 'userDetail',
-    component: UserDetail
+    component: () => import('@/views/user/Detail.vue')
   },
   {
     // Document title tag
@@ -279,7 +253,7 @@ const authRoutes = [
     },
     path: '/user/:id/order/:orderId',
     name: 'orderDetail',
-    component: OrderDetail
+    component: () => import('@/views/user/order/Detail.vue')
   },
   {
     // Document title tag
@@ -290,7 +264,7 @@ const authRoutes = [
     },
     path: '/user/profile',
     name: 'user profile',
-    component: UserProfile
+    component: () => import('@/views/user/Profile.vue')
   },
   {
     // Document title tag
@@ -301,7 +275,7 @@ const authRoutes = [
     },
     path: '/settings',
     name: 'Settings',
-    component: Settings
+    component: () => import('@/views/settings/settings.vue')
   },
   {
     // Document title tag
@@ -312,7 +286,7 @@ const authRoutes = [
     },
     path: '/logout',
     name: 'Logout',
-    component: Logout
+    component: () => import('@/views/Logout.vue')
   },
 ]
 

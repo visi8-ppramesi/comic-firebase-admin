@@ -44,7 +44,7 @@
         <th />
       </tr>
     </thead>
-    <tbody>
+    <tbody class="author-table">
       <tr
         v-for="(author, index) in authors"
         :key="author.id"
@@ -54,7 +54,7 @@
           v-if="checkable"
           @checked="checked($event, author)"
         />
-        <td data-label="Id">
+        <td id="author-table-id" data-label="Id">
           {{ author.id }}
         </td>
         <td data-label="Name">
